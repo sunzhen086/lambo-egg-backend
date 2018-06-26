@@ -1,25 +1,28 @@
-package com.lambo.cache;
+package com.lambo.cache.service.impl;
 
-import net.sf.ehcache.Cache;
-import net.sf.ehcache.CacheManager;
-import net.sf.ehcache.Element;
+import com.lambo.cache.service.api.EhCacheService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.Cache;
+import org.springframework.cache.support.AbstractCacheManager;
+import org.springframework.stereotype.Service;
 
 /**
- * Ehcache工具类
+ * cache工具类
  * @author sunzhen
  */
-public class EhCacheUtil {
+@Service
+public class EhCacheSerivceImpl implements EhCacheService {
+
+    @Autowired
+    private AbstractCacheManager cacheManager;
 
     /**
      * 获取缓存
      * @param cacheName
      * @return
      */
-    private static Cache getCache(String cacheName) {
-        CacheManager cacheManager = CacheManager.getInstance();
-        if (null == cacheManager) {
-            return null;
-        }
+    @Override
+    public Cache getCache(String cacheName) {
         Cache cache = cacheManager.getCache(cacheName);
         if (null == cache) {
             return null;
@@ -33,11 +36,11 @@ public class EhCacheUtil {
      * @param key
      * @param value
      */
-    public static void put(String cacheName, String key, Object value) {
+    @Override
+    public void put(String cacheName, String key, Object value) {
         Cache cache = getCache(cacheName);
         if (null != cache) {
-            Element element = new Element(key, value);
-            cache.put(element);
+            cache.put(key,value);
         }
     }
 
@@ -47,12 +50,14 @@ public class EhCacheUtil {
      * @param key
      * @return
      */
-    public static boolean remove(String cacheName, String key) {
+    @Override
+    public boolean remove(String cacheName, String key) {
         Cache cache = getCache(cacheName);
         if (null == cache) {
             return false;
         }
-        return cache.remove(key);
+        cache.evict(key);
+        return true;
     }
 
     /**
@@ -60,10 +65,11 @@ public class EhCacheUtil {
      * @param cacheName
      * @return
      */
-    public static void removeAll(String cacheName) {
+    @Override
+    public void removeAll(String cacheName) {
         Cache cache = getCache(cacheName);
         if (null != cache) {
-            cache.removeAll();
+            cache.clear();
         }
     }
 
@@ -73,16 +79,13 @@ public class EhCacheUtil {
      * @param key
      * @return
      */
-    public static Object get(String cacheName, String key) {
+    @Override
+    public Object get(String cacheName, String key) {
         Cache cache = getCache(cacheName);
         if (null == cache) {
             return null;
         }
-        Element cacheElement = cache.get(key);
-        if (null == cacheElement) {
-            return null;
-        }
-        return cacheElement.getObjectValue();
+        return cache.get(key).get();
     }
 
 

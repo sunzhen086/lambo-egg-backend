@@ -91,4 +91,14 @@
 		<property name="cacheManagerName" value="cacheManagerFactory" />
 	</bean>
 
+	<!-- dummy cacheManager 防止缓存服务器异常时业务被中断  -->
+	<bean id="cacheManager" class="org.springframework.cache.support.CompositeCacheManager">
+		<property name="cacheManagers">
+			<list>
+				<ref bean="ehRedisCacheManager" />
+			</list>
+		</property>
+		<property name="fallbackToNoOpCache" value="true" />
+	</bean>
+
 </beans>

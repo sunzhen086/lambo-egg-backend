@@ -1,25 +1,24 @@
 package com.lambo.cache;
 
+import java.util.Set;
 import java.util.concurrent.Callable;
 
 import com.alibaba.fastjson.JSON;
 import com.lambo.common.utils.io.RedisUtil;
-import com.lambo.common.utils.lang.ObjectUtils;
-import com.lambo.common.utils.lang.StringUtils;
 import net.sf.ehcache.Element;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.Cache;
 import org.springframework.cache.support.SimpleValueWrapper;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Component;
 
 
 /**
  * 两级缓存，一级:ehcache,二级为redisCache
  *
- * @author yulin
+ * @author sunzhen
  */
+@Component
 public class EhRedisCache implements Cache {
 
     private static final Logger logger = LoggerFactory.getLogger(EhRedisCache.class);
@@ -59,7 +58,7 @@ public class EhRedisCache implements Cache {
             return new SimpleValueWrapper(value.getObjectValue());
         }
         String keyStr = name + "-" + key.toString();
-        Object objectValue = JSON.parseObject(RedisUtil.get(keyStr),Object.class);
+        Object objectValue = JSON.parseObject(RedisUtil.get(keyStr), Object.class);
         // 取出来之后缓存到本地
         ehCache.put(new Element(key, objectValue));
         if (logger.isInfoEnabled()) {
@@ -74,8 +73,8 @@ public class EhRedisCache implements Cache {
      */
     @Override
     public void put(Object key, Object value) {
-        if(null == key || value == key){
-            return ;
+        if (null == key || value == key) {
+            return;
         }
         ehCache.put(new Element(key, value));
         String keyStr = name + "-" + key.toString();
@@ -107,7 +106,15 @@ public class EhRedisCache implements Cache {
      */
     @Override
     public void clear() {
+        if (logger.isInfoEnabled()) {
+            logger.info("Cache clear name=" + name);
+        }
         ehCache.removeAll();
+        Set<String> keys = RedisUtil.keys(name + "-" + "*");
+        for (String key : keys) {
+            RedisUtil.remove(key);
+        }
+
     }
 
 

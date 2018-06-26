@@ -9,6 +9,7 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
+import java.util.Set;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -301,6 +302,21 @@ public class RedisUtil {
 		long value = jedis.decr(key);
 		jedis.close();
 		return value;
+	}
+
+	/**
+	 * 模糊查询keys,网上有人说这个方法性能不好，待观察
+	 * @param pattern
+	 * @return
+	 */
+	public synchronized static Set<String> keys(String pattern){
+		Jedis jedis = getJedis();
+		if (null == jedis) {
+			return null;
+		}
+		Set<String> keys = jedis.keys(pattern);
+		jedis.close();
+		return keys;
 	}
 
 }

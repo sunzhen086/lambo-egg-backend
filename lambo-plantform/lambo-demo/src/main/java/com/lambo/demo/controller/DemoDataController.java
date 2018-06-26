@@ -105,7 +105,8 @@ public class DemoDataController extends BaseController {
     @ResponseBody
     public Object sayHello(@PathVariable("name") String name) {
         logger.info("name==============="+name);
-        return new DemoResult(DemoResultConstant.SUCCESS, rpcTestService.sayHello(name));
+        Map map = rpcTestService.sayHello(name);
+        return new DemoResult(DemoResultConstant.SUCCESS, map.get("name"));
     }
 
     @ApiOperation(value = "测试服务")
