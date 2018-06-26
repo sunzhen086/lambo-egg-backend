@@ -10,10 +10,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.lambo</groupId>
-    <artifactId>lambo-cm</artifactId>
+    <artifactId>lambo-code</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>lambo-cm-client</module>
+        <module>lambo-code-client</module>
     </modules>
 
 

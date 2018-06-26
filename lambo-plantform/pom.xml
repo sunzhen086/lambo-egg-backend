@@ -27,6 +27,6 @@
         <module>lambo-mq</module>
         <module>lambo-auth</module>
         <module>lambo-cache</module>
-        <module>lambo-cm</module>
+        <module>lambo-code</module>
     </modules>
 </project>

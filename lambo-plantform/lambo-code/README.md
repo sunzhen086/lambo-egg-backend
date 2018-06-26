@@ -2,11 +2,11 @@
 
 ## 示例参考：
 
-第一步： 依赖lambo-cm-client组件
+第一步： 依赖lambo-code-client组件
 ```java
 <dependency>
     <groupId>com.lambo</groupId>
-    <artifactId>lambo-cm-client</artifactId>
+    <artifactId>lambo-code-client</artifactId>
     <version>1.0.0</version>
     <type>jar</type>
 </dependency>
