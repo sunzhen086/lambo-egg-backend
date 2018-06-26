@@ -20,7 +20,5 @@
 
     <modules>
         <module>lambo-plantform</module>
-        <module>lambo-test</module>
-        <module>bss</module>
     </modules>
 </project>
