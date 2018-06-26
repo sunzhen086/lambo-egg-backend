@@ -1,7 +1,7 @@
 package com.lambo.demo;
 
 
-import com.lambo.common.utils.other.MybatisGeneratorUtil;
+import com.lambo.cm.utils.MybatisGeneratorUtil;
 
 /**
  * 代码生成类

@@ -1,7 +1,8 @@
-package com.lambo.common.utils.other;
+package com.lambo.cm.utils;
 
 
 import com.lambo.common.utils.lang.StringUtils;
+import com.lambo.common.utils.other.JdbcUtil;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.velocity.VelocityContext;
 import org.mybatis.generator.api.MyBatisGenerator;
