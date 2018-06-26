@@ -49,7 +49,7 @@
         </dependency>
         <dependency>
             <groupId>com.lambo</groupId>
-            <artifactId>lambo-cm-client</artifactId>
+            <artifactId>lambo-code-client</artifactId>
             <version>1.0.0</version>
         </dependency>
     </dependencies>
