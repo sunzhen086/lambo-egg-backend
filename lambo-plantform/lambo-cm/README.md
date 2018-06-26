@@ -22,7 +22,7 @@ private static String TABLE = "test_user";//表名
 private static String LAST_INSERT_ID_TABLES = "user_id";//主键
 private static Boolean IS_AUTO_INC = false;//是否自增
 
-private static String PACKAGE_NAME = "com.lambo.cm";//类生成包路径
+private static String PACKAGE_NAME = "com.lambo.cm";//类的包路径
 private static String MODULE = "LamboCm";//组件名称
 
 /**
@@ -31,16 +31,17 @@ private static String MODULE = "LamboCm";//组件名称
  */
 public static void main(String[] args) throws Exception {
     MybatisGeneratorUtil.generator(
-                JDBC_DRIVER, 
-                JDBC_URL, 
-                JDBC_USERNAME, 
-                JDBC_PASSWORD, 
-                DATABASE, 
-                TABLE, 
-                LAST_INSERT_ID_TABLES,
-                IS_AUTO_INC,
-                PACKAGE_NAME, 
-                MODULE);
+        JDBC_DRIVER, 
+        JDBC_URL, 
+        JDBC_USERNAME, 
+        JDBC_PASSWORD, 
+        DATABASE, 
+        TABLE, 
+        LAST_INSERT_ID_TABLES,
+        IS_AUTO_INC,
+        PACKAGE_NAME, 
+        MODULE
+    );
 }
 ```
 
