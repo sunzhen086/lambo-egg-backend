@@ -45,4 +45,4 @@ public static void main(String[] args) throws Exception {
 }
 ```
 
-第三步：运行Generator.java，其中vue文件需要自行拷贝到前台目录。
+第三步：运行Generator.java，生成的vue文件需要自行拷贝到前台目录。
