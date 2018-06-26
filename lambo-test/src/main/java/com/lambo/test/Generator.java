@@ -15,7 +15,8 @@ public class Generator {
 	private static String JDBC_PASSWORD = "root";
 	private static String DATABASE = "test";
 	private static String TABLE = "test_user";
-	private static String LAST_INSERT_ID_TABLES = "user_id";// 需要insert后返回主键名
+	private static String LAST_INSERT_ID_TABLES = "user_id";//主键
+	private static Boolean IS_AUTO_INC = false;//是否自增
 
 	private static String PACKAGE_NAME = "com.lambo.test";
 	private static String MODULE = "LamboTest";
@@ -25,7 +26,7 @@ public class Generator {
 	 * @param args
 	 */
 	public static void main(String[] args) throws Exception {
-		MybatisGeneratorUtil.generator(JDBC_DRIVER, JDBC_URL, JDBC_USERNAME, JDBC_PASSWORD, DATABASE, TABLE, LAST_INSERT_ID_TABLES,PACKAGE_NAME, MODULE);
+		MybatisGeneratorUtil.generator(JDBC_DRIVER, JDBC_URL, JDBC_USERNAME, JDBC_PASSWORD, DATABASE, TABLE, LAST_INSERT_ID_TABLES,IS_AUTO_INC,PACKAGE_NAME, MODULE);
 	}
 
 }

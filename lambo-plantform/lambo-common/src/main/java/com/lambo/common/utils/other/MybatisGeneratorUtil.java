@@ -75,6 +75,7 @@ public class MybatisGeneratorUtil {
 			String database,
 			String table_name,
 			String table_key,
+			boolean is_auto_inc,
 			String package_name,
 			String module) throws Exception{
 
@@ -102,11 +103,8 @@ public class MybatisGeneratorUtil {
 			queryVue_vm = MybatisGeneratorUtil.class.getResource(queryVue_vm).getPath();
 			editVue_vm = MybatisGeneratorUtil.class.getResource(editVue_vm).getPath();
 		}
-		System.out.println("resultConstant_vm="+resultConstant_vm);
-		System.out.println("queryVue_vm="+queryVue_vm);
 
 		String basePath = MybatisGeneratorUtil.class.getResource("/").getPath().replace("/target/classes/", "").replaceFirst("/", "");
-		System.out.println("basePath="+basePath);
 		String generatorConfig_xml = (MybatisGeneratorUtil.class.getResource("/").getPath().replace("/target/classes/", "") + "/src/main/resources/generatorConfig.xml").replaceFirst("/", "");
 		String sql = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '" + database + "' AND TABLE_NAME = '" + table_name + "';";
 
@@ -123,7 +121,9 @@ public class MybatisGeneratorUtil {
 				table = new HashMap<>();
 				table.put("table_name", map.get("TABLE_NAME"));
 				table.put("model_name", StringUtils.lineToHump(ObjectUtils.toString(map.get("TABLE_NAME"))));
-				table.put("table_key",table_key);
+				if(is_auto_inc){
+					table.put("table_key",table_key);
+				}
 				String columnSql = "SELECT COLUMN_NAME,DATA_TYPE,IS_NULLABLE,COLUMN_DEFAULT FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = '" + database + "' AND TABLE_NAME='" + map.get("TABLE_NAME") + "'";
 				List<Map> columnResult = jdbcUtil.selectByParams(columnSql, null);
 				List<Map> columns = new ArrayList<Map>();
@@ -150,7 +150,6 @@ public class MybatisGeneratorUtil {
 			context.put("generator_jdbc_url", jdbc_url);
 			context.put("generator_jdbc_username", jdbc_username);
 			context.put("generator_jdbc_password", jdbc_password);
-			System.out.println("generatorConfig_vm="+generatorConfig_vm);
 			VelocityUtil.generate(generatorConfig_vm, generatorConfig_xml, context);
 			// 删除旧代码
 			deleteDir(new File(basePath + "/src/main/java/" + package_name.replaceAll("\\.", "/") + "/dao/model"));
@@ -209,7 +208,7 @@ public class MybatisGeneratorUtil {
 		String serviceImplPath = basePath  + "/src/main/java/" + package_name.replaceAll("\\.", "/") + "/service/impl";
 		String controllerPath = basePath  + "/src/main/java/" + package_name.replaceAll("\\.", "/") + "/controller";
 		String vuePath = basePath  + "/src/main/java/" + package_name.replaceAll("\\.", "/") + "/vue";
-		System.out.println("vuePath="+vuePath);
+
 		for (int i = 0; i < tables.size(); i++) {
 			String model = StringUtils.lineToHump(ObjectUtils.toString(tables.get(i).get("table_name")));
 			String service = servicePath + "/" + model + "Service.java";
@@ -217,7 +216,6 @@ public class MybatisGeneratorUtil {
 			String serviceImpl = serviceImplPath + "/" + model + "ServiceImpl.java";
 			String controller = controllerPath + "/" + model + "Controller.java";
 			String queryVue = vuePath + "/" + model + "Query.vue";
-			System.out.println("queryVue="+queryVue);
 			String editVue = vuePath + "/" + model + "Edit.vue";
 
 			// 生成service
@@ -261,6 +259,7 @@ public class MybatisGeneratorUtil {
 				context.put("module", module);
 				context.put("search",StringUtils.lineToHump(table_key));
 				context.put("pk",StringUtils.toLowerCaseFirstOne(StringUtils.lineToHump(table_key)));
+				context.put("is_auto_inc",is_auto_inc);
 				context.put("columns",tables.get(i).get("columns"));
 				context.put("ctime", ctime);
 				VelocityUtil.generate(controller_vm, controller, context);
@@ -274,6 +273,7 @@ public class MybatisGeneratorUtil {
 				VelocityContext context = new VelocityContext();
 				context.put("modelV", StringUtils.toLowerCaseFirstOne(model));
 				context.put("pk",StringUtils.toLowerCaseFirstOne(StringUtils.lineToHump(table_key)));
+				context.put("is_auto_inc",is_auto_inc);
 				context.put("columns",tables.get(i).get("columns"));
 				VelocityUtil.generate(queryVue_vm, queryVue, context);
 				System.out.println(queryVue);
@@ -286,35 +286,35 @@ public class MybatisGeneratorUtil {
 				context.put("title", table_name);
 				context.put("modelV", StringUtils.toLowerCaseFirstOne(model));
 				context.put("pk",StringUtils.toLowerCaseFirstOne(StringUtils.lineToHump(table_key)));
+				context.put("is_auto_inc",is_auto_inc);
 				context.put("columns",tables.get(i).get("columns"));
-
 				VelocityUtil.generate(editVue_vm, editVue, context);
 				System.out.println(editVue);
 			}
+
+			String modelV = StringUtils.toLowerCaseFirstOne(model);
+			String str = "import "+modelV+"Query from '@/components/"+modelV+"/"+model+"Query';\n";
+			str += "import "+modelV+"Edit from '@/components/"+modelV+"/"+model+"Edit';\n\n";
+			str += "{ \n";
+			str += "	path: 'manage/"+modelV+"/query',\n";
+			str += "	meta:{\n";
+			str += "		title: '"+modelV+"Query',\n";
+			str += "	},\n";
+			str += "	name:'"+modelV+"Query',\n";
+			str += "	component: "+modelV+"Query\n";
+			str += "},\n";
+			str += "{\n";
+			str += "	path: 'manage/"+modelV+"/edit',\n";
+			str += "	meta:{\n";
+			str += "		title: '"+modelV+"Edit',\n";
+			str += "	},\n";
+			str += "	name:'"+modelV+"Edit',\n";
+			str += "	component: "+modelV+"Edit\n";
+			str += "}";
+
+			System.out.println("拷贝vue到自己前台目录，配置vue的router,其中注意路由的name属性，参考如下：\n"+str);
 		}
 		System.out.println("========== 结束生成Service,Controller,Vue ==========");
-
-		String str = "import testUserQuery from '@/components/testUser/TestUserQuery';\n";
-		str += "import testUserEdit from '@/components/testUser/TestUserEdit';\n\n";
-		str += "{ \n";
-		str += "	path: 'manage/testUser/query',\n";
-		str += "	meta:{\n";
-		str += "		title: 'testUserQuery',\n";
-		str += "	},\n";
-		str += "	name:'testUserQuery',\n";
-		str += "	component: testUserQuery\n";
-		str += "},\n";
-		str += "{\n";
-		str += "	path: 'manage/testUser/edit',\n";
-		str += "	meta:{\n";
-		str += "		title: 'testUserEdit',\n";
-		str += "	},\n";
-		str += "	name:'testUserEdit',\n";
-		str += "	component: testUserEdit\n";
-		str += "}";
-
-		System.out.println("拷贝vue到自己前台目录，配置vue的router,其中注意路由的name属性，参考如下：\n"+str);
-
 	}
 
 	// 递归删除非空文件夹
