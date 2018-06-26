@@ -135,12 +135,6 @@
             <artifactId>mybatis-generator-core</artifactId>
             <version>${mybatis-generator.version}</version>
         </dependency>
-        <!-- velocity模板引擎 -->
-        <dependency>
-            <groupId>org.apache.velocity</groupId>
-            <artifactId>velocity</artifactId>
-            <version>1.7</version>
-        </dependency>
         <!-- mysql -->
         <dependency>
             <groupId>mysql</groupId>
