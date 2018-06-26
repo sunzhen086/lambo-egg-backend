@@ -8,6 +8,7 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
+import java.util.Set;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -302,9 +303,29 @@ public class RedisUtilTest {
 		return value;
 	}
 
+	/**
+	 * 模糊查询keys
+	 * @param pattern
+	 * @return
+	 */
+	public synchronized static Set<String> keys(String pattern){
+		Jedis jedis = getJedis();
+		if (null == jedis) {
+			return null;
+		}
+		Set<String> keys = jedis.keys(pattern);
+		jedis.close();
+		return keys;
+	}
+
 
 	public static void main(String[] args){
 		RedisUtilTest.set("test1115","0000000005");
+		RedisUtilTest.set("test1112","0000000001");
+		Set<String> keys = RedisUtilTest.keys("test*");
+		for(String key : keys){
+			System.out.println(key);
+		}
 	}
 
 }
