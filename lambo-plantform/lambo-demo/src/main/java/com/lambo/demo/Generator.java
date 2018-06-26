@@ -1,7 +1,7 @@
 package com.lambo.demo;
 
 
-import com.lambo.common.utils.other.MybatisGeneratorUtil;
+import com.lambo.cm.utils.MybatisGeneratorUtil;
 
 /**
  * 代码生成类
@@ -13,7 +13,7 @@ public class Generator {
 	 * 根据命名规范，只修改此常量值即可
 	 */
 	private static String MODULE = "sample";
-	private static String TABLE_NAME = "upms_log";
+	private static String TABLE = "upms_log";
 	private static String PACKAGE_NAME = "com.lambo.demo";
 	private static String DOMAIN_OBJECT_NAME = "LogDemo";
 
@@ -22,13 +22,14 @@ public class Generator {
 	private static String JDBC_USERNAME = "root";
 	private static String JDBC_PASSWORD = "root";
 	private static String DATABASE = "lambo";
+	private static String LAST_INSERT_ID_TABLES = "log_id";
 
 	/**
 	 * 自动代码生成
 	 * @param args
 	 */
 	public static void main(String[] args) throws Exception {
-		MybatisGeneratorUtil.generator(JDBC_DRIVER, JDBC_URL, JDBC_USERNAME, JDBC_PASSWORD, MODULE, DATABASE, TABLE_NAME, PACKAGE_NAME, DOMAIN_OBJECT_NAME);
+		MybatisGeneratorUtil.generator(JDBC_DRIVER, JDBC_URL, JDBC_USERNAME, JDBC_PASSWORD, DATABASE, TABLE, LAST_INSERT_ID_TABLES,true,PACKAGE_NAME, MODULE);
 	}
 
 }
