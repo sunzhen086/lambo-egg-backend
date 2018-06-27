@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lambo.schedule.dao.api.ScheduleTaskMapper">
+  <resultMap id="BaseResultMap" type="com.lambo.schedule.model.ScheduleTask">
+    <id column="TASK_ID" jdbcType="DECIMAL" property="taskId" />
+    <result column="TASK_NAME" jdbcType="VARCHAR" property="taskName" />
+    <result column="MONTH" jdbcType="VARCHAR" property="month" />
+    <result column="DAYOFMONTH" jdbcType="VARCHAR" property="dayofmonth" />
+    <result column="DAYOFWEEK" jdbcType="VARCHAR" property="dayofweek" />
+    <result column="HOUR" jdbcType="VARCHAR" property="hour" />
+    <result column="MINUTE" jdbcType="VARCHAR" property="minute" />
+    <result column="CURRENT_STATE" jdbcType="CHAR" property="currentState" />
+    <result column="OPERATION" jdbcType="VARCHAR" property="operation" />
+    <result column="EXTRAINFO" jdbcType="VARCHAR" property="extrainfo" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TASK_ID, TASK_NAME, MONTH, DAYOFMONTH, DAYOFWEEK, HOUR, MINUTE, CURRENT_STATE, OPERATION, 
+    EXTRAINFO
+  </sql>
+  <select id="selectByExample" parameterType="com.lambo.schedule.model.ScheduleTaskExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from schedule_task
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from schedule_task
+    where TASK_ID = #{taskId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from schedule_task
+    where TASK_ID = #{taskId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lambo.schedule.model.ScheduleTaskExample">
+    delete from schedule_task
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lambo.schedule.model.ScheduleTask">
+    insert into schedule_task (TASK_ID, TASK_NAME, MONTH, 
+      DAYOFMONTH, DAYOFWEEK, HOUR, 
+      MINUTE, CURRENT_STATE, OPERATION, 
+      EXTRAINFO)
+    values (#{taskId,jdbcType=DECIMAL}, #{taskName,jdbcType=VARCHAR}, #{month,jdbcType=VARCHAR}, 
+      #{dayofmonth,jdbcType=VARCHAR}, #{dayofweek,jdbcType=VARCHAR}, #{hour,jdbcType=VARCHAR}, 
+      #{minute,jdbcType=VARCHAR}, #{currentState,jdbcType=CHAR}, #{operation,jdbcType=VARCHAR}, 
+      #{extrainfo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lambo.schedule.model.ScheduleTask">
+    insert into schedule_task
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="taskId != null">
+        TASK_ID,
+      </if>
+      <if test="taskName != null">
+        TASK_NAME,
+      </if>
+      <if test="month != null">
+        MONTH,
+      </if>
+      <if test="dayofmonth != null">
+        DAYOFMONTH,
+      </if>
+      <if test="dayofweek != null">
+        DAYOFWEEK,
+      </if>
+      <if test="hour != null">
+        HOUR,
+      </if>
+      <if test="minute != null">
+        MINUTE,
+      </if>
+      <if test="currentState != null">
+        CURRENT_STATE,
+      </if>
+      <if test="operation != null">
+        OPERATION,
+      </if>
+      <if test="extrainfo != null">
+        EXTRAINFO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="taskId != null">
+        #{taskId,jdbcType=DECIMAL},
+      </if>
+      <if test="taskName != null">
+        #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="month != null">
+        #{month,jdbcType=VARCHAR},
+      </if>
+      <if test="dayofmonth != null">
+        #{dayofmonth,jdbcType=VARCHAR},
+      </if>
+      <if test="dayofweek != null">
+        #{dayofweek,jdbcType=VARCHAR},
+      </if>
+      <if test="hour != null">
+        #{hour,jdbcType=VARCHAR},
+      </if>
+      <if test="minute != null">
+        #{minute,jdbcType=VARCHAR},
+      </if>
+      <if test="currentState != null">
+        #{currentState,jdbcType=CHAR},
+      </if>
+      <if test="operation != null">
+        #{operation,jdbcType=VARCHAR},
+      </if>
+      <if test="extrainfo != null">
+        #{extrainfo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByExampleSelective" parameterType="map">
+    update schedule_task
+    <set>
+      <if test="record.taskId != null">
+        TASK_ID = #{record.taskId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.taskName != null">
+        TASK_NAME = #{record.taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.month != null">
+        MONTH = #{record.month,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dayofmonth != null">
+        DAYOFMONTH = #{record.dayofmonth,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dayofweek != null">
+        DAYOFWEEK = #{record.dayofweek,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hour != null">
+        HOUR = #{record.hour,jdbcType=VARCHAR},
+      </if>
+      <if test="record.minute != null">
+        MINUTE = #{record.minute,jdbcType=VARCHAR},
+      </if>
+      <if test="record.currentState != null">
+        CURRENT_STATE = #{record.currentState,jdbcType=CHAR},
+      </if>
+      <if test="record.operation != null">
+        OPERATION = #{record.operation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.extrainfo != null">
+        EXTRAINFO = #{record.extrainfo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update schedule_task
+    set TASK_ID = #{record.taskId,jdbcType=DECIMAL},
+      TASK_NAME = #{record.taskName,jdbcType=VARCHAR},
+      MONTH = #{record.month,jdbcType=VARCHAR},
+      DAYOFMONTH = #{record.dayofmonth,jdbcType=VARCHAR},
+      DAYOFWEEK = #{record.dayofweek,jdbcType=VARCHAR},
+      HOUR = #{record.hour,jdbcType=VARCHAR},
+      MINUTE = #{record.minute,jdbcType=VARCHAR},
+      CURRENT_STATE = #{record.currentState,jdbcType=CHAR},
+      OPERATION = #{record.operation,jdbcType=VARCHAR},
+      EXTRAINFO = #{record.extrainfo,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lambo.schedule.model.ScheduleTask">
+    update schedule_task
+    <set>
+      <if test="taskName != null">
+        TASK_NAME = #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="month != null">
+        MONTH = #{month,jdbcType=VARCHAR},
+      </if>
+      <if test="dayofmonth != null">
+        DAYOFMONTH = #{dayofmonth,jdbcType=VARCHAR},
+      </if>
+      <if test="dayofweek != null">
+        DAYOFWEEK = #{dayofweek,jdbcType=VARCHAR},
+      </if>
+      <if test="hour != null">
+        HOUR = #{hour,jdbcType=VARCHAR},
+      </if>
+      <if test="minute != null">
+        MINUTE = #{minute,jdbcType=VARCHAR},
+      </if>
+      <if test="currentState != null">
+        CURRENT_STATE = #{currentState,jdbcType=CHAR},
+      </if>
+      <if test="operation != null">
+        OPERATION = #{operation,jdbcType=VARCHAR},
+      </if>
+      <if test="extrainfo != null">
+        EXTRAINFO = #{extrainfo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TASK_ID = #{taskId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lambo.schedule.model.ScheduleTask">
+    update schedule_task
+    set TASK_NAME = #{taskName,jdbcType=VARCHAR},
+      MONTH = #{month,jdbcType=VARCHAR},
+      DAYOFMONTH = #{dayofmonth,jdbcType=VARCHAR},
+      DAYOFWEEK = #{dayofweek,jdbcType=VARCHAR},
+      HOUR = #{hour,jdbcType=VARCHAR},
+      MINUTE = #{minute,jdbcType=VARCHAR},
+      CURRENT_STATE = #{currentState,jdbcType=CHAR},
+      OPERATION = #{operation,jdbcType=VARCHAR},
+      EXTRAINFO = #{extrainfo,jdbcType=VARCHAR}
+    where TASK_ID = #{taskId,jdbcType=DECIMAL}
+  </update>
+</mapper>
