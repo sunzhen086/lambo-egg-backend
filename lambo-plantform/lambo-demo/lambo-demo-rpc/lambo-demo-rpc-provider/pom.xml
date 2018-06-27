@@ -4,26 +4,49 @@
 
     <parent>
         <groupId>com.lambo</groupId>
-        <artifactId>lambo-demo</artifactId>
+        <artifactId>lambo-demo-rpc</artifactId>
         <version>1.0.0</version>
     </parent>
 
-    <artifactId>lambo-demo-sample</artifactId>
+    <artifactId>lambo-demo-rpc-provider</artifactId>
     <packaging>war</packaging>
 
-    <name>lambo-demo-sample Maven Webapp</name>
+    <name>lambo-demo-rpc-provider Maven Webapp</name>
     <url>http://stomz.com</url>
 
     <dependencies>
         <dependency>
             <groupId>com.lambo</groupId>
-            <artifactId>lambo-auth-sample-client</artifactId>
+            <artifactId>lambo-upms-client</artifactId>
             <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>com.lambo</groupId>
-            <artifactId>lambo-upms-client</artifactId>
+            <artifactId>lambo-demo-rpc-api</artifactId>
             <version>1.0.0</version>
+        </dependency>
+
+        <!-- dubbo -->
+        <dependency>
+            <groupId>org.apache.zookeeper</groupId>
+            <artifactId>zookeeper</artifactId>
+            <version>3.4.9</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>dubbo</artifactId>
+            <version>2.5.3</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.101tec</groupId>
+            <artifactId>zkclient</artifactId>
+            <version>0.10</version>
         </dependency>
         <!-- servlet -->
         <dependency>
@@ -65,7 +88,7 @@
     </profiles>
 
     <build>
-        <finalName>lambo-demo-sample</finalName>
+        <finalName>lambo-demo-rpc-provider</finalName>
         <filters>
             <filter>src/main/resources/profiles/${env}.properties</filter>
         </filters>
@@ -103,10 +126,10 @@
                 <version>9.2.7.v20150116</version>
                 <configuration>
                     <webApp>
-                        <contextPath>/demo-sample-server</contextPath>
+                        <contextPath>/demo-provider-server</contextPath>
                     </webApp>
                     <httpConnector>
-                        <port>9630</port>
+                        <port>9631</port>
                     </httpConnector>
                 </configuration>
             </plugin>
