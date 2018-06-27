@@ -17,7 +17,6 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -104,17 +103,6 @@ public class DemoDataController extends BaseController {
     @RequestMapping(value = "/sayHello/{name}", method = RequestMethod.GET)
     @ResponseBody
     public Object sayHello(@PathVariable("name") String name) {
-        logger.info("name==============="+name);
-        Map map = rpcTestService.sayHello(name);
-        return new DemoResult(DemoResultConstant.SUCCESS, map.get("name"));
-    }
-
-    @ApiOperation(value = "测试服务")
-    @RequestMapping(value = "/updateSometing/{name}", method = RequestMethod.GET)
-    @ResponseBody
-    public Object updateSometing(@PathVariable("name") String name) {
-        logger.info("update==============="+name);
-        rpcTestService.updateSometing(name);
-        return new DemoResult(DemoResultConstant.SUCCESS,null);
+        return new DemoResult(DemoResultConstant.SUCCESS, rpcTestService.sayHello(name));
     }
 }

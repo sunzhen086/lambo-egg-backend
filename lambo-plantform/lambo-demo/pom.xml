@@ -44,11 +44,6 @@
         </dependency>
         <dependency>
             <groupId>com.lambo</groupId>
-            <artifactId>lambo-cache-sample</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.lambo</groupId>
             <artifactId>lambo-code-client</artifactId>
             <version>1.0.0</version>
         </dependency>
