@@ -1,4 +1,4 @@
-package com.lambo.cm.utils;
+package com.lambo.code.utils;
 
 
 import com.lambo.common.utils.lang.StringUtils;

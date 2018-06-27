@@ -29,7 +29,7 @@ public class Generator {
     private static String LAST_INSERT_ID_TABLES = "user_id";//主键
     private static Boolean IS_AUTO_INC = false;//是否自增
     
-    private static String PACKAGE_NAME = "com.lambo.cm";//类的包路径
+    private static String PACKAGE_NAME = "com.lambo.code";//类的包路径
     private static String MODULE = "LamboCm";//组件名称
     
     /**
@@ -57,20 +57,20 @@ public class Generator {
 
 ```java
 ========== 开始生成generatorConfig.xml文件 ==========
-2018-06-27 09:02:55,311 [main] INFO  [com.lambo.common.utils.other.JdbcUtil] - 数据库连接成功：jdbc:mysql://127.0.0.1:3306/test
+2018-06-27 09:53:45,363 [main] INFO  [com.lambo.common.utils.other.JdbcUtil] - 数据库连接成功：jdbc:mysql://127.0.0.1:3306/test
 ========== 结束生成generatorConfig.xml文件 ==========
 ========== 开始运行MybatisGenerator ==========
 ========== 结束运行MybatisGenerator ==========
 ========== 开始生成Constant ==========
-D:/workspace/lambo-egg-backend/lambo-plantform/lambo-code/src/main/java/com/lambo/cm/constant/LamboCmResult.java
-D:/workspace/lambo-egg-backend/lambo-plantform/lambo-code/src/main/java/com/lambo/cm/constant/LamboCmResultConstant.java
+D:/workspace/lambo-egg-backend/lambo-plantform/lambo-code/lambo-code-client/src/main/java/com/lambo/code/constant/LamboCodeResult.java
+D:/workspace/lambo-egg-backend/lambo-plantform/lambo-code/lambo-code-client/src/main/java/com/lambo/code/constant/LamboCodeResultConstant.java
 ========== 结束生成Constant ==========
 ========== 开始生成Service,Controller,Vue ==========
-D:/workspace/lambo-egg-backend/lambo-plantform/lambo-code/src/main/java/com/lambo/cm/service/api/TestUserService.java
-D:/workspace/lambo-egg-backend/lambo-plantform/lambo-code/src/main/java/com/lambo/cm/service/impl/TestUserServiceImpl.java
-D:/workspace/lambo-egg-backend/lambo-plantform/lambo-code/src/main/java/com/lambo/cm/controller/TestUserController.java
-D:/workspace/lambo-egg-backend/lambo-plantform/lambo-code/src/main/java/com/lambo/cm/vue/TestUserQuery.vue
-D:/workspace/lambo-egg-backend/lambo-plantform/lambo-code/src/main/java/com/lambo/cm/vue/TestUserEdit.vue
+D:/workspace/lambo-egg-backend/lambo-plantform/lambo-code/lambo-code-client/src/main/java/com/lambo/code/service/api/TestUserService.java
+D:/workspace/lambo-egg-backend/lambo-plantform/lambo-code/lambo-code-client/src/main/java/com/lambo/code/service/impl/TestUserServiceImpl.java
+D:/workspace/lambo-egg-backend/lambo-plantform/lambo-code/lambo-code-client/src/main/java/com/lambo/code/controller/TestUserController.java
+D:/workspace/lambo-egg-backend/lambo-plantform/lambo-code/lambo-code-client/src/main/java/com/lambo/code/vue/TestUserQuery.vue
+D:/workspace/lambo-egg-backend/lambo-plantform/lambo-code/lambo-code-client/src/main/java/com/lambo/code/vue/TestUserEdit.vue
 拷贝vue到自己前台目录，配置vue的router,其中注意路由的name属性，参考如下：
 import testUserQuery from '@/components/testUser/TestUserQuery';
 import testUserEdit from '@/components/testUser/TestUserEdit';

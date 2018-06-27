@@ -1,7 +1,7 @@
 package com.lambo.demo;
 
 
-import com.lambo.cm.utils.MybatisGeneratorUtil;
+import com.lambo.code.utils.MybatisGeneratorUtil;
 
 /**
  * 代码生成类
@@ -12,10 +12,9 @@ public class Generator {
 	/**
 	 * 根据命名规范，只修改此常量值即可
 	 */
-	private static String MODULE = "sample";
+	private static String MODULE = "LogDemo";
 	private static String TABLE = "upms_log";
 	private static String PACKAGE_NAME = "com.lambo.demo";
-	private static String DOMAIN_OBJECT_NAME = "LogDemo";
 
 	private static String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 	private static String JDBC_URL = "jdbc:mysql://10.10.10.136:3306/lambo";
