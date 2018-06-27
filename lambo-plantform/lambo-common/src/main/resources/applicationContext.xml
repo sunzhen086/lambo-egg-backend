@@ -11,10 +11,10 @@
           http://www.springframework.org/schema/task/spring-task.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
 	<!-- 装载service -->
-	<context:component-scan base-package="**.service" />
+	<context:component-scan base-package="com.lambo.**.service" />
 
 	<!-- 装载自定义bean -->
-	<context:component-scan base-package="**.*" use-default-filters="false">
+	<context:component-scan base-package="com.lambo.**.*" use-default-filters="false">
 		<context:include-filter type="assignable" expression="com.lambo.common.base.BaseInterface"></context:include-filter>
 	</context:component-scan>
 
