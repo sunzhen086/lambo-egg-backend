@@ -26,7 +26,16 @@ public class IdGenerate {
 	public static String uuid() {
 		return UUID.randomUUID().toString().replaceAll("-", "");
 	}
-	
+	/**
+	 * 获取指定长度的uuid,建议不少于10位
+	 *
+	 * @param length
+	 * @return
+	 */
+	public static String getInnerIdByLength(int length) {
+		UUIDGenerator uuid = new UUIDGenerator();
+		return uuid.getNextSeqId(length).toString();
+	}
 	/**
 	 * 使用SecureRandom随机生成Long. 
 	 */
@@ -51,7 +60,14 @@ public class IdGenerate {
 	public static String nextId() {
 		return String.valueOf(idWorker.nextId());
 	}
-	
+	/**
+	 * 获取新唯一编号（18为数值）
+	 * 来自于twitter项目snowflake的id产生方案，全局唯一，时间有序。
+	 * 64位ID (42(毫秒)+5(机器ID)+5(业务编码)+12(重复累加))
+	 */
+	public static long nextIdtoLong() {
+		return idWorker.nextId();
+	}
 	/**
 	 * 获取新代码编号
 	 */
@@ -83,17 +99,10 @@ public class IdGenerate {
 	
 	public static void main(String[] args) {
 		System.out.println(uuid());
-		System.out.println(nextId());
+		System.out.println(randomBase62(12));
+		System.out.println(getInnerIdByLength(21));
 		System.out.println(nextCode("8"));
 		System.out.println(nextCode("09"));
-		System.out.println(nextCode("009"));
-		System.out.println(nextCode("E09"));
-		System.out.println(nextCode("EC09"));
-		System.out.println(nextCode("EC0101"));
-		System.out.println(nextCode("EC0109"));
-		System.out.println(nextCode("EC02T03"));
-		System.out.println(nextCode("EC02T099"));
-		System.out.println(nextCode("EC02T100"));
 		System.out.println(nextCode("EC02T10A"));
 //		// 数值型ID重复验证测试
 //		Set<String> set = SetUtils.newHashSet();

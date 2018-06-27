@@ -339,3 +339,38 @@ INSERT INTO `upms_user_role` VALUES ('4', '1', '1');
 INSERT INTO `upms_user_role` VALUES ('5', '1', '2');
 INSERT INTO `upms_user_role` VALUES ('6', '2', '1');
 INSERT INTO `upms_user_role` VALUES ('7', '2', '2');
+
+
+-- ----------------------------
+-- Table structure for `schedule_task`
+-- ----------------------------
+DROP TABLE IF EXISTS `schedule_task`;
+CREATE TABLE `schedule_task` (
+     `TASK_ID` int(8) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Id',
+     `TASK_NAME` VARCHAR(50) NOT NULL,
+     `MONTH` VARCHAR(30),
+     `DAYOFMONTH` VARCHAR(90),
+     `DAYOFWEEK` VARCHAR(20),
+     `HOUR` VARCHAR(70),
+     `MINUTE` VARCHAR(180),
+     `CURRENT_STATE` CHAR(2),
+     `OPERATION` VARCHAR(300),
+     `EXTRAINFO` VARCHAR(500),
+     PRIMARY KEY (TASK_ID)
+     )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for `schedule_task_result`
+-- ----------------------------
+
+DROP TABLE IF EXISTS `schedule_task_result`;
+CREATE TABLE `schedule_task_result` (
+      `TASK_RESULT_ID` VARCHAR(32) NOT NULL,
+      `TASK_ID` int(8) NOT NULL,
+      `TASK_NAME` VARCHAR(50) NOT NULL,
+      `START_TIME` CHAR(19),
+      `END_TIME` CHAR(19),
+      `RESULT` CHAR(2),
+      `ERROE_MESSAGE` VARCHAR(800),
+      PRIMARY KEY (TASK_RESULT_ID)
+      )ENGINE=InnoDB DEFAULT CHARSET=utf8;
