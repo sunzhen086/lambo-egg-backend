@@ -1,4 +1,4 @@
-package com.lambo.cm.utils;
+package com.lambo.code.utils;
 
 import org.apache.commons.io.output.FileWriterWithEncoding;
 import org.apache.commons.lang.StringUtils;

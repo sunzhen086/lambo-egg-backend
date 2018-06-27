@@ -1,6 +1,6 @@
-package com.lambo.test;
+package com.lambo.code;
 
-import com.lambo.cm.utils.MybatisGeneratorUtil;
+import com.lambo.code.utils.MybatisGeneratorUtil;
 
 /**
  * 代码生成类
@@ -18,8 +18,8 @@ public class Generator {
 	private static String LAST_INSERT_ID_TABLES = "user_id";//主键
 	private static Boolean IS_AUTO_INC = false;//是否自增
 
-	private static String PACKAGE_NAME = "com.lambo.test";
-	private static String MODULE = "LamboTest";
+	private static String PACKAGE_NAME = "com.lambo.code";
+	private static String MODULE = "LamboCode";
 
 	/**
 	 * 自动代码生成
