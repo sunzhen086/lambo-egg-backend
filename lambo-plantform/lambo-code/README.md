@@ -2,7 +2,7 @@
 
 ## 示例参考：
 
-第一步： 依赖lambo-code-client组件
+第一步： 依赖lambo-code-client组件,在组件的pom.xml文件添加如下配置：
 ```java
 <dependency>
     <groupId>com.lambo</groupId>
