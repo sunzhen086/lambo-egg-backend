@@ -35,6 +35,14 @@
     <name>ndp-manage-server Maven Webapp</name>
     <artifactId>ndp-manage-server</artifactId>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+    </properties>
+
     <build>
         <finalName>ndp-manage-server</finalName>
         <filters>

@@ -20,5 +20,6 @@
 
     <modules>
         <module>lambo-plantform</module>
+        <module>ndp</module>
     </modules>
 </project>

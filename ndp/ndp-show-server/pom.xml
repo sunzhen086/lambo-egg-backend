@@ -35,6 +35,14 @@
     <name>ndp-show-server Maven Webapp</name>
     <artifactId>ndp-show-server</artifactId>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+    </properties>
+
     <build>
         <finalName>ndp-show-server</finalName>
         <filters>
@@ -139,6 +147,11 @@
         <dependency>
             <groupId>com.lambo</groupId>
             <artifactId>lambo-upms-client</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.lambo</groupId>
+            <artifactId>lambo-auth-sample-client</artifactId>
             <version>1.0.0</version>
         </dependency>
         <dependency>
