@@ -20,6 +20,5 @@
 
     <modules>
         <module>lambo-oss-client</module>
-        <module>lambo-oss-server</module>
     </modules>
 </project>

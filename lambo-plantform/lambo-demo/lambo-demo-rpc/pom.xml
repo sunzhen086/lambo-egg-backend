@@ -2,12 +2,18 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>com.lambo</groupId>
+        <artifactId>lambo-demo</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
     <groupId>com.lambo</groupId>
-    <artifactId>lambo-demo</artifactId>
+    <artifactId>lambo-demo-rpc</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
 
-    <name>lambo-demo</name>
+    <name>lambo-demo-rpc</name>
     <url>http://stomz.top</url>
 
     <properties>
@@ -19,7 +25,8 @@
     </properties>
 
     <modules>
-        <module>lambo-demo-sample</module>
-        <module>lambo-demo-rpc</module>
+        <module>lambo-demo-rpc-api</module>
+        <module>lambo-demo-rpc-provider</module>
+        <module>lambo-demo-rpc-consumer</module>
     </modules>
 </project>
