@@ -51,25 +51,10 @@
     <servlet-name>springMVC</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
-
   <!-- session配置 -->
   <session-config>
     <session-timeout>30</session-timeout>
   </session-config>
-  <!-- 定时器 -->
-  <servlet>
-    <servlet-name>LoadOnStartupServlet</servlet-name>
-    <servlet-class>com.lambo.schedule.web.LoadCrontabServlet</servlet-class>
-    <init-param>
-      <param-name>PROPERTIES_FILE</param-name>
-      <param-value>schedule.properties</param-value>
-    </init-param>
-    <load-on-startup>1</load-on-startup>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>LoadOnStartupServlet</servlet-name>
-    <url-pattern>/Startup</url-pattern>
-  </servlet-mapping>
   <!-- 欢迎页面 -->
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>

@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.lambo</groupId>
-    <artifactId>lambo-demo</artifactId>
+    <artifactId>lambo-rpc</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
 
-    <name>lambo-demo</name>
+    <name>lambo-rpc</name>
     <url>http://stomz.top</url>
 
     <properties>
@@ -19,7 +19,6 @@
     </properties>
 
     <modules>
-        <module>lambo-demo-sample</module>
-        <module>lambo-demo-rpc</module>
+        <module>lambo-rpc-dubbo-client</module>
     </modules>
 </project>

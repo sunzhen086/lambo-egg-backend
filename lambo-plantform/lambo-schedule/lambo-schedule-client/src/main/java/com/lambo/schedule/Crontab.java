@@ -24,11 +24,14 @@
  */
 package com.lambo.schedule;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Properties;
 
+import com.lambo.schedule.data.FileLoaderUtils;
 import org.apache.log4j.Logger;
 
 /** 
@@ -96,13 +99,26 @@ public class Crontab {
 		if (props != null) {
 			PropertyMgr.initProperty(props);
 		}
+		//加载jdbc配置文件
+		String propj = "/jdbc.properties";
+		Properties propObj = new Properties();
+
+		try {
+			InputStream input = FileLoaderUtils.getResourceAsStream(propj);
+			if (input == null) {
+				throw new IOException("File '" + propj + "' not found");
+			}
+			propObj.load(input);
+		} catch (IOException ioe) {
+			Log.error(ioe.toString(), ioe);
+		}
+		if (propObj != null) {
+			PropertyJDBC.initProperty(propObj);
+		}
 		String refreshFrequency = PropertyMgr.getRefresh();
-		
-		Log.debug("refreshFrequency:"+refreshFrequency);
 		if (refreshFrequency != null) {
 			this.iTimeTableGenerationFrec = Integer.parseInt(refreshFrequency);
 		}
-		Log.debug("iTimeTableGenerationFrec:"+iTimeTableGenerationFrec);
 		task_class = Class.forName(PropertyMgr.getTaskRunner());
 		// Creates the thread Cron, wich generates the engine events         
 		cron = new Cron(this, iTimeTableGenerationFrec);
@@ -216,7 +232,7 @@ public class Crontab {
 					params += strExtraInfo[i] + " ";
 				}
 			}
-			Log.info("newTask : " + strClassName + "#" + strMethodName + " " + params);
+			//Log.info("newTask : " + strClassName + "#" + strMethodName + " " + params);
 			// Increments the next task identifier
 			iNextTaskID++;
 			return iTaskID;

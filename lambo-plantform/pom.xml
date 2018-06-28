@@ -29,5 +29,6 @@
         <module>lambo-cache</module>
         <module>lambo-code</module>
         <module>lambo-schedule</module>
+        <module>lambo-rpc</module>
     </modules>
 </project>
