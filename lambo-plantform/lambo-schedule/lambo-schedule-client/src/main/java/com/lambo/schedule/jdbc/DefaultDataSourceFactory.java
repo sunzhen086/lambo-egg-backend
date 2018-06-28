@@ -24,7 +24,7 @@ public class DefaultDataSourceFactory extends DataSourceFactory{
 //			return ds;
 //		}
 
-		// 使用commons-dbcp进行简单的连接池数据源。
+		
 		BasicDataSource bds = new BasicDataSource();
 		String driverClassName=PropertyJDBC.getDBDriver();
 		bds.setDriverClassName(driverClassName);
