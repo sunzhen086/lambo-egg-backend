@@ -4,33 +4,7 @@
 ##第一步：部署和配置
 
    ###(1)定时器的使用必须依赖lambo-schedule-client
-   ###(2)配置web.xml
-  在web.xml文件中添加：
-  ```java
-  	<servlet-name>LoadOnStartupServlet</servlet-name>
-  		<servlet-class>org.loushang.commons.schedule.web.LoadCrontabServlet</servlet-class>
-  		<init-param>
-  			<param-name>PROPERTIES_FILE</param-name>
-  			<param-value>schedule.properties</param-value>
-  		</init-param>
-  		<load-on-startup>1</load-on-startup>
-  	</servlet>
-  ```
- ###(2)配置数据源
-数据库的数据源支持两种配置方式：
-
-  ```java
-    #直接方式
-    #lambo.schedule.jdbc.datasource.driverClassName=com.mysql.jdbc.Driver
-    #lambo.schedule.jdbc.datasource.url=jdbc:mysql://127.0.0.1:3306/test
-    #lambo.schedule.jdbc.datasource.username=root
-    #lambo.schedule.jdbc.datasource.password=root
-    #lambo.schedule.jdbc.datasource.maxActive=20
-    
-    #spring datasource方式（推荐使用）
-    lambo.schedule.jdbc.springDatasource.beanId=dataSource
-  ```
- ##第二步：意事项
+ ##第二步：注意事项
  ###1、	集群环境下只能启动一个定时器，lambo-egg定时器默认是启动，不启动定时器方法：在jvm中设置：-Dschedule.start=false
  ###2、任务名不可重复
  ###3、小时的范围为0-23，周的范围为0-6,分钟的范围0-59
