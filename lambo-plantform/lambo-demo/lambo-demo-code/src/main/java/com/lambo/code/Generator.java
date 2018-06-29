@@ -14,9 +14,9 @@ public class Generator {
 	private static String JDBC_USERNAME = "root";
 	private static String JDBC_PASSWORD = "root";
 	private static String DATABASE = "test";
-	private static String TABLE = "test_user1";
+	private static String TABLE = "test_user";
 	private static String LAST_INSERT_ID_TABLES = "user_id";//主键
-	private static Boolean IS_AUTO_INC = false;//是否自增
+	private static Boolean IS_AUTO_INC = true;//是否自增
 
 	private static String PACKAGE_NAME = "com.lambo.code";
 
