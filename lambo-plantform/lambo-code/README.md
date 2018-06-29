@@ -30,7 +30,6 @@ public class Generator {
     private static Boolean IS_AUTO_INC = false;//是否自增
     
     private static String PACKAGE_NAME = "com.lambo.code";//类的包路径
-    private static String MODULE = "LamboCm";//组件名称
     
     /**
      * 自动代码生成
@@ -46,8 +45,7 @@ public class Generator {
             TABLE, 
             LAST_INSERT_ID_TABLES,
             IS_AUTO_INC,
-            PACKAGE_NAME, 
-            MODULE
+            PACKAGE_NAME
         );
     }
 }
@@ -61,10 +59,6 @@ public class Generator {
 ========== 结束生成generatorConfig.xml文件 ==========
 ========== 开始运行MybatisGenerator ==========
 ========== 结束运行MybatisGenerator ==========
-========== 开始生成Constant ==========
-D:/workspace/lambo-egg-backend/lambo-plantform/lambo-code/lambo-code-client/src/main/java/com/lambo/code/constant/LamboCodeResult.java
-D:/workspace/lambo-egg-backend/lambo-plantform/lambo-code/lambo-code-client/src/main/java/com/lambo/code/constant/LamboCodeResultConstant.java
-========== 结束生成Constant ==========
 ========== 开始生成Service,Controller,Vue ==========
 D:/workspace/lambo-egg-backend/lambo-plantform/lambo-code/lambo-code-client/src/main/java/com/lambo/code/service/api/TestUserService.java
 D:/workspace/lambo-egg-backend/lambo-plantform/lambo-code/lambo-code-client/src/main/java/com/lambo/code/service/impl/TestUserServiceImpl.java
