@@ -1,7 +1,5 @@
 # V6集成客户端
 
-------------
-
 本客户端实现了与V6的集成，使用方式如下：
 * 在应用resources目录下新建lambo-sso-v6-client.properties配置文件
 ```properties

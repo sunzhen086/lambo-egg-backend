@@ -44,20 +44,21 @@
 
         <!-- 数据库连接 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://10.10.10.136:3306/lambo"
+                        connectionURL="jdbc:mysql://10.10.10.136:3306/test"
                         userId="root"
                         password="root" />
 
         <!-- model生成 -->
-        <javaModelGenerator targetPackage="com.lambo.demo.sample.dao.model" targetProject="E:/github/lambo-egg/lambo-demo/src/main/java" />
+        <javaModelGenerator targetPackage="com.lambo.demo.dao.model" targetProject="E:/github/lambo-egg/lambo-plantform/lambo-demo/lambo-demo-sample/src/main/java" />
 
         <!-- MapperXML生成 -->
-        <sqlMapGenerator targetPackage="com.lambo.demo.sample.dao.mapper" targetProject="E:/github/lambo-egg/lambo-demo/src/main/java" />
+        <sqlMapGenerator targetPackage="com.lambo.demo.dao.mapper" targetProject="E:/github/lambo-egg/lambo-plantform/lambo-demo/lambo-demo-sample/src/main/java" />
 
         <!-- Mapper接口生成 -->
-        <javaClientGenerator targetPackage="com.lambo.demo.sample.dao.mapper" targetProject="E:/github/lambo-egg/lambo-demo/src/main/java" type="XMLMAPPER" />
+        <javaClientGenerator targetPackage="com.lambo.demo.dao.mapper" targetProject="E:/github/lambo-egg/lambo-plantform/lambo-demo/lambo-demo-sample/src/main/java" type="XMLMAPPER" />
 
         <!-- 需要映射的表 -->
-                                    <table tableName="upms_log" domainObjectName="LogDemo"></table>
-                        </context>
+                    <table tableName="rest_setting" domainObjectName="RestSetting">
+                            </table>
+            </context>
 </generatorConfiguration>
