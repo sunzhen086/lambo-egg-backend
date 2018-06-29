@@ -40,7 +40,6 @@
     #set($common='$')
     import util from '@/libs/util.js';
     export default {
-        name: 'testUserEdit',
         data () {
             return {
                 formData: {

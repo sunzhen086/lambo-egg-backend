@@ -77,8 +77,7 @@ public class MybatisGeneratorUtil {
 			String table_name,
 			String table_key,
 			boolean is_auto_inc,
-			String package_name,
-			String module) throws Exception{
+			String package_name) throws Exception{
 
 		String os = System.getProperty("os.name");
 		if (os.toLowerCase().startsWith("win")) {
@@ -105,6 +104,7 @@ public class MybatisGeneratorUtil {
 			editVue_vm = MybatisGeneratorUtil.class.getResource(editVue_vm).getPath();
 		}
 
+		String ctime = new SimpleDateFormat("yyyy/M/d").format(new Date());
 		String basePath = MybatisGeneratorUtil.class.getResource("/").getPath().replace("/target/classes/", "").replaceFirst("/", "");
 		String generatorConfig_xml = (MybatisGeneratorUtil.class.getResource("/").getPath().replace("/target/classes/", "") + "/src/main/resources/generatorConfig.xml").replaceFirst("/", "");
 		String sql = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '" + database + "' AND TABLE_NAME = '" + table_name + "';";
@@ -120,8 +120,10 @@ public class MybatisGeneratorUtil {
 			List<Map> result = jdbcUtil.selectByParams(sql, null);
 			for (Map map : result) {
 				table = new HashMap<>();
-				table.put("table_name", map.get("TABLE_NAME"));
-				table.put("model_name", StringUtils.lineToHump(ObjectUtils.toString(map.get("TABLE_NAME"))));
+				Object tableName = map.get("TABLE_NAME");
+				String moduleName = StringUtils.lineToHump(ObjectUtils.toString(tableName));
+				table.put("table_name", tableName);
+				table.put("model_name", moduleName);
 				if(is_auto_inc){
 					table.put("table_key",table_key);
 				}
@@ -138,6 +140,11 @@ public class MybatisGeneratorUtil {
 				}
 				table.put("columns",columns);
 				tables.add(table);
+				// 删除旧代码
+				deleteDir(new File(basePath + "/src/main/java/" + package_name.replaceAll("\\.", "/") + "/dao/model/" + moduleName + ".java"));
+				deleteDir(new File(basePath + "/src/main/java/" + package_name.replaceAll("\\.", "/") + "/dao/model/" + moduleName + "Example.java"));
+				deleteDir(new File(basePath + "/src/main/java/" + package_name.replaceAll("\\.", "/") + "/dao/mapper/" + moduleName + "Mapper.java"));
+				deleteDir(new File(basePath + "/src/main/java/" + package_name.replaceAll("\\.", "/") + "/dao/mapper/" + moduleName + "Mapper.xml"));
 			}
 			jdbcUtil.release();
 
@@ -152,10 +159,6 @@ public class MybatisGeneratorUtil {
 			context.put("generator_jdbc_username", jdbc_username);
 			context.put("generator_jdbc_password", jdbc_password);
 			VelocityUtil.generate(generatorConfig_vm, generatorConfig_xml, context);
-			// 删除旧代码
-			deleteDir(new File(basePath + "/src/main/java/" + package_name.replaceAll("\\.", "/") + "/dao/model"));
-			deleteDir(new File(basePath + "/src/main/java/" + package_name.replaceAll("\\.", "/") + "/dao/mapper"));
-			deleteDir(new File(basePath + "/src/main/java/" + package_name.replaceAll("\\.", "/") + "/dao/mapper"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -174,8 +177,7 @@ public class MybatisGeneratorUtil {
 		}
 		System.out.println("========== 结束运行MybatisGenerator ==========");
 
-		System.out.println("========== 开始生成Constant ==========");
-		String ctime = new SimpleDateFormat("yyyy/M/d").format(new Date());
+		/*System.out.println("========== 开始生成Constant ==========");
 		String resultPatch = basePath  + "/src/main/java/" + package_name.replaceAll("\\.", "/") + "/constant";
 
 		String result = resultPatch + "/" + module + "Result.java";
@@ -202,7 +204,7 @@ public class MybatisGeneratorUtil {
 			VelocityUtil.generate(resultConstant_vm, resultConstant, context);
 			System.out.println(resultConstant);
 		}
-		System.out.println("========== 结束生成Constant ==========");
+		System.out.println("========== 结束生成Constant ==========");*/
 
 		System.out.println("========== 开始生成Service,Controller,Vue ==========");
 		String servicePath = basePath + "/src/main/java/" + package_name.replaceAll("\\.", "/") + "/service/api";
@@ -257,7 +259,7 @@ public class MybatisGeneratorUtil {
 				context.put("package_name", package_name);
 				context.put("model", model);
 				context.put("modelV", StringUtils.toLowerCaseFirstOne(model));
-				context.put("module", module);
+				//context.put("module", module);
 				context.put("search",StringUtils.lineToHump(table_key));
 				context.put("pk",StringUtils.toLowerCaseFirstOne(StringUtils.lineToHump(table_key)));
 				context.put("is_auto_inc",is_auto_inc);
