@@ -49,8 +49,8 @@ public class MQConsumerUtil {
         DefaultMQPushConsumer consumer = null;
         String nameServerAddr = null, comsumerGroup = null;
         try {
-            nameServerAddr = PropertiesFileUtil.getInstance("MQcomsumer").get("nameServer.addr");
-            comsumerGroup = PropertiesFileUtil.getInstance("MQcomsumer").get("group.name");
+            nameServerAddr = PropertiesFileUtil.getInstance("MQconsumer").get("nameServer.addr");
+            comsumerGroup = PropertiesFileUtil.getInstance("MQconsumer").get("group.name");
         } catch (Exception e) {
             logger.error("获取MQcomsumer配置文件异常", e);
         }
