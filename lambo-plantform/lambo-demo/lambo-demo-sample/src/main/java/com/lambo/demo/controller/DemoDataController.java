@@ -5,13 +5,12 @@ import com.github.pagehelper.PageInfo;
 import com.lambo.common.annotation.EnableExportTable;
 import com.lambo.common.annotation.LogAround;
 import com.lambo.common.base.BaseController;
+import com.lambo.common.base.BaseResult;
+import com.lambo.common.base.BaseResultConstant;
 import com.lambo.common.utils.lang.StringUtils;
-import com.lambo.demo.constant.DemoResult;
-import com.lambo.demo.constant.DemoResultConstant;
 import com.lambo.demo.model.DemoLogExample;
 import com.lambo.demo.model.DemoLog;
 import com.lambo.demo.service.api.DemoLogService;
-import com.lambo.demo.service.api.RpcTestService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -38,8 +37,6 @@ public class DemoDataController extends BaseController {
     @Autowired
     private DemoLogService demoLogService;
 
-    @Autowired
-    private RpcTestService rpcTestService;
 
     @ApiOperation(value = "列表数据")
     @RequestMapping(value = "/list",method = RequestMethod.GET)
@@ -72,7 +69,7 @@ public class DemoDataController extends BaseController {
         Map<String, Object> result = new HashMap<>();
         result.put(RESULT_ROWS, page.getList());
         result.put(RESULT_TOTLAL, page.getTotal());
-        return new DemoResult(DemoResultConstant.SUCCESS,result);
+        return new BaseResult(BaseResultConstant.SUCCESS,result);
     }
 
     @ApiOperation(value = "列表数据导出")
@@ -87,7 +84,7 @@ public class DemoDataController extends BaseController {
             @RequestParam(required = false, value = "sort") String sort,
             @RequestParam(required = false, value = "order") String order) {
 
-        DemoResult result = (DemoResult)list(offset,limit,search,sort,order);
+        BaseResult result = (BaseResult)list(offset,limit,search,sort,order);
         return (Map)result.data;
     }
 
@@ -96,13 +93,6 @@ public class DemoDataController extends BaseController {
     @ResponseBody
     public Object delete(@PathVariable("ids") String ids) {
         int count = demoLogService.deleteByPrimaryKeys(ids);
-        return new DemoResult(DemoResultConstant.SUCCESS, count);
-    }
-
-    @ApiOperation(value = "测试服务")
-    @RequestMapping(value = "/sayHello/{name}", method = RequestMethod.GET)
-    @ResponseBody
-    public Object sayHello(@PathVariable("name") String name) {
-        return new DemoResult(DemoResultConstant.SUCCESS, rpcTestService.sayHello(name));
+        return new BaseResult(BaseResultConstant.SUCCESS, count);
     }
 }

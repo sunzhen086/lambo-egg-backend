@@ -5,9 +5,9 @@ import com.github.pagehelper.PageInfo;
 import com.lambo.common.annotation.EnableExportTable;
 import com.lambo.common.annotation.LogAround;
 import com.lambo.common.base.BaseController;
+import com.lambo.common.base.BaseResult;
+import com.lambo.common.base.BaseResultConstant;
 import com.lambo.common.utils.lang.StringUtils;
-import com.lambo.demo.constant.DemoResult;
-import com.lambo.demo.constant.DemoResultConstant;
 import com.lambo.upms.client.dao.model.UpmsOrganization;
 import com.lambo.upms.client.dao.model.UpmsOrganizationExample;
 import com.lambo.upms.client.service.api.UpmsClientApiService;
@@ -65,7 +65,7 @@ public class HelpBoxDataController extends BaseController {
         Map<String, Object> result = new HashMap<>();
         result.put(RESULT_ROWS, page.getList());
         result.put(RESULT_TOTLAL, page.getTotal());
-        return new DemoResult(DemoResultConstant.SUCCESS,result);
+        return new BaseResult(BaseResultConstant.SUCCESS,result);
     }
 
     @ApiOperation(value = "组织帮助框示例数据导出")
@@ -80,7 +80,7 @@ public class HelpBoxDataController extends BaseController {
             @RequestParam(required = false, value = "sort") String sort,
             @RequestParam(required = false, value = "order") String order) {
 
-        DemoResult result = (DemoResult)list(offset,limit,search,sort,order);
+        BaseResult result = (BaseResult)list(offset,limit,search,sort,order);
         return (Map)result.data;
     }
 }

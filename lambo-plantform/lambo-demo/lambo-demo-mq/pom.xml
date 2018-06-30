@@ -4,14 +4,14 @@
 
     <parent>
         <groupId>com.lambo</groupId>
-        <artifactId>lambo-demo-rpc</artifactId>
+        <artifactId>lambo-demo</artifactId>
         <version>1.0.0</version>
     </parent>
 
-    <artifactId>lambo-demo-rpc-consumer</artifactId>
+    <artifactId>lambo-demo-mq</artifactId>
     <packaging>war</packaging>
 
-    <name>lambo-demo-rpc-consumer Maven Webapp</name>
+    <name>lambo-demo-mq Maven Webapp</name>
     <url>http://stomz.com</url>
 
     <dependencies>
@@ -27,12 +27,7 @@
         </dependency>
         <dependency>
             <groupId>com.lambo</groupId>
-            <artifactId>lambo-demo-rpc-api</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.lambo</groupId>
-            <artifactId>lambo-rpc-dubbo-client</artifactId>
+            <artifactId>lambo-mq-client</artifactId>
             <version>1.0.0</version>
         </dependency>
         <!-- servlet -->
@@ -75,7 +70,7 @@
     </profiles>
 
     <build>
-        <finalName>lambo-demo-rpc-consumer</finalName>
+        <finalName>lambo-demo-mq</finalName>
         <filters>
             <filter>src/main/resources/profiles/${env}.properties</filter>
         </filters>
@@ -113,10 +108,10 @@
                 <version>9.2.7.v20150116</version>
                 <configuration>
                     <webApp>
-                        <contextPath>/demo-consumer-server</contextPath>
+                        <contextPath>/demo-mq-server</contextPath>
                     </webApp>
                     <httpConnector>
-                        <port>9633</port>
+                        <port>9641</port>
                     </httpConnector>
                 </configuration>
             </plugin>
