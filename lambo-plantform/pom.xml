@@ -30,5 +30,6 @@
         <module>lambo-code</module>
         <module>lambo-schedule</module>
         <module>lambo-rpc</module>
+        <module>lambo-dict</module>
     </modules>
 </project>
