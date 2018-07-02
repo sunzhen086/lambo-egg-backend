@@ -4,7 +4,7 @@ import com.lambo.common.base.BaseResult;
 
 /**
  * 系统常量枚举类
- * Created by lambo on ${ctime}.
+ * Author ${author} on ${ctime}.
  */
 public class ${module}Result extends BaseResult {
 

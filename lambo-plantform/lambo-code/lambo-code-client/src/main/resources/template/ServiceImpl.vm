@@ -14,10 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
 * ${model}Service实现
-* Created by lambo on ${ctime}.
+* Author ${author} on ${ctime}.
 */
 @Service
-@Transactional
 @BaseService
 public class ${model}ServiceImpl extends BaseServiceImpl<${model}Mapper, ${model}, ${model}Example> implements ${model}Service {
 

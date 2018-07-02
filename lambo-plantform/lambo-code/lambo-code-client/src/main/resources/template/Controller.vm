@@ -23,7 +23,7 @@ import java.util.Map;
 
 /**
  * ${model}controller
- * Created by lambo on ${ctime}.
+ * Author ${author} on ${ctime}.
  */
 @Controller
 @RequestMapping("/manage/${modelV}")
