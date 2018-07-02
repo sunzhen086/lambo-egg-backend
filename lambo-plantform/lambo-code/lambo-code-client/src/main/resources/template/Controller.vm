@@ -96,7 +96,7 @@ public class ${model}Controller extends BaseController {
     public Object get(@PathVariable("${pk}") String ${pk}) {
         ${model}Example ${modelV}Example = new ${model}Example();
         ${modelV}Example.or().and${search}EqualTo(${pk});
-        return ${modelV}Example.selectFirstByExample(${modelV}Example);
+        return ${modelV}Service.selectFirstByExample(${modelV}Example);
     }
     #end
 
