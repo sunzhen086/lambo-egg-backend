@@ -4,6 +4,7 @@ import com.lambo.common.utils.io.PropertiesFileUtil;
 import com.lambo.common.utils.spring.SpringContextUtil;
 import com.lambo.mq.client.model.MqCompensate;
 import com.lambo.mq.client.service.api.MqCompensateService;
+import org.apache.commons.lang.StringUtils;
 import org.apache.rocketmq.client.exception.MQBrokerException;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
@@ -81,7 +82,7 @@ public class MQProducterUtil {
      * @throws MQClientException
      * @throws MQBrokerException
      */
-    public static void send(Message msg) throws InterruptedException, RemotingException, MQClientException, MQBrokerException {
+    public static void send(Message msg)  {
         if (msg == null) {
             return;
         }
@@ -191,19 +192,24 @@ public class MQProducterUtil {
      * @param cause
      */
     private static void persistenceMessage(Message msg, String cause) {
+        if(StringUtils.isNotBlank(cause)){
+            cause = cause.replace(",","-");
+            cause = cause.replaceAll("(\r\n|\r|\n|\n\r)",". ");
+        }
         logger.info("开始持久化消息...");
         try {
             MqCompensate mqCompensate = new MqCompensate();
             mqCompensate.setTopic(msg.getTopic());
             mqCompensate.setTag(msg.getTags());
-            mqCompensate.setKeys(msg.getKeys());
+            mqCompensate.setMessageKeys(msg.getKeys());
             mqCompensate.setMessage(new String(msg.getBody(), RemotingHelper.DEFAULT_CHARSET));
             mqCompensate.setCause(cause);
-            mqCompensate.setStatus("0");
+            mqCompensate.setCompensateStatus("0");
             mqCompensate.setCreateDate(new Date());
-            mqCompensateService.insert(mqCompensate);
+            mqCompensateService.insertMqCompenstate(mqCompensate);
         } catch (Exception e) {
             logger.error("持久化消息失败", e);
+            return ;
         }
         logger.info("持久化消息成功");
 

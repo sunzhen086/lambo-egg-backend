@@ -9,9 +9,9 @@ public class MqCompensate {
 
     private String tag;
 
-    private String keys;
+    private String messageKeys;
 
-    private String status;
+    private String compensateStatus;
 
     private String cause;
 
@@ -43,22 +43,6 @@ public class MqCompensate {
         this.tag = tag == null ? null : tag.trim();
     }
 
-    public String getKeys() {
-        return keys;
-    }
-
-    public void setKeys(String keys) {
-        this.keys = keys == null ? null : keys.trim();
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status == null ? null : status.trim();
-    }
-
     public String getCause() {
         return cause;
     }
@@ -83,6 +67,23 @@ public class MqCompensate {
         this.message = message == null ? null : message.trim();
     }
 
+
+    public String getMessageKeys() {
+        return messageKeys;
+    }
+
+    public void setMessageKeys(String messageKeys) {
+        this.messageKeys = messageKeys;
+    }
+
+    public String getCompensateStatus() {
+        return compensateStatus;
+    }
+
+    public void setCompensateStatus(String compensateStatus) {
+        this.compensateStatus = compensateStatus;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -92,8 +93,8 @@ public class MqCompensate {
         sb.append(", id=").append(id);
         sb.append(", topic=").append(topic);
         sb.append(", tag=").append(tag);
-        sb.append(", keys=").append(keys);
-        sb.append(", status=").append(status);
+        sb.append(", messageKeys=").append(messageKeys);
+        sb.append(", compensateStatus=").append(compensateStatus);
         sb.append(", cause=").append(cause);
         sb.append(", createDate=").append(createDate);
         sb.append(", message=").append(message);
