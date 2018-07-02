@@ -18,6 +18,12 @@ public Object sendMessage(@RequestParam(value = "data") String data){
 }
 ```
 
+MQProducterUtil根据消息的一致性要求提供了两种方法
+* MQProducterUtil.send 失败有补偿，补偿的方法见lambo-mq-server
+* MQProducterUtil.sendOneway 失败无补偿
+
+
+
 
 ### MQConsumerUtil 消息消费者工具
 
@@ -48,3 +54,15 @@ public void ConsumeMessage(){
     logger.info("MQ消费者示例方法-------结束");
 }
 ```
+
+消费者需要在应用启动时运行，有一下两种方式实现方法在应用启动时运行
+
+1. 配置文件形式（推荐）
+    新建applicationContext-listener.xml文件
+```xml
+<bean class="com.lambo.demo.mq.service.MqConsumerTestService" init-method="ConsumeMessage">
+</bean>
+```
+
+2. 注解形式
+    使用@PostConstruct注解方法
