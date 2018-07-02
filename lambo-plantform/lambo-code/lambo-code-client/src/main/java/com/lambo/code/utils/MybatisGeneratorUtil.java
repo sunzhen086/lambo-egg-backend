@@ -177,35 +177,6 @@ public class MybatisGeneratorUtil {
 		}
 		System.out.println("========== 结束运行MybatisGenerator ==========");
 
-		/*System.out.println("========== 开始生成Constant ==========");
-		String resultPatch = basePath  + "/src/main/java/" + package_name.replaceAll("\\.", "/") + "/constant";
-
-		String result = resultPatch + "/" + module + "Result.java";
-		String resultConstant = resultPatch + "/" + module + "ResultConstant.java";
-		// 生成result
-		File resultFile = new File(result);
-		if (!resultFile.exists()) {
-			VelocityContext context = new VelocityContext();
-			context.put("package_name", package_name);
-			context.put("module", module);
-			context.put("moduleV", StringUtils.toLowerCaseFirstOne(module));
-			context.put("ctime", ctime);
-			VelocityUtil.generate(result_vm, result, context);
-			System.out.println(result);
-		}
-
-		// 生成resultConstant
-		File resultConstantFile = new File(resultConstant);
-		if (!resultConstantFile.exists()) {
-			VelocityContext context = new VelocityContext();
-			context.put("package_name", package_name);
-			context.put("module", module);
-			context.put("ctime", ctime);
-			VelocityUtil.generate(resultConstant_vm, resultConstant, context);
-			System.out.println(resultConstant);
-		}
-		System.out.println("========== 结束生成Constant ==========");*/
-
 		System.out.println("========== 开始生成Service,Controller,Vue ==========");
 		String servicePath = basePath + "/src/main/java/" + package_name.replaceAll("\\.", "/") + "/service/api";
 		String serviceImplPath = basePath  + "/src/main/java/" + package_name.replaceAll("\\.", "/") + "/service/impl";
@@ -215,7 +186,6 @@ public class MybatisGeneratorUtil {
 		for (int i = 0; i < tables.size(); i++) {
 			String model = StringUtils.lineToHump(ObjectUtils.toString(tables.get(i).get("table_name")));
 			String service = servicePath + "/" + model + "Service.java";
-			//String serviceMock = servicePath + "/" + model + "ServiceMock.java";
 			String serviceImpl = serviceImplPath + "/" + model + "ServiceImpl.java";
 			String controller = controllerPath + "/" + model + "Controller.java";
 			String queryVue = vuePath + "/" + model + "Query.vue";
@@ -231,16 +201,6 @@ public class MybatisGeneratorUtil {
 				VelocityUtil.generate(service_vm, service, context);
 				System.out.println(service);
 			}
-			// 生成serviceMock
-			/*File serviceMockFile = new File(serviceMock);
-			if (!serviceMockFile.exists()) {
-				VelocityContext context = new VelocityContext();
-				context.put("package_name", package_name);
-				context.put("model", model);
-				context.put("ctime", ctime);
-				VelocityUtil.generate(serviceMock_vm, serviceMock, context);
-				System.out.println(serviceMock);
-			}*/
 			// 生成serviceImpl
 			File serviceImplFile = new File(serviceImpl);
 			if (!serviceImplFile.exists()) {
