@@ -77,7 +77,8 @@ public class MybatisGeneratorUtil {
 			String table_name,
 			String table_key,
 			boolean is_auto_inc,
-			String package_name) throws Exception{
+			String package_name,
+			String author) throws Exception{
 
 		String os = System.getProperty("os.name");
 		if (os.toLowerCase().startsWith("win")) {
@@ -103,7 +104,9 @@ public class MybatisGeneratorUtil {
 			queryVue_vm = MybatisGeneratorUtil.class.getResource(queryVue_vm).getPath();
 			editVue_vm = MybatisGeneratorUtil.class.getResource(editVue_vm).getPath();
 		}
-
+		if(author == null || "".equals(author)){
+			author = "lambo";
+		}
 		String ctime = new SimpleDateFormat("yyyy/M/d").format(new Date());
 		String basePath = MybatisGeneratorUtil.class.getResource("/").getPath().replace("/target/classes/", "").replaceFirst("/", "");
 		String generatorConfig_xml = (MybatisGeneratorUtil.class.getResource("/").getPath().replace("/target/classes/", "") + "/src/main/resources/generatorConfig.xml").replaceFirst("/", "");
@@ -175,6 +178,7 @@ public class MybatisGeneratorUtil {
 		for (String warning : warnings) {
 			System.out.println(warning);
 		}
+		deleteDir(new File(generatorConfig_xml));
 		System.out.println("========== 结束运行MybatisGenerator ==========");
 
 		System.out.println("========== 开始生成Service,Controller,Vue ==========");
@@ -192,68 +196,54 @@ public class MybatisGeneratorUtil {
 			String editVue = vuePath + "/" + model + "Edit.vue";
 
 			// 生成service
-			File serviceFile = new File(service);
-			if (!serviceFile.exists()) {
-				VelocityContext context = new VelocityContext();
-				context.put("package_name", package_name);
-				context.put("model", model);
-				context.put("ctime", ctime);
-				VelocityUtil.generate(service_vm, service, context);
-				System.out.println(service);
-			}
+			VelocityContext serviceFile = new VelocityContext();
+			serviceFile.put("package_name", package_name);
+			serviceFile.put("model", model);
+			serviceFile.put("ctime", ctime);
+			serviceFile.put("author",author);
+			VelocityUtil.generate(service_vm, service, serviceFile);
+			System.out.println(service);
 			// 生成serviceImpl
-			File serviceImplFile = new File(serviceImpl);
-			if (!serviceImplFile.exists()) {
-				VelocityContext context = new VelocityContext();
-				context.put("package_name", package_name);
-				context.put("model", model);
-				context.put("mapper", StringUtils.toLowerCaseFirstOne(model));
-				context.put("ctime", ctime);
-				VelocityUtil.generate(serviceImpl_vm, serviceImpl, context);
-				System.out.println(serviceImpl);
-			}
+			VelocityContext serviceImplFile = new VelocityContext();
+			serviceImplFile.put("package_name", package_name);
+			serviceImplFile.put("model", model);
+			serviceImplFile.put("mapper", StringUtils.toLowerCaseFirstOne(model));
+			serviceImplFile.put("ctime", ctime);
+			serviceImplFile.put("author",author);
+			VelocityUtil.generate(serviceImpl_vm, serviceImpl, serviceImplFile);
+			System.out.println(serviceImpl);
 			// 生成controller
-			File controllerFile = new File(controller);
-			if (!controllerFile.exists()) {
-				VelocityContext context = new VelocityContext();
-				context.put("package_name", package_name);
-				context.put("model", model);
-				context.put("modelV", StringUtils.toLowerCaseFirstOne(model));
-				//context.put("module", module);
-				context.put("search",StringUtils.lineToHump(table_key));
-				context.put("pk",StringUtils.toLowerCaseFirstOne(StringUtils.lineToHump(table_key)));
-				context.put("is_auto_inc",is_auto_inc);
-				context.put("columns",tables.get(i).get("columns"));
-				context.put("ctime", ctime);
-				VelocityUtil.generate(controller_vm, controller, context);
-				System.out.println(controller);
-			}
-
+			VelocityContext controllerFile = new VelocityContext();
+			controllerFile.put("package_name", package_name);
+			controllerFile.put("model", model);
+			controllerFile.put("modelV", StringUtils.toLowerCaseFirstOne(model));
+			controllerFile.put("search",StringUtils.lineToHump(table_key));
+			controllerFile.put("pk",StringUtils.toLowerCaseFirstOne(StringUtils.lineToHump(table_key)));
+			controllerFile.put("is_auto_inc",is_auto_inc);
+			controllerFile.put("columns",tables.get(i).get("columns"));
+			controllerFile.put("ctime", ctime);
+			controllerFile.put("author",author);
+			VelocityUtil.generate(controller_vm, controller, controllerFile);
+			System.out.println(controller);
 
 			// 生成queryVue
-			File queryVueFile = new File(queryVue);
-			if (!queryVueFile.exists()) {
-				VelocityContext context = new VelocityContext();
-				context.put("modelV", StringUtils.toLowerCaseFirstOne(model));
-				context.put("pk",StringUtils.toLowerCaseFirstOne(StringUtils.lineToHump(table_key)));
-				context.put("is_auto_inc",is_auto_inc);
-				context.put("columns",tables.get(i).get("columns"));
-				VelocityUtil.generate(queryVue_vm, queryVue, context);
-				System.out.println(queryVue);
-			}
+			VelocityContext queryVueFile = new VelocityContext();
+			queryVueFile.put("modelV", StringUtils.toLowerCaseFirstOne(model));
+			queryVueFile.put("pk",StringUtils.toLowerCaseFirstOne(StringUtils.lineToHump(table_key)));
+			queryVueFile.put("is_auto_inc",is_auto_inc);
+			queryVueFile.put("columns",tables.get(i).get("columns"));
+			VelocityUtil.generate(queryVue_vm, queryVue, queryVueFile);
+			System.out.println(queryVue);
 
 			// 生成editVue
-			File editFile = new File(editVue);
-			if (!editFile.exists()) {
-				VelocityContext context = new VelocityContext();
-				context.put("title", table_name);
-				context.put("modelV", StringUtils.toLowerCaseFirstOne(model));
-				context.put("pk",StringUtils.toLowerCaseFirstOne(StringUtils.lineToHump(table_key)));
-				context.put("is_auto_inc",is_auto_inc);
-				context.put("columns",tables.get(i).get("columns"));
-				VelocityUtil.generate(editVue_vm, editVue, context);
-				System.out.println(editVue);
-			}
+			VelocityContext editFile = new VelocityContext();
+			editFile.put("title", table_name);
+			editFile.put("modelV", StringUtils.toLowerCaseFirstOne(model));
+			editFile.put("pk",StringUtils.toLowerCaseFirstOne(StringUtils.lineToHump(table_key)));
+			editFile.put("is_auto_inc",is_auto_inc);
+			editFile.put("columns",tables.get(i).get("columns"));
+			VelocityUtil.generate(editVue_vm, editVue, editFile);
+			System.out.println(editVue);
 
 			String modelV = StringUtils.toLowerCaseFirstOne(model);
 			String str = "import "+modelV+"Query from '@/components/"+modelV+"/"+model+"Query';\n";

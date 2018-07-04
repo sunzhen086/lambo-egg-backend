@@ -30,6 +30,7 @@ public class Generator {
     private static Boolean IS_AUTO_INC = false;//是否自增
     
     private static String PACKAGE_NAME = "com.lambo.code";//类的包路径
+    private static String AUTHOR = "wangjierj";
     
     /**
      * 自动代码生成
@@ -45,7 +46,8 @@ public class Generator {
             TABLE, 
             LAST_INSERT_ID_TABLES,
             IS_AUTO_INC,
-            PACKAGE_NAME
+            PACKAGE_NAME,
+            AUTHOR
         );
     }
 }
