@@ -21,7 +21,6 @@
     <modules>
         <module>lambo-demo-sample</module>
         <module>lambo-demo-rpc</module>
-        <module>lambo-demo-code</module>
         <module>lambo-demo-mq</module>
     </modules>
 </project>

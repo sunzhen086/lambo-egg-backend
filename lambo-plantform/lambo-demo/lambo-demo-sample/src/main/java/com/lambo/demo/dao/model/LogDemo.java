@@ -1,4 +1,4 @@
-package com.lambo.demo.sample.dao.model;
+package com.lambo.demo.dao.model;
 
 import java.io.Serializable;
 

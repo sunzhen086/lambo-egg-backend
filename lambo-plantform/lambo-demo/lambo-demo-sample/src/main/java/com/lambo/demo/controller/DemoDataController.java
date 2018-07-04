@@ -8,8 +8,8 @@ import com.lambo.common.base.BaseController;
 import com.lambo.common.base.BaseResult;
 import com.lambo.common.base.BaseResultConstant;
 import com.lambo.common.utils.lang.StringUtils;
-import com.lambo.demo.model.DemoLogExample;
-import com.lambo.demo.model.DemoLog;
+import com.lambo.demo.dao.model.LogDemo;
+import com.lambo.demo.dao.model.LogDemoExample;
 import com.lambo.demo.service.api.DemoLogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -48,7 +48,7 @@ public class DemoDataController extends BaseController {
             @RequestParam(required = false, value = "sort") String sort,
             @RequestParam(required = false, value = "order") String order) {
 
-        DemoLogExample demoLogExample = new DemoLogExample();
+        LogDemoExample demoLogExample = new LogDemoExample();
         if(StringUtils.isBlank(sort)){
             sort = "startTime";
         }
@@ -63,7 +63,7 @@ public class DemoDataController extends BaseController {
 
         //物理分页
         PageHelper.offsetPage(offset, limit);
-        List<DemoLog> data = demoLogService.selectByExample(demoLogExample);
+        List<LogDemo> data = demoLogService.selectByExample(demoLogExample);
         PageInfo page = new PageInfo(data);
 
         Map<String, Object> result = new HashMap<>();
