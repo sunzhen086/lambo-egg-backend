@@ -41,6 +41,8 @@ Maven | 项目构建管理  | [http://maven.apache.org/](http://maven.apache.org
 
 > [示例模块](lambo-plantform/lambo-demo)
 
+> [数据字典模块](lambo-plantform/lambo-dict)
+
 ### 开发指南
 - 1、本机安装Jdk7+、Mysql并**启动相关服务**，使用默认配置默认端口即可
 - 2、克隆源代码到本地并打开，**推荐使用IntelliJ IDEA**，本地编译并安装到本地maven仓库

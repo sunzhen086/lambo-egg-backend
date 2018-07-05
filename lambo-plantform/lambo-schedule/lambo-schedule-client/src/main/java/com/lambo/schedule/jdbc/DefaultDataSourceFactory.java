@@ -2,6 +2,7 @@ package com.lambo.schedule.jdbc;
 
 import javax.sql.DataSource;
 
+import com.lambo.common.utils.codec.AESUtil;
 import org.apache.commons.dbcp.BasicDataSource;
 import com.lambo.schedule.PropertyJDBC;
 
@@ -24,14 +25,15 @@ public class DefaultDataSourceFactory extends DataSourceFactory{
 //			return ds;
 //		}
 
-		
+
 		BasicDataSource bds = new BasicDataSource();
 		String driverClassName=PropertyJDBC.getDBDriver();
 		bds.setDriverClassName(driverClassName);
 		bds.setUrl(PropertyJDBC.getDBUrl());
 		bds.setUsername(PropertyJDBC.getDBUser());
 		//bds.setPassword(PropertyJDBC.getDBPass());
-		bds.setPassword("root");
+
+		bds.setPassword(AESUtil.AESDecode(PropertyJDBC.getDBPass()));
 
 		bds.setMaxActive(50);
 
