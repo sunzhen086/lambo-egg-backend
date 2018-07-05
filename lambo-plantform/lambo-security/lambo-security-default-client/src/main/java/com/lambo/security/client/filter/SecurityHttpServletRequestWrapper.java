@@ -107,16 +107,8 @@ public class SecurityHttpServletRequestWrapper extends HttpServletRequestWrapper
     }
 
     private String securityEncode(String input) {
-        logger.info("input------------------>:"+input);
-        /**
-         * vue对xss有防护，这里暂时不打开
-         */
         input =  htmlFilter.filter(input);
-        /**
-         * 为了减少误杀，SQL注入风险的防范应通过dao层写预编译SQL的方式来实现
-         */
         input =  SQLFilter.sqlInject(input);
-        logger.info("output------------------>:"+input);
         return input;
     }
 
