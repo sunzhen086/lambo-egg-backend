@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>lambo-schedule-server</artifactId>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <name>lambo-schedule-server Maven Webapp</name>
     <url>http://stomz1.top</url>
