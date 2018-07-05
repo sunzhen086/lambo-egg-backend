@@ -31,5 +31,6 @@
         <module>lambo-schedule</module>
         <module>lambo-rpc</module>
         <module>lambo-dict</module>
+        <module>lambo-security</module>
     </modules>
 </project>

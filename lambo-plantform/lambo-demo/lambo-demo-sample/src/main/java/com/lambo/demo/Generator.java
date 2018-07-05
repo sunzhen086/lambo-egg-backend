@@ -8,7 +8,7 @@ import com.lambo.code.utils.MybatisGeneratorUtil;
  */
 public class Generator {
     private static String JDBC_DRIVER = "com.mysql.jdbc.Driver";//数据库驱动
-    private static String JDBC_URL = "jdbc:mysql://10.10.10.136:3306/test";//数据连接
+    private static String JDBC_URL = "jdbc:mysql://10.10.10.136:3306/lambo";//数据连接
     private static String JDBC_USERNAME = "root";//数据库用户
     private static String JDBC_PASSWORD = "root";//数据库密码
     private static String DATABASE = "test";//数据库名称

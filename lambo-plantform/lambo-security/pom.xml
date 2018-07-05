@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.lambo</groupId>
-    <artifactId>lambo-demo</artifactId>
+    <artifactId>lambo-security</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
 
-    <name>lambo-demo</name>
+    <name>lambo-security</name>
     <url>http://stomz.top</url>
 
     <properties>
@@ -19,8 +19,6 @@
     </properties>
 
     <modules>
-        <module>lambo-demo-sample</module>
-        <module>lambo-demo-rpc</module>
-        <module>lambo-demo-mq</module>
+        <module>lambo-security-default-client</module>
     </modules>
 </project>

@@ -1,7 +1,7 @@
-package com.lambo.demo.sample.dao.mapper;
+package com.lambo.demo.dao.mapper;
 
-import com.lambo.demo.sample.dao.model.LogDemo;
-import com.lambo.demo.sample.dao.model.LogDemoExample;
+import com.lambo.demo.dao.model.LogDemo;
+import com.lambo.demo.dao.model.LogDemoExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
