@@ -22,12 +22,6 @@
             <version>1.0.0</version>
             <type>jar</type>
         </dependency>
-        <dependency>
-            <groupId>com.lambo</groupId>
-            <artifactId>lambo-cache-redis</artifactId>
-            <version>1.0.0</version>
-            <type>jar</type>
-        </dependency>
         <!-- servlet -->
         <dependency>
             <groupId>javax.servlet</groupId>
