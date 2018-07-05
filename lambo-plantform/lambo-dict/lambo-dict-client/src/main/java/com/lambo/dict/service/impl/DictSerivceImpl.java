@@ -27,10 +27,9 @@ public class DictSerivceImpl implements DictService {
      * @param
      * @return
      */
-    @Cacheable(value="CacheForEver", key="#dictId")
+    @Cacheable(value="Cache600Seconds", key="'dictKeys'+#dictId")
     @Override
-    public  Map getDictData(String dictId){
-        Map data =new HashMap();
+    public  List getDictData(String dictId){
         List<Map<String,Object>> dataList=null;
          dataList=dictMapper.getDict(dictId);
         if(dataList!=null && dataList.size()>0){
@@ -41,14 +40,8 @@ public class DictSerivceImpl implements DictService {
             if(DICT_CACHE_TYPE.equals(dataType)){
                 dataList=dictMapper.getSqlDict(dataSql);
             }
-            for (Iterator iterator = dataList.iterator(); iterator.hasNext();) {
-                Map object = (Map) iterator.next();
-                String key=(String)object.get("K");
-                String value=(String)object.get("V");
-                data.put(key,value);
-            }
         }
-        return data;
+        return dataList;
     }
 
 

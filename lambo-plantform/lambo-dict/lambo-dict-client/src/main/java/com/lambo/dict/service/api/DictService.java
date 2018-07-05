@@ -3,7 +3,7 @@ package com.lambo.dict.service.api;
 
 
 
-import java.util.Map;
+import java.util.List;
 
 /**
  * @author zxc
@@ -18,6 +18,6 @@ public interface DictService {
      * @param
      * @return
      */
-  public  Map getDictData(String key);
+  public List getDictData(String key);
 
 }
