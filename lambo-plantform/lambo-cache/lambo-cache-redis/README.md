@@ -5,6 +5,34 @@
 如果redis里也没有则执行方法，同时将结果写入本地缓存和redis
 如果reids里有，则写到本地缓存同时返回结果
 
+### 配置文件
+
+需要增加redis.properties
+```properties
+
+master.redis.ip=${master.redis.ip}
+master.redis.port=${master.redis.port}
+master.redis.password=${master.redis.password}
+master.redis.max_active=${master.redis.max_active}
+master.redis.max_idle=${master.redis.max_idle}
+master.redis.max_wait=${master.redis.max_wait}
+master.redis.timeout=${master.redis.timeout}
+
+```
+在profiles中增加具体参数
+```properties
+
+##### redis ######
+master.redis.ip=10.10.10.136
+master.redis.port=6379
+master.redis.password=EsdFLCnihIJyoYjsmTgwCQ==
+master.redis.max_active=500
+master.redis.max_idle=5
+master.redis.max_wait=10000
+master.redis.timeout=10000
+
+```
+
 ### 使用说明
 
 * @Cacheable
