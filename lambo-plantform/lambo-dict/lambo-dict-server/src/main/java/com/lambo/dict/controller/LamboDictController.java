@@ -1,5 +1,8 @@
 package com.lambo.dict.controller;
 
+
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.lambo.common.annotation.EnableExportTable;
 import com.lambo.common.annotation.LogAround;
 import com.lambo.common.base.BaseController;
@@ -9,7 +12,6 @@ import com.lambo.common.utils.lang.StringUtils;
 import com.lambo.dict.dao.model.LamboDict;
 import com.lambo.dict.dao.model.LamboDictExample;
 import com.lambo.dict.service.api.LamboDictService;
-import com.lambo.dict.utils.DictCacheUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -24,7 +26,7 @@ import java.util.Map;
 
 /**
  * LamboDictcontroller
- * Author wangjierj on 2018/7/2.
+ * Author zxc on 2018/7/2.
  */
 @Controller
 @RequestMapping("/manage/lamboDict")
@@ -32,7 +34,7 @@ import java.util.Map;
 public class LamboDictController extends BaseController {
 
     private static Logger logger = LoggerFactory.getLogger(LamboDictController.class);
-
+    public static final String DICT_TYPE="0";
     @Autowired
     private LamboDictService lamboDictService;
 
@@ -47,17 +49,23 @@ public class LamboDictController extends BaseController {
             @RequestParam(required = false, value = "order") String order,
             @RequestParam(required = false, defaultValue = "", value = "search") String search) {
         LamboDictExample lamboDictExample = new LamboDictExample();
-        if (!StringUtils.isBlank(sort) && !StringUtils.isBlank(order)) {
-            lamboDictExample.setOrderByClause(sort + " " + order);
+        if(StringUtils.isBlank(sort)){
+            sort = "dictId";
         }
+        if(StringUtils.isBlank(order)){
+            order = "desc";
+        }
+        lamboDictExample.setOrderByClause(StringUtils.humpToLine(sort) + " " + order);
         if (StringUtils.isNotBlank(search)) {
-            lamboDictExample.or().andIdEqualTo(Integer.parseInt(search));
+            lamboDictExample.or()
+                    .andDictNameLike("%" + search + "%");
         }
-        List<LamboDict> rows = lamboDictService.selectByExampleForOffsetPage(lamboDictExample, offset, limit);
-        int total = lamboDictService.countByExample(lamboDictExample);
-        Map<String, Object> result = new HashMap<>();
-        result.put("rows", rows);
-        result.put("total", total);
+        PageHelper.offsetPage(offset, limit);
+        List<LamboDict> data = lamboDictService.selectByExample(lamboDictExample);
+        PageInfo page = new PageInfo(data);
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("rows", page.getList());
+        result.put("total", page.getTotal());
         return new BaseResult(BaseResultConstant.SUCCESS, result);
     }
 
@@ -82,6 +90,12 @@ public class LamboDictController extends BaseController {
         return lamboDictService.selectByPrimaryKey(id);
     }
 
+    @ApiOperation(value = "根据LamboDictId查询数据")
+    @RequestMapping(value = "/getDict/{dictId}", method = RequestMethod.GET)
+    @ResponseBody
+    public Object getDict(@PathVariable("dictId") String dictId) {
+        return lamboDictService.getDict(dictId);
+    }
 
     @ApiOperation(value = "新增LamboDict数据")
     @ResponseBody
@@ -90,84 +104,37 @@ public class LamboDictController extends BaseController {
             @RequestParam(required = true, defaultValue = "", value = "dictName") String dictName,
             @RequestParam(required = true, defaultValue = "", value = "dictType") String dictType,
             @RequestParam(required = false, defaultValue = "", value = "dictId") String dictId,
-            @RequestParam(required = false, defaultValue = "", value = "dictKey") String dictKey,
-            @RequestParam(required = false, defaultValue = "", value = "dictValue") String dictValue,
-            @RequestParam(required = false, defaultValue = "0", value = "orderNum") int orderNum,
             @RequestParam(required = false, defaultValue = "", value = "dictDesc") String dictDesc,
             @RequestParam(required = false, defaultValue = "", value = "dictSql") String dictSql,
+            @RequestParam(required = false, defaultValue = "", value = "dictKeyList") String dictKeyList,
             @RequestParam(required = false, defaultValue = "", value = "dictDataSource") String dictDataSource
     ) {
-
-        LamboDict lamboDict = new LamboDict();
-        lamboDict.setDictName(dictName);
-        lamboDict.setDictType(dictType);
-        lamboDict.setDictId(dictId);
-        lamboDict.setDictKey(dictKey);
-        lamboDict.setDictValue(dictValue);
-        lamboDict.setOrderNum(orderNum);
-        lamboDict.setDictDesc(dictDesc);
-        lamboDict.setDictSql(dictSql);
-        lamboDict.setDictDataSource(dictDataSource);
-        int count = lamboDictService.insertSelective(lamboDict);
-        if (count <= 0) {
-            return new BaseResult(BaseResultConstant.FAILED, 0);
-        }
-        return new BaseResult(BaseResultConstant.SUCCESS, 1);
+       return lamboDictService.createDict(dictName,dictType,dictId,dictDesc,dictSql,dictKeyList,dictDataSource);
     }
 
     @ApiOperation(value = "更新LamboDict数据")
     @ResponseBody
-    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
     public Object update(
-            @PathVariable("id") int id,
             @RequestParam(required = true, defaultValue = "", value = "dictName") String dictName,
             @RequestParam(required = true, defaultValue = "", value = "dictType") String dictType,
             @RequestParam(required = false, defaultValue = "", value = "dictId") String dictId,
-            @RequestParam(required = false, defaultValue = "", value = "dictKey") String dictKey,
-            @RequestParam(required = false, defaultValue = "", value = "dictValue") String dictValue,
-            @RequestParam(required = false, defaultValue = "0", value = "orderNum") int orderNum,
+            @RequestParam(required = false, defaultValue = "", value = "dictKeyList") String dictKeyList,
             @RequestParam(required = false, defaultValue = "", value = "dictDesc") String dictDesc,
             @RequestParam(required = false, defaultValue = "", value = "dictSql") String dictSql,
             @RequestParam(required = false, defaultValue = "", value = "dictDataSource") String dictDataSource
     ) {
-
-        LamboDict lamboDict = new LamboDict();
-        lamboDict.setId(id);
-        if (!StringUtils.isBlank(dictName)) {
-            lamboDict.setDictName(dictName);
-        }
-        if (!StringUtils.isBlank(dictType)) {
-            lamboDict.setDictType(dictType);
-        }
-        if (!StringUtils.isBlank(dictId)) {
-            lamboDict.setDictId(dictId);
-        }
-        if (!StringUtils.isBlank(dictKey)) {
-            lamboDict.setDictKey(dictKey);
-        }
-        if (!StringUtils.isBlank(dictValue)) {
-            lamboDict.setDictValue(dictValue);
-        }
-        lamboDict.setOrderNum(orderNum);
-        if (!StringUtils.isBlank(dictDesc)) {
-            lamboDict.setDictDesc(dictDesc);
-        }
-        if (!StringUtils.isBlank(dictSql)) {
-            lamboDict.setDictSql(dictSql);
-        }
-        if (!StringUtils.isBlank(dictDataSource)) {
-            lamboDict.setDictDataSource(dictDataSource);
-        }
-        int count = lamboDictService.updateByPrimaryKeySelective(lamboDict);
-        return new BaseResult(BaseResultConstant.SUCCESS, count);
+        return lamboDictService.updateDict(dictName,dictType,dictId,dictDesc,dictSql,dictKeyList,dictDataSource);
     }
 
     @ApiOperation(value = "删除LamboDict数据")
-    @RequestMapping(value = "/delete/{ids}", method = RequestMethod.GET)
+    @RequestMapping(value = "/delete/{dictId}", method = RequestMethod.GET)
     @ResponseBody
     @LogAround("删除LamboDict数据")
-    public Object delete(@PathVariable("ids") String ids) {
-        int count = lamboDictService.deleteByPrimaryKeys(ids);
+    public Object delete(@PathVariable("dictId") String dictId) {
+        int count = lamboDictService.deleteByDictId(dictId);
         return new BaseResult(BaseResultConstant.SUCCESS, count);
     }
+
+
 }

@@ -44,6 +44,16 @@
             <version>3.0.1</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.lambo</groupId>
+            <artifactId>lambo-dict-server</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.lambo</groupId>
+            <artifactId>lambo-schedule-server</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 
     <profiles>

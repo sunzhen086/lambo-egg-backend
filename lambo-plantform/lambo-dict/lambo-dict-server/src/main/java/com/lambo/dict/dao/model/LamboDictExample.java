@@ -527,52 +527,52 @@ public class LamboDictExample implements Serializable {
             return (Criteria) this;
         }
 
-        public Criteria andOrderNumEqualTo(Integer value) {
+        public Criteria andOrderNumEqualTo(String value) {
             addCriterion("order_num =", value, "orderNum");
             return (Criteria) this;
         }
 
-        public Criteria andOrderNumNotEqualTo(Integer value) {
+        public Criteria andOrderNumNotEqualTo(String value) {
             addCriterion("order_num <>", value, "orderNum");
             return (Criteria) this;
         }
 
-        public Criteria andOrderNumGreaterThan(Integer value) {
+        public Criteria andOrderNumGreaterThan(String value) {
             addCriterion("order_num >", value, "orderNum");
             return (Criteria) this;
         }
 
-        public Criteria andOrderNumGreaterThanOrEqualTo(Integer value) {
+        public Criteria andOrderNumGreaterThanOrEqualTo(String value) {
             addCriterion("order_num >=", value, "orderNum");
             return (Criteria) this;
         }
 
-        public Criteria andOrderNumLessThan(Integer value) {
+        public Criteria andOrderNumLessThan(String value) {
             addCriterion("order_num <", value, "orderNum");
             return (Criteria) this;
         }
 
-        public Criteria andOrderNumLessThanOrEqualTo(Integer value) {
+        public Criteria andOrderNumLessThanOrEqualTo(String value) {
             addCriterion("order_num <=", value, "orderNum");
             return (Criteria) this;
         }
 
-        public Criteria andOrderNumIn(List<Integer> values) {
+        public Criteria andOrderNumIn(List<String> values) {
             addCriterion("order_num in", values, "orderNum");
             return (Criteria) this;
         }
 
-        public Criteria andOrderNumNotIn(List<Integer> values) {
+        public Criteria andOrderNumNotIn(List<String> values) {
             addCriterion("order_num not in", values, "orderNum");
             return (Criteria) this;
         }
 
-        public Criteria andOrderNumBetween(Integer value1, Integer value2) {
+        public Criteria andOrderNumBetween(String value1, String value2) {
             addCriterion("order_num between", value1, value2, "orderNum");
             return (Criteria) this;
         }
 
-        public Criteria andOrderNumNotBetween(Integer value1, Integer value2) {
+        public Criteria andOrderNumNotBetween(String value1, String value2) {
             addCriterion("order_num not between", value1, value2, "orderNum");
             return (Criteria) this;
         }
