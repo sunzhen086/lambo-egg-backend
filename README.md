@@ -37,6 +37,8 @@ Maven | 项目构建管理  | [http://maven.apache.org/](http://maven.apache.org
 
 > [定时器模块](lambo-plantform/lambo-schedule)
 
+> [安全模块](lambo-plantform/lambo-security)
+
 > [用户权限组织模块](lambo-plantform/lambo-upms)
 
 > [示例模块](lambo-plantform/lambo-demo)
