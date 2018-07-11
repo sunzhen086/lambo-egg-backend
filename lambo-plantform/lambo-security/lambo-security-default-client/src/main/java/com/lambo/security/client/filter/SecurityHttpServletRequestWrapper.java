@@ -108,7 +108,10 @@ public class SecurityHttpServletRequestWrapper extends HttpServletRequestWrapper
 
     private String securityEncode(String input) {
         input =  htmlFilter.filter(input);
-        input =  SQLFilter.sqlInject(input);
+        /**
+         * 太严格，暂时不启用
+         */
+        //input =  SQLFilter.sqlInject(input);
         return input;
     }
 
