@@ -8,7 +8,7 @@
     <result column="dict_id" jdbcType="VARCHAR" property="dictId" />
     <result column="dict_key" jdbcType="VARCHAR" property="dictKey" />
     <result column="dict_value" jdbcType="VARCHAR" property="dictValue" />
-    <result column="order_num" jdbcType="INTEGER" property="orderNum" />
+    <result column="order_num" jdbcType="VARCHAR" property="orderNum" />
     <result column="dict_desc" jdbcType="VARCHAR" property="dictDesc" />
     <result column="dict_sql" jdbcType="VARCHAR" property="dictSql" />
     <result column="dict_data_source" jdbcType="VARCHAR" property="dictDataSource" />
@@ -85,6 +85,7 @@
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
+    GROUP BY dict_id
     <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
@@ -114,7 +115,7 @@
       dict_desc, dict_sql, dict_data_source
       )
     values (#{dictName,jdbcType=VARCHAR}, #{dictType,jdbcType=VARCHAR}, #{dictId,jdbcType=VARCHAR}, 
-      #{dictKey,jdbcType=VARCHAR}, #{dictValue,jdbcType=VARCHAR}, #{orderNum,jdbcType=INTEGER}, 
+      #{dictKey,jdbcType=VARCHAR}, #{dictValue,jdbcType=VARCHAR}, #{orderNum,jdbcType=VARCHAR},
       #{dictDesc,jdbcType=VARCHAR}, #{dictSql,jdbcType=VARCHAR}, #{dictDataSource,jdbcType=VARCHAR}
       )
   </insert>
@@ -169,7 +170,7 @@
         #{dictValue,jdbcType=VARCHAR},
       </if>
       <if test="orderNum != null">
-        #{orderNum,jdbcType=INTEGER},
+        #{orderNum,jdbcType=VARCHAR},
       </if>
       <if test="dictDesc != null">
         #{dictDesc,jdbcType=VARCHAR},
@@ -210,7 +211,7 @@
         dict_value = #{record.dictValue,jdbcType=VARCHAR},
       </if>
       <if test="record.orderNum != null">
-        order_num = #{record.orderNum,jdbcType=INTEGER},
+        order_num = #{record.orderNum,jdbcType=VARCHAR},
       </if>
       <if test="record.dictDesc != null">
         dict_desc = #{record.dictDesc,jdbcType=VARCHAR},
@@ -234,7 +235,7 @@
       dict_id = #{record.dictId,jdbcType=VARCHAR},
       dict_key = #{record.dictKey,jdbcType=VARCHAR},
       dict_value = #{record.dictValue,jdbcType=VARCHAR},
-      order_num = #{record.orderNum,jdbcType=INTEGER},
+      order_num = #{record.orderNum,jdbcType=VARCHAR},
       dict_desc = #{record.dictDesc,jdbcType=VARCHAR},
       dict_sql = #{record.dictSql,jdbcType=VARCHAR},
       dict_data_source = #{record.dictDataSource,jdbcType=VARCHAR}
@@ -261,7 +262,7 @@
         dict_value = #{dictValue,jdbcType=VARCHAR},
       </if>
       <if test="orderNum != null">
-        order_num = #{orderNum,jdbcType=INTEGER},
+        order_num = #{orderNum,jdbcType=VARCHAR},
       </if>
       <if test="dictDesc != null">
         dict_desc = #{dictDesc,jdbcType=VARCHAR},
@@ -282,7 +283,7 @@
       dict_id = #{dictId,jdbcType=VARCHAR},
       dict_key = #{dictKey,jdbcType=VARCHAR},
       dict_value = #{dictValue,jdbcType=VARCHAR},
-      order_num = #{orderNum,jdbcType=INTEGER},
+      order_num = #{orderNum,jdbcType=VARCHAR},
       dict_desc = #{dictDesc,jdbcType=VARCHAR},
       dict_sql = #{dictSql,jdbcType=VARCHAR},
       dict_data_source = #{dictDataSource,jdbcType=VARCHAR}

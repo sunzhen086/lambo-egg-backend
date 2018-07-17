@@ -45,7 +45,7 @@ public class LamboDict implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer orderNum;
+    private String orderNum;
 
     /**
      * 备注
@@ -118,11 +118,11 @@ public class LamboDict implements Serializable {
         this.dictValue = dictValue;
     }
 
-    public Integer getOrderNum() {
+    public String getOrderNum() {
         return orderNum;
     }
 
-    public void setOrderNum(Integer orderNum) {
+    public void setOrderNum(String orderNum) {
         this.orderNum = orderNum;
     }
 

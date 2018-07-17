@@ -29,10 +29,7 @@ import org.springframework.web.bind.annotation.*;
 import com.lambo.common.validator.LengthValidator;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 分类controller
@@ -78,6 +75,12 @@ public class ScheduleController extends BaseController {
         //物理分页
         PageHelper.offsetPage(offset, limit);
         List<ScheduleTask> data = scheduleService.selectByExample(ScheduleTaskExample);
+        List<ScheduleTask> dataResult=new ArrayList<ScheduleTask>();
+        for(int i=0;i<data.size();i++){
+            ScheduleTask  task=(ScheduleTask)data.get(i);
+            String cron=task.getMinute()+","+task.getHour()+","+task.getDayofmonth()+","+task.getMonth()+","+task.getDayofweek();
+            task.setMinute(cron);
+        }
         PageInfo page = new PageInfo(data);
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("rows", page.getList());
@@ -155,7 +158,28 @@ public class ScheduleController extends BaseController {
         int count = scheduleService.deleteByPrimaryKeys(taskId);
         return new ScheduleResult(ScheduleResultConstant.SUCCESS, count);
     }
-
+    @ApiOperation(value = "开启定时任务")
+    @RequestMapping(value = "/open/{taskId}",method = RequestMethod.GET)
+    @ResponseBody
+    public Object open(@PathVariable("taskId") String taskId) {
+        System.out.println("开启定时任务taskId="+taskId);
+        Map<String ,Object> map = new HashMap();
+        map.put("taskId",taskId);
+        map.put("currentState","10");
+        int count = scheduleService.changeStateByPrimaryKey(map);
+        return new ScheduleResult(ScheduleResultConstant.SUCCESS, count);
+    }
+    @ApiOperation(value = "关闭定时任务")
+    @RequestMapping(value = "/stop/{taskId}",method = RequestMethod.GET)
+    @ResponseBody
+    public Object stop(@PathVariable("taskId") String taskId) {
+        System.out.println("关闭定时任务taskId="+taskId);
+        Map map = new HashMap();
+        map.put("taskId",taskId);
+        map.put("currentState","00");
+        int count = scheduleService.changeStateByPrimaryKey(map);
+        return new ScheduleResult(ScheduleResultConstant.SUCCESS, count);
+    }
 
     @ApiOperation(value = "修改定时任务")
     @RequestMapping(value = "/update/{taskId}", method = RequestMethod.POST)
@@ -205,5 +229,43 @@ public class ScheduleController extends BaseController {
     public Object get(@PathVariable("taskId") int taskId) {
         ScheduleTask scheduleTask = scheduleService.selectByPrimaryKey(taskId);
         return new ScheduleResult(ScheduleResultConstant.SUCCESS, scheduleTask);
+    }
+    @ApiOperation(value = "定时任务历史列表")
+    @RequestMapping(value = "/result")
+    @ResponseBody
+    @LogAround("请求列表数据")
+    public Object result(
+            @RequestParam(required = false, defaultValue = "", value = "search") String search,
+            @RequestParam(required = false, defaultValue = "0", value = "offset") int offset,
+            @RequestParam(required = false, value = "sort") String sort,
+            @RequestParam(required = false, value = "order") String order,
+            @RequestParam(required = false, defaultValue = "10", value = "limit") int limit) {
+        System.out.println("定时任务历史列表taskId="+search);
+
+        if(StringUtils.isNoneBlank(search)){
+
+        }else {
+            return  null;
+        }
+        if(StringUtils.isBlank(sort)){
+            sort = "startTime";
+        }
+        if(StringUtils.isBlank(order)){
+            order = "desc";
+        }
+        Map<String,Object> taskMap=new HashMap<String,Object>();
+        taskMap.put("taskId",Integer.parseInt(search));
+        //taskMap.put("sort",StringUtils.humpToLine(sort));
+        //taskMap.put("order",order);
+        taskMap.put("setOrderByClause",(StringUtils.humpToLine(sort) + " " + order));
+        //物理分页
+        PageHelper.offsetPage(offset, limit);
+        List data = scheduleService.selectByTaskId(taskMap);
+        PageInfo page = new PageInfo(data);
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("rows", page.getList());
+        result.put("total", page.getTotal());
+        return new ScheduleResult(ScheduleResultConstant.SUCCESS,result);
+
     }
 }

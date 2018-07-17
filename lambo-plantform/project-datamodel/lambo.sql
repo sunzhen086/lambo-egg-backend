@@ -353,7 +353,7 @@ CREATE TABLE `schedule_task` (
      `DAYOFWEEK` VARCHAR(20),
      `HOUR` VARCHAR(70),
      `MINUTE` VARCHAR(180),
-     `CURRENT_STATE` CHAR(2),
+     `CURRENT_STATE` CHAR(2)NOT NULL COMMENT '状态(00:关闭,10:启动，11:运行中)',
      `OPERATION` VARCHAR(300),
      `EXTRAINFO` VARCHAR(500),
      PRIMARY KEY (TASK_ID)
@@ -370,7 +370,7 @@ CREATE TABLE `schedule_task_result` (
       `TASK_NAME` VARCHAR(50) NOT NULL,
       `START_TIME` CHAR(19),
       `END_TIME` CHAR(19),
-      `RESULT` CHAR(2),
+      `RESULT` CHAR(2)NOT NULL COMMENT '状态(00:成功,01:失败，02:运行中)',
       `ERROE_MESSAGE` VARCHAR(800),
       PRIMARY KEY (TASK_RESULT_ID)
       )ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -386,7 +386,7 @@ CREATE TABLE `lambo_dict` (
   `dict_id` varchar(100)  COMMENT '字典类型',
   `dict_key` varchar(200)  COMMENT '字典码',
   `dict_value` varchar(1000)  COMMENT '字典值',
-  `order_num` int(11) DEFAULT '0' COMMENT '排序',
+  `order_num` varchar(10)  COMMENT '排序',
   `dict_desc` varchar(255) DEFAULT NULL COMMENT '备注',
   `dict_sql` varchar(1000)  COMMENT '字典值',
   `dict_data_source` varchar(300)  COMMENT '数据源',

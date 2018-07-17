@@ -42,11 +42,6 @@
             <artifactId>lambo-upms-client</artifactId>
             <version>1.0.0</version>
         </dependency>
-        <dependency>
-            <groupId>com.lambo</groupId>
-            <artifactId>lambo-schedule-client</artifactId>
-            <version>1.0.0</version>
-        </dependency>
     </dependencies>
 
     <profiles>
@@ -146,6 +141,14 @@
                         <scope>runtime</scope>
                     </dependency>
                 </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
             </plugin>
         </plugins>
     </build>
