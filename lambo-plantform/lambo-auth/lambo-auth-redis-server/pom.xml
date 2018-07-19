@@ -15,9 +15,14 @@
     <url>http://stomz.com</url>
 
     <dependencies>
-        <dependency>
+        <!--<dependency>
             <groupId>com.lambo</groupId>
             <artifactId>lambo-auth-redis-client</artifactId>
+            <version>1.0.0</version>
+        </dependency>-->
+        <dependency>
+            <groupId>com.lambo</groupId>
+            <artifactId>lambo-auth-redis-st-client</artifactId>
             <version>1.0.0</version>
         </dependency>
         <dependency>
