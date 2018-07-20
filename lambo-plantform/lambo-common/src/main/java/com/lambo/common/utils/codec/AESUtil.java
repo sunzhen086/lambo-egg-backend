@@ -137,5 +137,8 @@ public class AESUtil {
             String decryptString = AESDecode(encryptString);
             System.out.println(decryptString);
         }
+
+        /*String v = "EsdFLCnihIJyoYjsmTgwCQ==";
+        System.out.println(AESDecode(v));*/
     }
 }
