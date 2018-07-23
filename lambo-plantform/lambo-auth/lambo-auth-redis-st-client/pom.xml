@@ -40,25 +40,35 @@
             <version>2.10.0</version>
         </dependency>
         <dependency>
+            <groupId>commons-httpclient</groupId>
+            <artifactId>commons-httpclient</artifactId>
+            <version>3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>jaxen</groupId>
+            <artifactId>jaxen</artifactId>
+            <version>1.1.6</version>
+        </dependency>
+        <dependency>
             <groupId>org.loushang</groupId>
             <artifactId>xsm-common</artifactId>
             <version>1.0</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/xsm-common.jar</systemPath>
+            <systemPath>${basedir}/lib/xsm-common.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.loushang</groupId>
             <artifactId>loushang3.0-util</artifactId>
             <version>1.0</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/loushang3.0-util.jar</systemPath>
+            <systemPath>${basedir}/lib/loushang3.0-util.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.loushang</groupId>
             <artifactId>loushang3.0-exception</artifactId>
             <version>1.0</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/loushang3.0-exception.jar</systemPath>
+            <systemPath>${basedir}/lib/loushang3.0-exception.jar</systemPath>
         </dependency>
         <!-- servlet -->
         <dependency>
@@ -72,16 +82,6 @@
             <artifactId>javax.servlet-api</artifactId>
             <version>3.0.1</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>commons-httpclient</groupId>
-            <artifactId>commons-httpclient</artifactId>
-            <version>3.1</version>
-        </dependency>
-        <dependency>
-            <groupId>jaxen</groupId>
-            <artifactId>jaxen</artifactId>
-            <version>1.1.6</version>
         </dependency>
     </dependencies>
 
