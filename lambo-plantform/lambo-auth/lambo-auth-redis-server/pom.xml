@@ -8,16 +8,21 @@
         <version>1.0.0</version>
     </parent>
 
-    <artifactId>lambo-auth-server</artifactId>
+    <artifactId>lambo-auth-redis-server</artifactId>
     <packaging>war</packaging>
 
-    <name>lambo-auth-server Maven Webapp</name>
+    <name>lambo-auth-redis-server Maven Webapp</name>
     <url>http://stomz.com</url>
 
     <dependencies>
-        <dependency>
+        <!--<dependency>
             <groupId>com.lambo</groupId>
             <artifactId>lambo-auth-redis-client</artifactId>
+            <version>1.0.0</version>
+        </dependency>-->
+        <dependency>
+            <groupId>com.lambo</groupId>
+            <artifactId>lambo-auth-redis-st-client</artifactId>
             <version>1.0.0</version>
         </dependency>
         <dependency>
@@ -66,7 +71,7 @@
     </profiles>
 
     <build>
-        <finalName>lambo-auth-redis-server</finalName>
+        <finalName>auth-server</finalName>
         <filters>
             <filter>src/main/resources/profiles/${env}.properties</filter>
         </filters>
@@ -119,6 +124,24 @@
                     <skipTests>true</skipTests>
                     <testFailureIgnore>true</testFailureIgnore>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.10</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/lib</outputDirectory>
+                            <includeScope>system</includeScope>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
