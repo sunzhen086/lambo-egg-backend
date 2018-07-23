@@ -6,6 +6,7 @@ import com.lambo.auth.client.dao.model.UpmsStUserExample;
 import com.lambo.auth.client.service.api.UpmsStUserService;
 import com.lambo.auth.client.shiro.session.AuthClientSession;
 import com.lambo.auth.client.util.XsmLoginUtil;
+import com.lambo.common.annotation.LogAround;
 import com.lambo.common.base.BaseController;
 import com.lambo.common.base.BaseResult;
 import com.lambo.common.base.BaseResultConstant;
@@ -30,6 +31,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 /**
@@ -145,10 +148,18 @@ public class AuthCenterController extends BaseController {
         return new BaseResult(BaseResultConstant.SUCCESS, "登录成功");
     }
 
+    @ApiOperation(value = "新商盟登录中转页面")
+    @RequestMapping(value = "/token/login", method = RequestMethod.GET)
+    @LogAround("进入新商盟登录中转页面")
+    public String forChange(@RequestParam(value = "token") String token, HttpServletRequest req, HttpServletResponse rep) {
+        return "";
+    }
+
     @ApiOperation(value = "token认证")
-    @RequestMapping(value = "/token/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/token/dologin", method = RequestMethod.POST)
     @ResponseBody
     public Object verify(@RequestParam(value = "token") String token) {
+        System.out.println("token="+token);
         Subject subject = SecurityUtils.getSubject();
         Session session = subject.getSession();
         String sessionId = session.getId().toString();
@@ -198,8 +209,6 @@ public class AuthCenterController extends BaseController {
             CookieUtils.setCookie(ServletUtils.getResponse(), LAMBO_SSO_COOKIE_KEY, code, "/",-1);
         }
         return new BaseResult(BaseResultConstant.SUCCESS, "登录成功");
-
-
     }
 
     @ApiOperation(value = "退出登录")

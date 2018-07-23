@@ -23,6 +23,7 @@
                 /webjars/** = anon
                 /swagger-resources/** =anon
                 /v2/api-docs/** =anon
+                /global-login.html = anon
                 /druid/** = user
                 /** = authc
             </value>

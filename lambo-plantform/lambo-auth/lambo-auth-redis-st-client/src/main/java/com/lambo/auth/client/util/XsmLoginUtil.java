@@ -28,7 +28,7 @@ import java.util.Map;
 
 public class XsmLoginUtil {
     private static final Logger log = LoggerFactory.getLogger(XsmLoginUtil.class);
-    private static PropertiesFileUtil stConfig = PropertiesFileUtil.getInstance("lambo-auth-st-login");
+    private static PropertiesFileUtil stConfig = PropertiesFileUtil.getInstance("stlogin");
     private static String xsmApache = stConfig.get("XSM_APACHE");
     private static String xsmCodeUrl = stConfig.get("XSM_CODE_URL");
     private static String xsmLoginUrl = stConfig.get("XSM_LOGIN_URL");
