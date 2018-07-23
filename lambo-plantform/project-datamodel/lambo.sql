@@ -379,16 +379,28 @@ CREATE TABLE `schedule_task_result` (
 -- Table structure for `lambo_dict`
 -- ----------------------------
 
+DROP TABLE IF EXISTS `lambo_dict`;
 CREATE TABLE `lambo_dict` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `dict_name` varchar(100) NOT NULL COMMENT '字典名称',
-  `dict_type` varchar(1) NOT NULL COMMENT '字典类型(0:data,1:SQL)',
   `dict_id` varchar(100)  COMMENT '字典类型',
   `dict_key` varchar(200)  COMMENT '字典码',
   `dict_value` varchar(1000)  COMMENT '字典值',
   `order_num` varchar(10)  COMMENT '排序',
   `dict_desc` varchar(255) DEFAULT NULL COMMENT '备注',
-  `dict_sql` varchar(1000)  COMMENT '字典值',
-  `dict_data_source` varchar(300)  COMMENT '数据源',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='数据字典表';
+
+-- ----------------------------
+-- Table structure for `lambo_rule`
+-- ----------------------------
+
+DROP TABLE IF EXISTS `lambo_rule`;
+CREATE TABLE `lambo_rule` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `com_id` varchar(30)  COMMENT  '规则类型',
+  `rule_id` varchar(100) NOT NULL COMMENT '规则类型',
+  `rule_value` varchar(1000) NOT NULL COMMENT '规则值',
+  `rule_desc` varchar(255) DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='数据规则表';

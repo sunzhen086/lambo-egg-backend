@@ -6,6 +6,7 @@ import com.lambo.common.annotation.BaseService;
 import com.lambo.common.base.BaseResult;
 import com.lambo.common.base.BaseResultConstant;
 import com.lambo.common.base.BaseServiceImpl;
+import com.lambo.common.utils.io.RedisUtil;
 import com.lambo.dict.dao.mapper.LamboDictMapper;
 import com.lambo.dict.dao.mapper.LamboDictOtherMapper;
 import com.lambo.dict.dao.model.LamboDict;
@@ -31,7 +32,7 @@ import java.util.Map;
 public class LamboDictServiceImpl extends BaseServiceImpl<LamboDictMapper, LamboDict, LamboDictExample> implements LamboDictService {
 
     private static Logger logger = LoggerFactory.getLogger(LamboDictServiceImpl.class);
-    public static final String DICT_TYPE="0";
+    public static final String LAMBO_DICT_CACHE="lambo_dict_cache";
     @Autowired
     LamboDictMapper lamboDictMapper;
     @Autowired
@@ -47,16 +48,15 @@ public class LamboDictServiceImpl extends BaseServiceImpl<LamboDictMapper, Lambo
     }
    @Override
    @Transactional
-    public Object createDict(String dictName,String dictType,String dictId,String dictDesc, String dictSql,String dictKeyList,String dictDataSource)
+    public Object createDict(String dictName,String dictId,String dictDesc,String dictKeyList)
     {
 
         LamboDict lamboDict = new LamboDict();
         lamboDict.setDictName(dictName);
-        lamboDict.setDictType(dictType);
         lamboDict.setDictId(dictId);
         lamboDict.setDictDesc(dictDesc);
         int count=0;
-        if(DICT_TYPE.equals(dictType)){
+
             JSONArray json = JSONArray.parseArray(dictKeyList);
 
             if(json !=null && json.size()>0){
@@ -71,14 +71,6 @@ public class LamboDictServiceImpl extends BaseServiceImpl<LamboDictMapper, Lambo
 
                 }
             }
-        }else{
-
-            lamboDict.setDictSql(dictSql);
-            lamboDict.setDictDataSource(dictDataSource);
-            count = lamboDictMapper.insertSelective(lamboDict);
-        }
-
-
         if (count <= 0) {
             return new BaseResult(BaseResultConstant.FAILED, 0);
         }
@@ -86,29 +78,22 @@ public class LamboDictServiceImpl extends BaseServiceImpl<LamboDictMapper, Lambo
     }
     @Override
     @Transactional
-    public Object updateDict(String dictName,String dictType,String dictId,String dictDesc, String dictSql,String dictKeyList,String dictDataSource)
+    public Object updateDict(String dictName,String dictId,String dictDesc,String dictKeyList)
     {
 
         LamboDict lamboDict = new LamboDict();
         if (!StringUtils.isBlank(dictName)) {
             lamboDict.setDictName(dictName);
         }
-        if (!StringUtils.isBlank(dictType)) {
-            lamboDict.setDictType(dictType);
-        }
+
         if (!StringUtils.isBlank(dictId)) {
             lamboDict.setDictId(dictId);
         }
-        if (!StringUtils.isBlank(dictSql)) {
-            lamboDict.setDictSql(dictSql);
-        }
-        if (!StringUtils.isBlank(dictDataSource)) {
-            lamboDict.setDictDataSource(dictDataSource);
+        if (!StringUtils.isBlank(dictDesc)) {
+            lamboDict.setDictDesc(dictDesc);
         }
         int count=0;
-        if(DICT_TYPE.equals(dictType)){
             JSONArray json = JSONArray.parseArray(dictKeyList);
-
             if(json !=null && json.size()>0){
                 count=deleteByDictId(dictId);
                 for (int i = 0; i < json.size(); i++) {
@@ -119,17 +104,10 @@ public class LamboDictServiceImpl extends BaseServiceImpl<LamboDictMapper, Lambo
                     lamboDict.setDictValue((String) jobData.get("dictValue"));
                     lamboDict.setOrderNum((String)jobData.get("orderNum"));
                     count  = lamboDictMapper.insertSelective(lamboDict);
-
                 }
             }
-        }else{
-
-            lamboDict.setDictSql(dictSql);
-            lamboDict.setDictDataSource(dictDataSource);
-            count=deleteByDictId(dictId);
-            count = lamboDictMapper.insertSelective(lamboDict);
-        }
-       // int count = lamboDictService.updateByPrimaryKeySelective(lamboDict);
+        List<Map<String,String>>listData=lamboDictOtherMapper.getDictForRedis(dictId);
+        RedisUtil.setList(LAMBO_DICT_CACHE + "_" + dictId,listData);
         return new BaseResult(BaseResultConstant.SUCCESS, count);
     }
 }

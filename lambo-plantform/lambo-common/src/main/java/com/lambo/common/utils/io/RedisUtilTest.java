@@ -8,7 +8,7 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -317,15 +317,60 @@ public class RedisUtilTest {
 		jedis.close();
 		return keys;
 	}
+	/**
+	 * 获取List值
+	 * @param key
+	 * @return value
+	 */
+	public synchronized static void setList(String key,List list) {
+		Jedis jedis = getJedis();
+		if (null == jedis) {
 
+		}else {
+			jedis.set(key.getBytes(), SerializeUtil.serialize(list));
+			jedis.close();
+		}
+	}
+	/**
+	 * 获取List值
+	 * @param key
+	 * @return value
+	 */
+	public synchronized static List getList(String key) {
+		Jedis jedis = getJedis();
+		if (null == jedis) {
+            return null;
+		}
+		byte[] in = jedis.get(key.getBytes());
+		List list=SerializeUtil.unserializeForList(in);
+       return list;
+	}
 
 	public static void main(String[] args){
-		RedisUtilTest.set("test1115","0000000005");
-		RedisUtilTest.set("test1112","0000000001");
-		Set<String> keys = RedisUtilTest.keys("test*");
-		for(String key : keys){
-			System.out.println(key);
-		}
+//		RedisUtilTest.set("test1115","0000000005");
+//		RedisUtilTest.set("test1112","0000000001");
+//		Set<String> keys = RedisUtilTest.keys("test*");
+//		for(String key : keys){
+//			System.out.println(key);
+//		}
+//		List<Map<String,String>> list = new ArrayList<Map<String,String>>();
+//		for(int i=0;i<10;i++){
+//			Map map=new HashMap();
+//			map.put("zxc",i);
+//			map.put("inspur",i+1);
+//			list.add(map);
+//		}
+//		long start = System.currentTimeMillis();
+//		RedisUtilTest.setList("TestList",list);
+//		long stored = System.currentTimeMillis();
+//		System.out.println("redis写10万条数据耗时：" + (stored - start));
+//		List<Map<String,String>> list1=RedisUtilTest.getList("TestList");
+//		long end = System.currentTimeMillis();
+//		System.out.println("redis：" + list1);
+//		System.out.println("redis取10万条数据耗时：" + (end - stored));
+		List<Map<String,String>> list1=RedisUtilTest.getList("lambo_dict_cache_"+"CO123");
+		System.out.println("redis数据：" + list1);
+
 	}
 
 }

@@ -14,6 +14,6 @@ import java.util.Map;
 public interface LamboDictService extends BaseService<LamboDict, LamboDictExample> {
     public List<Map<String, Object>> getDict(String dictId);
     public int deleteByDictId(String dictId);
-    public Object createDict(String dictName,String dictType,String dictId,String dictDesc, String dictSql,String dictKeyList,String dictDataSource);
-    public Object updateDict(String dictName,String dictType,String dictId,String dictDesc, String dictSql,String dictKeyList,String dictDataSource);
+    public Object createDict(String dictName,String dictId,String dictDesc,String dictKeyList);
+    public Object updateDict(String dictName,String dictId,String dictDesc,String dictKeyLis);
 }

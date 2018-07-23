@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lambo.rule.dao.mapper.LamboRuleOtherMapper">
+  <select id="getRule" parameterType="String" resultType="map">
+select id,RULE_ID as ruleId, RULE_DESC as ruleDesc,COM_ID as comId,RULE_VALUE as ruleValue
+from lambo_rule
+WHERE rule_id = #{ruleId,jdbcType=VARCHAR}
+  </select>
+  <update id="changeStateByPrimaryKey" parameterType="map">
+    update schedule_task
+    set  CURRENT_STATE = #{currentState,jdbcType=CHAR}
+    where task_id=#{taskId,jdbcType=DECIMAL}
+  </update>
+  <delete id="deleteByRuleId" parameterType="String">
+    delete from lambo_rule where rule_id=#{ruleId,jdbcType=VARCHAR}
+  </delete>
+  <select id="getRuleForRedis" parameterType="String" resultType="map">
+    select RULE_ID as ruleId,RULE_VALUE as ruleValue,COM_ID as comId
+    from lambo_rule
+    WHERE RULE_ID = #{ruleId,jdbcType=VARCHAR}
+  </select>
+</mapper>

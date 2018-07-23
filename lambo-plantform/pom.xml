@@ -32,5 +32,6 @@
         <module>lambo-rpc</module>
         <module>lambo-dict</module>
         <module>lambo-security</module>
+        <module>lambo-rule</module>
     </modules>
 </project>

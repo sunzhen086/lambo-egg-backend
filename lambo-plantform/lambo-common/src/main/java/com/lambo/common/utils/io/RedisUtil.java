@@ -9,6 +9,8 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -318,5 +320,32 @@ public class RedisUtil {
 		jedis.close();
 		return keys;
 	}
+	/**
+	 * 获取List值
+	 * @param key
+	 * @return value
+	 */
+	public synchronized static void setList(String key,List list) {
+		Jedis jedis = getJedis();
+		if (null == jedis) {
 
+		}else {
+			jedis.set(key.getBytes(), SerializeUtil.serialize(list));
+			jedis.close();
+		}
+	}
+	/**
+	 * 获取List值
+	 * @param key
+	 * @return value
+	 */
+	public synchronized static List getList(String key) {
+		Jedis jedis = getJedis();
+		if (null == jedis) {
+			return null;
+		}
+		byte[] in = jedis.get(key.getBytes());
+		List list=SerializeUtil.unserializeForList(in);
+		return list;
+	}
 }

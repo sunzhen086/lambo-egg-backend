@@ -34,26 +34,13 @@
         </dependency>
         <dependency>
             <groupId>com.lambo</groupId>
-            <artifactId>lambo-auth-sample-client</artifactId>
+            <artifactId>lambo-dict-rpc-api</artifactId>
             <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>com.lambo</groupId>
-            <artifactId>lambo-upms-client</artifactId>
+            <artifactId>lambo-rpc-dubbo-client</artifactId>
             <version>1.0.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.lambo</groupId>
-            <artifactId>lambo-code-client</artifactId>
-            <version>1.0.0</version>
-            <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>com.lambo</groupId>
-            <artifactId>lambo-dict-client</artifactId>
-            <version>1.0.0</version>
-            <type>jar</type>
         </dependency>
     </dependencies>
     <profiles>

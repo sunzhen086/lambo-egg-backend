@@ -12,12 +12,7 @@ public class LamboDict implements Serializable {
      */
     private String dictName;
 
-    /**
-     * 字典类型(0:data,1:SQL)
-     *
-     * @mbg.generated
-     */
-    private String dictType;
+
 
     /**
      * 字典类型
@@ -54,19 +49,8 @@ public class LamboDict implements Serializable {
      */
     private String dictDesc;
 
-    /**
-     * 字典值
-     *
-     * @mbg.generated
-     */
-    private String dictSql;
 
-    /**
-     * 数据源
-     *
-     * @mbg.generated
-     */
-    private String dictDataSource;
+
 
     private static final long serialVersionUID = 1L;
 
@@ -86,13 +70,6 @@ public class LamboDict implements Serializable {
         this.dictName = dictName;
     }
 
-    public String getDictType() {
-        return dictType;
-    }
-
-    public void setDictType(String dictType) {
-        this.dictType = dictType;
-    }
 
     public String getDictId() {
         return dictId;
@@ -134,21 +111,6 @@ public class LamboDict implements Serializable {
         this.dictDesc = dictDesc;
     }
 
-    public String getDictSql() {
-        return dictSql;
-    }
-
-    public void setDictSql(String dictSql) {
-        this.dictSql = dictSql;
-    }
-
-    public String getDictDataSource() {
-        return dictDataSource;
-    }
-
-    public void setDictDataSource(String dictDataSource) {
-        this.dictDataSource = dictDataSource;
-    }
 
     @Override
     public String toString() {
@@ -158,14 +120,11 @@ public class LamboDict implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", dictName=").append(dictName);
-        sb.append(", dictType=").append(dictType);
         sb.append(", dictId=").append(dictId);
         sb.append(", dictKey=").append(dictKey);
         sb.append(", dictValue=").append(dictValue);
         sb.append(", orderNum=").append(orderNum);
         sb.append(", dictDesc=").append(dictDesc);
-        sb.append(", dictSql=").append(dictSql);
-        sb.append(", dictDataSource=").append(dictDataSource);
         sb.append("]");
         return sb.toString();
     }
@@ -184,14 +143,11 @@ public class LamboDict implements Serializable {
         LamboDict other = (LamboDict) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getDictName() == null ? other.getDictName() == null : this.getDictName().equals(other.getDictName()))
-            && (this.getDictType() == null ? other.getDictType() == null : this.getDictType().equals(other.getDictType()))
             && (this.getDictId() == null ? other.getDictId() == null : this.getDictId().equals(other.getDictId()))
             && (this.getDictKey() == null ? other.getDictKey() == null : this.getDictKey().equals(other.getDictKey()))
             && (this.getDictValue() == null ? other.getDictValue() == null : this.getDictValue().equals(other.getDictValue()))
             && (this.getOrderNum() == null ? other.getOrderNum() == null : this.getOrderNum().equals(other.getOrderNum()))
-            && (this.getDictDesc() == null ? other.getDictDesc() == null : this.getDictDesc().equals(other.getDictDesc()))
-            && (this.getDictSql() == null ? other.getDictSql() == null : this.getDictSql().equals(other.getDictSql()))
-            && (this.getDictDataSource() == null ? other.getDictDataSource() == null : this.getDictDataSource().equals(other.getDictDataSource()));
+            && (this.getDictDesc() == null ? other.getDictDesc() == null : this.getDictDesc().equals(other.getDictDesc()));
     }
 
     @Override
@@ -200,14 +156,11 @@ public class LamboDict implements Serializable {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getDictName() == null) ? 0 : getDictName().hashCode());
-        result = prime * result + ((getDictType() == null) ? 0 : getDictType().hashCode());
         result = prime * result + ((getDictId() == null) ? 0 : getDictId().hashCode());
         result = prime * result + ((getDictKey() == null) ? 0 : getDictKey().hashCode());
         result = prime * result + ((getDictValue() == null) ? 0 : getDictValue().hashCode());
         result = prime * result + ((getOrderNum() == null) ? 0 : getOrderNum().hashCode());
         result = prime * result + ((getDictDesc() == null) ? 0 : getDictDesc().hashCode());
-        result = prime * result + ((getDictSql() == null) ? 0 : getDictSql().hashCode());
-        result = prime * result + ((getDictDataSource() == null) ? 0 : getDictDataSource().hashCode());
         return result;
     }
 }

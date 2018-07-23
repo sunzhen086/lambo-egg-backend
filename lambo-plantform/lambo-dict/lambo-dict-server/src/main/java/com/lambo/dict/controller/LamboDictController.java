@@ -102,14 +102,12 @@ public class LamboDictController extends BaseController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public Object create(
             @RequestParam(required = true, defaultValue = "", value = "dictName") String dictName,
-            @RequestParam(required = true, defaultValue = "", value = "dictType") String dictType,
             @RequestParam(required = false, defaultValue = "", value = "dictId") String dictId,
             @RequestParam(required = false, defaultValue = "", value = "dictDesc") String dictDesc,
-            @RequestParam(required = false, defaultValue = "", value = "dictSql") String dictSql,
-            @RequestParam(required = false, defaultValue = "", value = "dictKeyList") String dictKeyList,
-            @RequestParam(required = false, defaultValue = "", value = "dictDataSource") String dictDataSource
+            @RequestParam(required = false, defaultValue = "", value = "dictKeyList") String dictKeyList
+
     ) {
-       return lamboDictService.createDict(dictName,dictType,dictId,dictDesc,dictSql,dictKeyList,dictDataSource);
+       return lamboDictService.createDict(dictName,dictId,dictDesc,dictKeyList);
     }
 
     @ApiOperation(value = "更新LamboDict数据")
@@ -124,7 +122,7 @@ public class LamboDictController extends BaseController {
             @RequestParam(required = false, defaultValue = "", value = "dictSql") String dictSql,
             @RequestParam(required = false, defaultValue = "", value = "dictDataSource") String dictDataSource
     ) {
-        return lamboDictService.updateDict(dictName,dictType,dictId,dictDesc,dictSql,dictKeyList,dictDataSource);
+        return lamboDictService.updateDict(dictName,dictId,dictDesc,dictKeyList);
     }
 
     @ApiOperation(value = "删除LamboDict数据")

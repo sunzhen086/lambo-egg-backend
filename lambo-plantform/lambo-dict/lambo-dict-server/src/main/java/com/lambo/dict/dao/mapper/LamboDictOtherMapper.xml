@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lambo.dict.dao.mapper.LamboDictOtherMapper">
   <select id="getDict" parameterType="String" resultType="map">
-select dict_type as dictType,id,DICT_ID as dictId, DICT_NAME as dictName, DICT_DESC as dictDesc,DICT_KEY as dictKey,DICT_VALUE as dictValue,dict_data_source as dictDataSource,dict_sql as dictSql,order_num as orderNum
+select id,DICT_ID as dictId, DICT_NAME as dictName, DICT_DESC as dictDesc,DICT_KEY as dictKey,DICT_VALUE as dictValue,order_num as orderNum
 from lambo_dict
 WHERE DICT_ID = #{dictId,jdbcType=VARCHAR}
 order by order_num ASC
@@ -16,4 +16,13 @@ order by order_num ASC
     delete from lambo_dict where dict_id=#{dictId,jdbcType=VARCHAR}
 
   </delete>
+  <select id="getDictForRedis" parameterType="String" resultType="map">
+    select DICT_KEY as K,DICT_VALUE as V
+    from lambo_dict
+    WHERE DICT_ID = #{dictId,jdbcType=VARCHAR}
+    order by order_num ASC
+  </select>
+  <select id="getSqlDict" parameterType="java.lang.String" resultType="map">
+    ${_parameter}
+  </select>
 </mapper>
