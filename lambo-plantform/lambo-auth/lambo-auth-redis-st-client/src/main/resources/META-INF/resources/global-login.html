@@ -4,6 +4,9 @@
     <script>
     $(document).ready(function(){
         var token = getQueryString("token");
+        if(token == null || token == ""){
+            $("#result").html("获取token失败！");
+        }
         $.ajax({
             url:"sso/st/token/dologin",
             data:{

@@ -157,6 +157,9 @@ public class AuthCenterController extends BaseController {
     @RequestMapping(value = "/token/dologin", method = RequestMethod.POST)
     @ResponseBody
     public Object verify(@RequestParam(value = "token") String token) {
+        if(token == null || "".equals(token)){
+            return new BaseResult(BaseResultConstant.FAILED, "token不能为空！");
+        }
         Subject subject = SecurityUtils.getSubject();
         Session session = subject.getSession();
         String sessionId = session.getId().toString();
