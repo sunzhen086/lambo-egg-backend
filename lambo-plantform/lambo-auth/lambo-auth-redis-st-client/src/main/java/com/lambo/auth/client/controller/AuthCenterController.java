@@ -92,7 +92,6 @@ public class AuthCenterController extends BaseController {
             SecurityUtils.getSubject().logout();
             // 使用st认证
             Map result = XsmLoginUtil.getXsmLoginInfo(username,password);
-            System.out.println("result="+result);
             if(result != null && result.containsKey("code")){
                 String code = (String) result.get("code");
                 if(null == code){
@@ -109,7 +108,6 @@ public class AuthCenterController extends BaseController {
                         upmsStUser.setNickName((String) result.get("nickName"));
                         upmsStUser.setRefId((String) result.get("refId"));
                         upmsStUser.setUserType((String) result.get("userType"));
-                        System.out.println("result= "+ JSONUtils.toJSONString(result));
                         upmsStUser.setLoginInfo(JSONUtils.toJSONString(result));
                         int count = upmsStUserService.insertSelective(upmsStUser);
                         if(count <= 0){
@@ -159,7 +157,6 @@ public class AuthCenterController extends BaseController {
     @RequestMapping(value = "/token/dologin", method = RequestMethod.POST)
     @ResponseBody
     public Object verify(@RequestParam(value = "token") String token) {
-        System.out.println("token="+token);
         Subject subject = SecurityUtils.getSubject();
         Session session = subject.getSession();
         String sessionId = session.getId().toString();
@@ -179,7 +176,6 @@ public class AuthCenterController extends BaseController {
                 upmsStUser.setNickName(user.getNickName());
                 upmsStUser.setRefId(user.getRefId());
                 upmsStUser.setUserType(user.getUserType());
-                System.out.println("user= "+ JSONUtils.toJSONString(XsmLoginUtil.user2Map(user)));
                 upmsStUser.setLoginInfo(JSONUtils.toJSONString(XsmLoginUtil.user2Map(user)));
                 int count = upmsStUserService.insertSelective(upmsStUser);
                 if(count <= 0){

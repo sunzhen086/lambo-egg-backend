@@ -15,18 +15,6 @@
     <url>http://stomz.com</url>
 
     <dependencies>
-        <dependency>
-            <groupId>com.lambo</groupId>
-            <artifactId>lambo-common</artifactId>
-            <version>1.0.0</version>
-            <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>com.lambo</groupId>
-            <artifactId>lambo-upms-common</artifactId>
-            <version>1.0.0</version>
-            <type>jar</type>
-        </dependency>
         <!--<dependency>
             <groupId>com.lambo</groupId>
             <artifactId>lambo-auth-redis-client</artifactId>
@@ -42,6 +30,22 @@
             <artifactId>junit</artifactId>
             <version>4.12</version>
             <scope>test</scope>
+        </dependency>
+
+
+
+
+        <dependency>
+            <groupId>com.lambo</groupId>
+            <artifactId>lambo-common</artifactId>
+            <version>1.0.0</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.lambo</groupId>
+            <artifactId>lambo-upms-common</artifactId>
+            <version>1.0.0</version>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>net.sf.ehcache</groupId>
