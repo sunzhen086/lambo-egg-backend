@@ -15,6 +15,18 @@
     <url>http://stomz.com</url>
 
     <dependencies>
+        <dependency>
+            <groupId>com.lambo</groupId>
+            <artifactId>lambo-common</artifactId>
+            <version>1.0.0</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.lambo</groupId>
+            <artifactId>lambo-upms-common</artifactId>
+            <version>1.0.0</version>
+            <type>jar</type>
+        </dependency>
         <!--<dependency>
             <groupId>com.lambo</groupId>
             <artifactId>lambo-auth-redis-client</artifactId>
@@ -30,6 +42,42 @@
             <artifactId>junit</artifactId>
             <version>4.12</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+            <version>2.10.0</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-httpclient</groupId>
+            <artifactId>commons-httpclient</artifactId>
+            <version>3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>jaxen</groupId>
+            <artifactId>jaxen</artifactId>
+            <version>1.1.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.loushang</groupId>
+            <artifactId>xsm-common</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/xsm-common.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>org.loushang</groupId>
+            <artifactId>loushang3.0-util</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/loushang3.0-util.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>org.loushang</groupId>
+            <artifactId>loushang3.0-exception</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/loushang3.0-exception.jar</systemPath>
         </dependency>
         <!-- servlet -->
         <dependency>
