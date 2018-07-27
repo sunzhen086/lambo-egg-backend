@@ -31,10 +31,10 @@
     </bean>
 
     <!-- 重写authc过滤器 -->
-    <bean id="authClientAuthenticationFilter" class="com.lambo.auth.client.shiro.filter.AuthClientAuthenticationFilter"/>
+    <bean id="authClientAuthenticationFilter" class="AuthClientAuthenticationFilter"/>
 
     <!-- 强制退出会话过滤器 -->
-    <!-- <bean id="authClientSessionForceLogoutFilter" class="com.lambo.auth.client.shiro.filter.AuthClientSessionForceLogoutFilter"/>-->
+    <!-- <bean id="authClientSessionForceLogoutFilter" class="AuthClientSessionForceLogoutFilter"/>-->
 
     <!-- 安全管理器 -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
@@ -48,7 +48,7 @@
     </bean>
 
     <!-- realm实现，继承自AuthorizingRealm -->
-    <bean id="authClientRealm" class="com.lambo.auth.client.shiro.realm.AuthClientRealm"></bean>
+    <bean id="authClientRealm" class="AuthClientRealm"></bean>
 
     <!-- 会话管理器 -->
     <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
@@ -66,7 +66,7 @@
     </bean>
 
     <!-- 会话DAO，可重写，持久化session -->
-    <bean id="authClientSessionDao" class="com.lambo.auth.client.shiro.session.AuthClientSessionDao"/>
+    <bean id="authClientSessionDao" class="AuthClientSessionDao"/>
 
     <!-- 会话Cookie模板 -->
     <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
@@ -79,10 +79,10 @@
     </bean>
 
     <!-- 会话监听器 -->
-    <bean id="authClientSessionListener" class="com.lambo.auth.client.shiro.listener.AuthClientSessionListener"/>
+    <bean id="authClientSessionListener" class="AuthClientSessionListener"/>
 
     <!-- session工厂 -->
-    <bean id="authClientSessionFactory" class="com.lambo.auth.client.shiro.session.AuthClientSessionFactory"/>
+    <bean id="authClientSessionFactory" class="AuthClientSessionFactory"/>
 
     <!-- rememberMe管理器 -->
     <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">

@@ -26,42 +26,37 @@
             <version>1.0.0</version>
         </dependency>
         <dependency>
+            <groupId>com.lambo</groupId>
+            <artifactId>lambo-auth-redis-rpc-api</artifactId>
+            <version>1.0.0</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.lambo</groupId>
+            <artifactId>lambo-code-client</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
+        <!-- servlet -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.0.1</version>
+            <scope>provided</scope>
+        </dependency>
 
-
-
-
-        <dependency>
-            <groupId>com.lambo</groupId>
-            <artifactId>lambo-common</artifactId>
-            <version>1.0.0</version>
-            <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>com.lambo</groupId>
-            <artifactId>lambo-upms-common</artifactId>
-            <version>1.0.0</version>
-            <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>net.sf.ehcache</groupId>
-            <artifactId>ehcache</artifactId>
-            <version>2.10.0</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-httpclient</groupId>
-            <artifactId>commons-httpclient</artifactId>
-            <version>3.1</version>
-        </dependency>
-        <dependency>
-            <groupId>jaxen</groupId>
-            <artifactId>jaxen</artifactId>
-            <version>1.1.6</version>
-        </dependency>
+        <!--新商盟jar-->
         <dependency>
             <groupId>org.loushang</groupId>
             <artifactId>xsm-common</artifactId>
@@ -82,19 +77,6 @@
             <version>1.0</version>
             <scope>system</scope>
             <systemPath>${basedir}/lib/loushang3.0-exception.jar</systemPath>
-        </dependency>
-        <!-- servlet -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>3.0.1</version>
-            <scope>provided</scope>
         </dependency>
     </dependencies>
 
