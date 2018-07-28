@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lambo.rule.dao.api.RuleMapper">
+  <select id="getRule" parameterType="String" resultType="map">
+select rule_id as ruleId,rule_value as ruleValue,organ_id as organId
+from lambo_rule
+WHERE rule_id = #{ruleId,jdbcType=VARCHAR}
+
+  </select>
+</mapper>

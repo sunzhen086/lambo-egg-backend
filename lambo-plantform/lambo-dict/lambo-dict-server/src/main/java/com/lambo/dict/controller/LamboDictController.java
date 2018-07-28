@@ -115,12 +115,9 @@ public class LamboDictController extends BaseController {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public Object update(
             @RequestParam(required = true, defaultValue = "", value = "dictName") String dictName,
-            @RequestParam(required = true, defaultValue = "", value = "dictType") String dictType,
             @RequestParam(required = false, defaultValue = "", value = "dictId") String dictId,
             @RequestParam(required = false, defaultValue = "", value = "dictKeyList") String dictKeyList,
-            @RequestParam(required = false, defaultValue = "", value = "dictDesc") String dictDesc,
-            @RequestParam(required = false, defaultValue = "", value = "dictSql") String dictSql,
-            @RequestParam(required = false, defaultValue = "", value = "dictDataSource") String dictDataSource
+            @RequestParam(required = false, defaultValue = "", value = "dictDesc") String dictDesc
     ) {
         return lamboDictService.updateDict(dictName,dictId,dictDesc,dictKeyList);
     }

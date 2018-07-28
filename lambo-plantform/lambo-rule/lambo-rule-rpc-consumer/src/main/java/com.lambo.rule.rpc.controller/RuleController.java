@@ -4,9 +4,8 @@ import com.lambo.common.annotation.LogAround;
 import com.lambo.common.base.BaseController;
 import com.lambo.common.base.BaseResult;
 import com.lambo.common.base.BaseResultConstant;
-import com.lambo.rule.rpc.api.RuleService;
+import com.lambo.rule.rpc.api.RuleUtil;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,8 +25,6 @@ import java.util.Map;
 @Controller
 public class RuleController extends BaseController {
 
-    @Autowired
-    RuleService ruleService;
 
     @ApiOperation(value = "获取业务规则返回List")
     @RequestMapping(value = "/rule/getList",method = RequestMethod.GET)
@@ -36,7 +33,7 @@ public class RuleController extends BaseController {
     public Object getList(
             @RequestParam(value = "ruleId") String ruleId) {
 
-        List<Map<String,String>> result = ruleService.getRuleDataList(ruleId);
+        List<Map<String,String>> result = RuleUtil.getRuleList(ruleId);
         return new BaseResult(BaseResultConstant.SUCCESS,result);
     }
     @ApiOperation(value = "获取业务规则值")
@@ -47,7 +44,7 @@ public class RuleController extends BaseController {
             @RequestParam(value = "ruleId") String ruleId,
             @RequestParam(value = "comId") String comId) {
 
-         String result = ruleService.getRuleValue(ruleId,comId);
+         String result = RuleUtil.getRuleValue(ruleId,comId);
         return new BaseResult(BaseResultConstant.SUCCESS,result);
     }
 

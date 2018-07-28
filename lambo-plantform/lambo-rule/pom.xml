@@ -12,10 +12,11 @@
     <artifactId>lambo-rule</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>lambo-rule-rpc-api</module>
+        <module>lambo-rule-rpc-client</module>
         <module>lambo-rule-rpc-consumer</module>
         <module>lambo-rule-rpc-provider</module>
         <module>lambo-rule-server</module>
+        <module>lambo-rule-client</module>
     </modules>
 
 

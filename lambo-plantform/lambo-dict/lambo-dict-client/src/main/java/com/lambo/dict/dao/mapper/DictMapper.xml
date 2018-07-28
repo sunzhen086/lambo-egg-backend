@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lambo.dict.dao.api.DictMapper">
   <select id="getDict" parameterType="String" resultType="map">
-select DICT_KEY as K,DICT_VALUE as V,dict_type as dictType,dict_sql as dictSql
+select DICT_KEY as K,DICT_VALUE as V
 from lambo_dict
 WHERE DICT_ID = #{dictId,jdbcType=VARCHAR}
 order by order_num ASC

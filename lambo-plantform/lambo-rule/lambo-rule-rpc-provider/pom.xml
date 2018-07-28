@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>lambo-rule-rpc-provider</artifactId>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <name>lambo-rule-rpc-provider Maven Webapp</name>
     <!-- FIXME change it to the project's website -->
@@ -19,12 +19,7 @@
     <dependencies>
         <dependency>
             <groupId>com.lambo</groupId>
-            <artifactId>lambo-rpc-dubbo-client</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.lambo</groupId>
-            <artifactId>lambo-rule-rpc-api</artifactId>
+            <artifactId>lambo-rule-rpc-client</artifactId>
             <version>1.0.0</version>
         </dependency>
 

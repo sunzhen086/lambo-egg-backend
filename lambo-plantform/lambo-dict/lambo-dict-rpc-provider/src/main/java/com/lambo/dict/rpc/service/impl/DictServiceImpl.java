@@ -69,8 +69,8 @@ public class DictServiceImpl implements DictService {
 
     @Override
     public String getDictMapJson(String dictId) {
-        LinkedHashMap<String, String> map = getDictMap(dictId);
-        return JsonUtil.object2json(map);
+        List<Map<String, String>>  list = getDictDataList(dictId);
+        return JsonUtil.list2json(list);
     }
 
     @Override

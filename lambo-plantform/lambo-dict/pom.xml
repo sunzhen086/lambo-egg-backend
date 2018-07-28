@@ -17,7 +17,7 @@
         <module>lambo-dict-server</module>
         <module>lambo-dict-rpc-consumer</module>
         <module>lambo-dict-rpc-provider</module>
-        <module>lambo-dict-rpc-api</module>
+        <module>lambo-dict-rpc-client</module>
     </modules>
 
 
