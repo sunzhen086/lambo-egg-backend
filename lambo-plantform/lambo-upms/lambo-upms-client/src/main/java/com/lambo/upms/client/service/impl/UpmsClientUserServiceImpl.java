@@ -1,5 +1,8 @@
 package com.lambo.upms.client.service.impl;
 
+import com.lambo.upms.client.dao.api.UpmsClientStUserMapper;
+import com.lambo.upms.client.dao.model.UpmsStUser;
+import com.lambo.upms.client.dao.model.UpmsStUserExample;
 import com.lambo.upms.client.dao.model.UpmsUserExample;
 import com.lambo.common.annotation.BaseService;
 import com.lambo.common.base.BaseServiceImpl;
@@ -26,6 +29,9 @@ public class UpmsClientUserServiceImpl extends BaseServiceImpl<UpmsClientUserMap
     @Autowired
     UpmsClientUserMapper upmsUserMapper;
 
+    @Autowired
+    UpmsClientStUserMapper upmsStUserMapper;
+
     @Override
     public UpmsUser createUser(UpmsUser upmsUser) {
         UpmsUserExample upmsUserExample = new UpmsUserExample();
@@ -37,6 +43,18 @@ public class UpmsClientUserServiceImpl extends BaseServiceImpl<UpmsClientUserMap
         }
         upmsUserMapper.insert(upmsUser);
         return upmsUser;
+    }
+
+    public UpmsStUser createStUser(UpmsStUser upmsStUser){
+        UpmsStUserExample upmsStUserExample = new UpmsStUserExample();
+        upmsStUserExample.createCriteria()
+                .andXsmUserIdEqualTo(upmsStUser.getXsmUserId());
+        long count = upmsStUserMapper.countByExample(upmsStUserExample);
+        if (count > 0) {
+            return null;
+        }
+        upmsStUserMapper.insert(upmsStUser);
+        return upmsStUser;
     }
 
 }

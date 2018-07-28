@@ -2,10 +2,7 @@ package com.lambo.upms.client.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.lambo.upms.client.dao.model.UpmsPermission;
-import com.lambo.upms.client.dao.model.UpmsSystem;
-import com.lambo.upms.client.dao.model.UpmsSystemExample;
-import com.lambo.upms.client.dao.model.UpmsUser;
+import com.lambo.upms.client.dao.model.*;
 import com.lambo.common.base.BaseController;
 import com.lambo.common.utils.io.PropertiesFileUtil;
 import com.lambo.upms.client.service.api.UpmsClientApiService;
@@ -54,8 +51,8 @@ public class UpmsMenuController extends BaseController {
         // 当前登录用户权限
         Subject subject = SecurityUtils.getSubject();
         String username = (String) subject.getPrincipal();
-        UpmsUser upmsUser = upmsClientApiService.selectUpmsUserByUsername(username);
-        List<UpmsPermission> upmsPermissions = upmsClientApiService.selectUpmsPermissionByUpmsUserId(upmsUser.getUserId());
+        UpmsStUser upmsStUser = upmsClientApiService.selectUpmsStUserByXsmUserId(username);
+        List<UpmsPermission> upmsPermissions = upmsClientApiService.selectUpmsPermissionByUpmsUserId(upmsStUser.getUserId());
 
         JSONArray jsonArr = new JSONArray();
         for(UpmsSystem upmsSystem : upmsSystems) {

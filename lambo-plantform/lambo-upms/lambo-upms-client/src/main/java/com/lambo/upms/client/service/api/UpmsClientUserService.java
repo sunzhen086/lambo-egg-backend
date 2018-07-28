@@ -1,5 +1,6 @@
 package com.lambo.upms.client.service.api;
 
+import com.lambo.upms.client.dao.model.UpmsStUser;
 import com.lambo.upms.client.dao.model.UpmsUser;
 import com.lambo.upms.client.dao.model.UpmsUserExample;
 import com.lambo.common.base.BaseService;
@@ -12,4 +13,5 @@ public interface UpmsClientUserService extends BaseService<UpmsUser, UpmsUserExa
 
     UpmsUser createUser(UpmsUser upmsUser);
 
+    UpmsStUser createStUser(UpmsStUser upmsStUser);
 }

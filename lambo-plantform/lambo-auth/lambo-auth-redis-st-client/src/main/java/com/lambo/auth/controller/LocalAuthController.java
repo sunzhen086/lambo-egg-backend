@@ -39,7 +39,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * Created by lambo on 2016/12/10.
  */
 @Controller
-@RequestMapping("/local")
+@RequestMapping("/sso/local")
 @Api(value = "本地登录管理", description = "本地登录管理")
 public class LocalAuthController extends BaseController {
 
@@ -81,6 +81,7 @@ public class LocalAuthController extends BaseController {
         if (StringUtils.isBlank(password)) {
             return new BaseResult(BaseResultConstant.FAILED, "密码不能为空！");
         }
+        System.out.println("password="+password);
         Subject subject = SecurityUtils.getSubject();
         Session session = subject.getSession();
         String sessionId = session.getId().toString();

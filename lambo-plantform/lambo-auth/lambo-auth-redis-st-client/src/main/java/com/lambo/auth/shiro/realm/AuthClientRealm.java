@@ -74,6 +74,7 @@ public class AuthClientRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         String username = (String) authenticationToken.getPrincipal();
         String password = new String((char[]) authenticationToken.getCredentials());
+        System.out.println("passwordpassword="+password);
         /**
          * 免密单点登录
          */
@@ -82,12 +83,14 @@ public class AuthClientRealm extends AuthorizingRealm {
         }
 
         // 查询用户信息
-        UpmsStUser upmsUser = authClientApiService.selectUpmsUserByXsmUserId(username);
+        UpmsStUser upmsStUser = authClientApiService.selectUpmsUserByXsmUserId(username);
 
-        if (null == upmsUser) {
+        if (null == upmsStUser) {
             throw new UnknownAccountException();
         }
-        if (!upmsUser.getPassword().equalsIgnoreCase(Md5Utils.md5(password))) {
+        System.out.println("upmsStUser.getPassword()="+upmsStUser.getPassword());
+        System.out.println("Md5Utils.md5(password)="+Md5Utils.md5(password));
+        if (!upmsStUser.getPassword().equalsIgnoreCase(Md5Utils.md5(password))) {
             throw new IncorrectCredentialsException();
         }
 
