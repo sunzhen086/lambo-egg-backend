@@ -50,6 +50,12 @@
             <version>3.0.1</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.lambo</groupId>
+            <artifactId>lambo-code-client</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
 
@@ -84,10 +90,8 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.18.1</version>
                 <configuration>
-                    <!--
                     <skipTests>true</skipTests>
                     <testFailureIgnore>true</testFailureIgnore>
-                    -->
                 </configuration>
             </plugin>
         </plugins>

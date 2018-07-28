@@ -66,6 +66,12 @@ public interface UpmsClientApiService {
      * @return
      */
     UpmsUser selectUpmsUserByUsername(String username);
+    /**
+     * 根据xsmUserId获取UpmsStUser
+     * @param xsmUserId
+     * @return
+     */
+    UpmsStUser selectUpmsStUserByXsmUserId(String xsmUserId);
 
     /**
      * 写入操作日志

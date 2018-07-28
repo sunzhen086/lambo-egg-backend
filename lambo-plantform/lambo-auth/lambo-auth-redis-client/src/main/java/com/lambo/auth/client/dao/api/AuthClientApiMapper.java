@@ -1,8 +1,7 @@
 package com.lambo.auth.client.dao.api;
 
-
-import com.lambo.auth.client.dao.model.UpmsRole;
 import com.lambo.auth.client.dao.model.UpmsPermission;
+import com.lambo.auth.client.dao.model.UpmsRole;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

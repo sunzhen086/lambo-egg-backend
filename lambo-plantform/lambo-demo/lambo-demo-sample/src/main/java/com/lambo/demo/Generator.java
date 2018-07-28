@@ -16,8 +16,8 @@ public class Generator {
     private static String LAST_INSERT_ID_TABLES = "rest_id";//主键
     private static Boolean IS_AUTO_INC = false;//是否自增
 
-    private static String PACKAGE_NAME = "com.lambo.demo";//类的包路径
-    private static String AUTHOR = "wangjierj";//作者名称
+    private static String PACKAGE_NAME = "com.inspur.cigar";//类的包路径
+    private static String AUTHOR = "sun_zhen";//作者名称
 
     /**
      * 自动代码生成

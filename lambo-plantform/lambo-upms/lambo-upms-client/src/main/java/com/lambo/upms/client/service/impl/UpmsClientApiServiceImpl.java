@@ -7,7 +7,6 @@ import com.lambo.upms.client.service.api.UpmsClientApiService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +27,9 @@ public class UpmsClientApiServiceImpl implements UpmsClientApiService {
 
     @Autowired
     UpmsClientUserMapper upmsUserMapper;
+
+    @Autowired
+    UpmsClientStUserMapper upmsStUserMapper;
 
     @Autowired
     UpmsClientApiMapper upmsApiMapper;
@@ -152,6 +154,22 @@ public class UpmsClientApiServiceImpl implements UpmsClientApiService {
         List<UpmsUser> upmsUsers = upmsUserMapper.selectByExample(upmsUserExample);
         if (null != upmsUsers && upmsUsers.size() > 0) {
             return upmsUsers.get(0);
+        }
+        return null;
+    }
+
+    /**
+     * 根据xsmUserId获取UpmsStUser
+     * @param xsmUserId
+     * @return
+     */
+    public UpmsStUser selectUpmsStUserByXsmUserId(String xsmUserId){
+        UpmsStUserExample upmsStUserExample = new UpmsStUserExample();
+        upmsStUserExample.createCriteria()
+                .andXsmUserIdEqualTo(xsmUserId);
+        List<UpmsStUser> upmsStUsers = upmsStUserMapper.selectByExampleWithBLOBs(upmsStUserExample);
+        if (null != upmsStUsers && upmsStUsers.size() > 0) {
+            return upmsStUsers.get(0);
         }
         return null;
     }
