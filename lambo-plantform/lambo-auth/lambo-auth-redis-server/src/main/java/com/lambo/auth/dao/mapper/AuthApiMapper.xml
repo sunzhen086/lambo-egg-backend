@@ -3,7 +3,7 @@
 <mapper namespace="com.lambo.auth.dao.api.AuthClientApiMapper">
 
 	<!-- 权限 -->
-	<resultMap id="UpmsPermissionResultMap" type="com.lambo.auth.model.UpmsPermission">
+	<resultMap id="UpmsPermissionResultMap" type="com.lambo.auth.dao.model.UpmsPermission">
 		<id column="permission_id" jdbcType="INTEGER" property="permissionId" />
 		<result column="system_id" jdbcType="INTEGER" property="systemId" />
 		<result column="pid" jdbcType="INTEGER" property="pid" />
@@ -18,7 +18,7 @@
 	</resultMap>
 
 	<!-- 角色 -->
-	<resultMap id="UpmsRoleResultMap" type="com.lambo.auth.model.UpmsRole">
+	<resultMap id="UpmsRoleResultMap" type="com.lambo.auth.dao.model.UpmsRole">
 		<id column="role_id" jdbcType="INTEGER" property="roleId" />
 		<result column="name" jdbcType="VARCHAR" property="name" />
 		<result column="title" jdbcType="VARCHAR" property="title" />

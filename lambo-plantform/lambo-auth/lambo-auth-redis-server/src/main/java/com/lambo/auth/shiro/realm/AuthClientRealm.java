@@ -28,7 +28,7 @@ public class AuthClientRealm extends AuthorizingRealm {
     private static Logger logger = LoggerFactory.getLogger(AuthClientRealm.class);
 
     @Autowired
-    private AuthClientApiService authClientApiService;
+    private AuthClientApiService authClientApiServiceProvider;
 
     /**
      * 授权：验证权限时调用
@@ -38,10 +38,10 @@ public class AuthClientRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         String username = (String) principalCollection.getPrimaryPrincipal();
-        UpmsStUser upmsStUser = authClientApiService.selectUpmsUserByXsmUserId(username);
+        UpmsStUser upmsStUser = authClientApiServiceProvider.selectUpmsUserByXsmUserId(username);
 
         // 当前用户所有角色
-        List<UpmsRole> upmsRoles = authClientApiService.selectUpmsRoleByUpmsUserId(upmsStUser.getUserId());
+        List<UpmsRole> upmsRoles = authClientApiServiceProvider.selectUpmsRoleByUpmsUserId(upmsStUser.getUserId());
         Set<String> roles = new HashSet<>();
         for (UpmsRole upmsRole : upmsRoles) {
             if (StringUtils.isNotBlank(upmsRole.getName())) {
@@ -50,7 +50,7 @@ public class AuthClientRealm extends AuthorizingRealm {
         }
 
         // 当前用户所有权限
-        List<UpmsPermission> upmsPermissions = authClientApiService.selectUpmsPermissionByUpmsUserId(upmsStUser.getUserId());
+        List<UpmsPermission> upmsPermissions = authClientApiServiceProvider.selectUpmsPermissionByUpmsUserId(upmsStUser.getUserId());
         Set<String> permissions = new HashSet<>();
         for (UpmsPermission upmsPermission : upmsPermissions) {
             if (StringUtils.isNotBlank(upmsPermission.getPermissionValue())) {
@@ -82,12 +82,12 @@ public class AuthClientRealm extends AuthorizingRealm {
         }
 
         // 查询用户信息
-        UpmsStUser upmsUser = authClientApiService.selectUpmsUserByXsmUserId(username);
+        UpmsStUser upmsStUser = authClientApiServiceProvider.selectUpmsUserByXsmUserId(username);
 
-        if (null == upmsUser) {
+        if (null == upmsStUser) {
             throw new UnknownAccountException();
         }
-        if (!upmsUser.getPassword().equalsIgnoreCase(Md5Utils.md5(password))) {
+        if (!upmsStUser.getPassword().equalsIgnoreCase(Md5Utils.md5(password))) {
             throw new IncorrectCredentialsException();
         }
 

@@ -1,7 +1,11 @@
 package com.lambo.auth.controller;
 
+import com.alibaba.druid.support.json.JSONUtils;
+import com.lambo.auth.dao.model.UpmsStUser;
+import com.lambo.auth.rpc.api.AuthClientApiService;
 import com.lambo.auth.shiro.session.AuthClientSession;
 import com.lambo.auth.shiro.session.AuthClientSessionDao;
+import com.lambo.auth.util.UpmsStUserUtil;
 import com.lambo.common.base.BaseController;
 import com.lambo.common.base.BaseResult;
 import com.lambo.common.base.BaseResultConstant;
@@ -61,7 +65,8 @@ public class LocalAuthController extends BaseController {
 
     @Autowired
     AuthClientSessionDao upmsSessionDao;
-
+    @Autowired
+    AuthClientApiService authClientApiService;
 
     @ApiOperation(value = "登录")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -85,42 +90,44 @@ public class LocalAuthController extends BaseController {
         if (StringUtils.isBlank(hasCode)) {
             // 先注销
             SecurityUtils.getSubject().logout();
-            // 使用shiro认证
-            UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(username, password);
-            try {
-                if (BooleanUtils.toBoolean(rememberMe)) {
-                    usernamePasswordToken.setRememberMe(true);
-                } else {
-                    usernamePasswordToken.setRememberMe(false);
-                }
-                subject.login(usernamePasswordToken);
-            } catch (UnknownAccountException e) {
-                return new BaseResult(BaseResultConstant.FAILED, "帐号不存在！");
-            } catch (IncorrectCredentialsException e) {
-                return new BaseResult(BaseResultConstant.FAILED, "密码错误！");
-            } catch (LockedAccountException e) {
-                return new BaseResult(BaseResultConstant.FAILED, "帐号已锁定！");
-            }
-            // 更新session状态
-            upmsSessionDao.updateStatus(sessionId, AuthClientSession.OnlineStatus.on_line);
-            // 全局会话sessionId列表，供会话管理
-            //RedisUtil.lpush(LAMBO_SSO_SESSION_IDS, sessionId.toString());
-
-            // 默认验证帐号密码正确，创建code
-            String code = IdGenerate.uuid();
-            //过期时间
-            int timeout = (int) subject.getSession().getTimeout() / 1000;
-            // 会话的code
-            RedisUtil.set(LAMBO_SSO_CODE + "_" + sessionId, code, timeout);
-            // code校验值
-            RedisUtil.set(LAMBO_SSO_CODE_USERNAME + "_" + code, username, timeout);
-            // 保存code对应的会话sessionId，方便退出操作
-            RedisUtil.sadd(LAMBO_SSO_SESSION_IDS + "_" + code, sessionId, timeout);
-
-            //往Cookie里设置单点登录code
-            CookieUtils.setCookie(ServletUtils.getResponse(), LAMBO_SSO_COOKIE_KEY, code, "/",-1);
         }
+        // 使用shiro认证
+        UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(username, password);
+        try {
+            if (BooleanUtils.toBoolean(rememberMe)) {
+                usernamePasswordToken.setRememberMe(true);
+            } else {
+                usernamePasswordToken.setRememberMe(false);
+            }
+            subject.login(usernamePasswordToken);
+        } catch (UnknownAccountException e) {
+            return new BaseResult(BaseResultConstant.FAILED, "帐号不存在！");
+        } catch (IncorrectCredentialsException e) {
+            return new BaseResult(BaseResultConstant.FAILED, "密码错误！");
+        } catch (LockedAccountException e) {
+            return new BaseResult(BaseResultConstant.FAILED, "帐号已锁定！");
+        }
+        // 更新session状态
+        upmsSessionDao.updateStatus(sessionId, AuthClientSession.OnlineStatus.on_line);
+        // 全局会话sessionId列表，供会话管理
+        //RedisUtil.lpush(LAMBO_SSO_SESSION_IDS, sessionId.toString());
 
+        // 默认验证帐号密码正确，创建code
+        String code = IdGenerate.uuid();
+        //过期时间
+        int timeout = (int) subject.getSession().getTimeout() / 1000;
+        // 会话的code
+        RedisUtil.set(LAMBO_SSO_CODE + "_" + sessionId, code, timeout);
+        // code校验值
+        RedisUtil.set(LAMBO_SSO_CODE_USERNAME + "_" + code, username, timeout);
+        // 存储用户信息json对象
+        UpmsStUser upmsStUser = authClientApiService.selectUpmsUserByXsmUserId(username);
+        RedisUtil.set(username, JSONUtils.toJSONString(UpmsStUserUtil.upmsStUser2Map(upmsStUser)), timeout);
+        // 保存code对应的会话sessionId，方便退出操作
+        RedisUtil.sadd(LAMBO_SSO_SESSION_IDS + "_" + code, sessionId, timeout);
+
+        //往Cookie里设置单点登录code
+        CookieUtils.setCookie(ServletUtils.getResponse(), LAMBO_SSO_COOKIE_KEY, code, "/",-1);
         return new BaseResult(BaseResultConstant.SUCCESS, "登录成功");
     }
 

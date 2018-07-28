@@ -19,12 +19,12 @@
             <groupId>com.lambo</groupId>
             <artifactId>lambo-auth-redis-client</artifactId>
             <version>1.0.0</version>
-        </dependency>-->
+        </dependency>
         <dependency>
             <groupId>com.lambo</groupId>
             <artifactId>lambo-auth-redis-st-client</artifactId>
             <version>1.0.0</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>com.lambo</groupId>
             <artifactId>lambo-auth-redis-rpc-api</artifactId>
@@ -41,6 +41,21 @@
             <artifactId>junit</artifactId>
             <version>4.12</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+            <version>2.10.0</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-httpclient</groupId>
+            <artifactId>commons-httpclient</artifactId>
+            <version>3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>jaxen</groupId>
+            <artifactId>jaxen</artifactId>
+            <version>1.1.6</version>
         </dependency>
         <!-- servlet -->
         <dependency>

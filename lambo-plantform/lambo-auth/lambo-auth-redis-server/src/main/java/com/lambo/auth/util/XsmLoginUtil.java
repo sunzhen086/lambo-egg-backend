@@ -1,7 +1,6 @@
 package com.lambo.auth.util;
 
 import com.alibaba.druid.support.json.JSONUtils;
-import com.alibaba.fastjson.JSONObject;
 import com.lambo.auth.dao.model.UpmsStUser;
 import com.lambo.common.utils.io.PropertiesFileUtil;
 import org.apache.commons.httpclient.HttpClient;
@@ -30,13 +29,13 @@ import java.util.Map;
 
 public class XsmLoginUtil {
     private static final Logger log = LoggerFactory.getLogger(XsmLoginUtil.class);
-    private static PropertiesFileUtil stConfig = PropertiesFileUtil.getInstance("stlogin");
-    private static String xsmApache = stConfig.get("XSM_APACHE");
-    private static String xsmCodeUrl = stConfig.get("XSM_CODE_URL");
-    private static String xsmLoginUrl = stConfig.get("XSM_LOGIN_URL");
-    private static String xsmIsOpenProxy = stConfig.get("IS_NEED_PROXY");
-    private static String xsmProxyHost = stConfig.get("PROXY_HOST");
-    private static String xsmProxyPort = stConfig.get("PROXY_PORT");
+    private static PropertiesFileUtil authConfig = PropertiesFileUtil.getInstance("auth");
+    private static String xsmApache = authConfig.get("XSM_APACHE");
+    private static String xsmCodeUrl = authConfig.get("XSM_CODE_URL");
+    private static String xsmLoginUrl = authConfig.get("XSM_LOGIN_URL");
+    private static String xsmIsOpenProxy = authConfig.get("IS_NEED_PROXY");
+    private static String xsmProxyHost = authConfig.get("PROXY_HOST");
+    private static String xsmProxyPort = authConfig.get("PROXY_PORT");
 
     /**
      * 功能:验证新商盟登录
@@ -301,7 +300,10 @@ public class XsmLoginUtil {
         if(!oldUser.getComId().equals(newUser.getComId())){
             return true;
         }
-        JSONObject loginInfo = (JSONObject)JSONUtils.parse(oldUser.getLoginInfo());
+        if(null == oldUser.getLoginInfo() || "".equals(oldUser.getLoginInfo())){
+            return true;
+        }
+        Map loginInfo = (Map)JSONUtils.parse(oldUser.getLoginInfo());
         if(!loginInfo.get("comName").equals(newUser.getComName())){
             return true;
         }
@@ -349,5 +351,8 @@ public class XsmLoginUtil {
         System.out.println("user1 = "+user1);*/
         Map userMap = user2Map(user);
         System.out.println("userMap= "+ JSONUtils.toJSONString(userMap));
+        String loginInfo = "{\"comShort\":\"铜川\",\"comType\":\"02\",\"nickName\":\"东村商店\",\"comName\":\"铜川分公司\",\"userId\":\"610222100306\",\"parentComId\":\"11610001\",\"domainUrl\":\"http://10.110.1.176/home/index.htm?v=1532742633294\",\"refId\":\"610222100306\",\"comId\":\"11610201\",\"saledptId\":\"11610222\",\"userType\":\"1000\"}";
+        Map loginInfos = (Map)JSONUtils.parse(loginInfo);
+        System.out.println("loginInfos= "+ loginInfos);
     }
 }

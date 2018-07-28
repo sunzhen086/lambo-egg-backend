@@ -2,7 +2,7 @@ package com.lambo.auth.rpc.api;
 
 import com.lambo.auth.dao.model.UpmsPermission;
 import com.lambo.auth.dao.model.UpmsRole;
-import com.lambo.auth.dao.model.UpmsUser;
+import com.lambo.auth.dao.model.UpmsStUser;
 
 import java.util.List;
 
@@ -13,11 +13,11 @@ import java.util.List;
 public interface AuthClientApiService {
 
     /**
-     * 根据username获取UpmsUser
-     * @param username
+     * 根据xsmUserId获取UpmsUser
+     * @param xsmUserId
      * @return
      */
-    UpmsUser selectUpmsUserByUsername(String username);
+    UpmsStUser selectUpmsUserByXsmUserId(String xsmUserId);
 
 
     /**

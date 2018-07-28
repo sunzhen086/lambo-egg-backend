@@ -1,18 +1,13 @@
 package com.lambo.auth.service.impl;
 
 import com.lambo.auth.dao.api.AuthClientApiMapper;
-import com.lambo.auth.dao.api.AuthClientUserMapper;
-import com.lambo.auth.dao.model.UpmsPermission;
-import com.lambo.auth.dao.model.UpmsRole;
-import com.lambo.auth.dao.model.UpmsUser;
+import com.lambo.auth.dao.api.UpmsStUserMapper;
+import com.lambo.auth.dao.model.*;
 import com.lambo.auth.rpc.api.AuthClientApiService;
-import com.lambo.auth.dao.model.UpmsUserExample;
 import com.lambo.common.utils.io.PropertiesFileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,8 +16,6 @@ import java.util.List;
  * UpmsApiService实现
  * Created by lambo on 2016/01/19.
  */
-@Service
-@Transactional
 public class AuthClientApiServiceImpl implements AuthClientApiService {
 
     private static Logger logger = LoggerFactory.getLogger(AuthClientApiServiceImpl.class);
@@ -30,10 +23,10 @@ public class AuthClientApiServiceImpl implements AuthClientApiService {
     private static String SYSTEM_ID = PropertiesFileUtil.getInstance("config").get("upms.system.id");
 
     @Autowired
-    AuthClientUserMapper authClientUserMapper;
+    AuthClientApiMapper authClientApiMapper;
 
     @Autowired
-    AuthClientApiMapper authClientApiMapper;
+    UpmsStUserMapper upmsStUserMapper;
 
     /**
      * 根据用户id获取所拥有的权限
@@ -43,8 +36,8 @@ public class AuthClientApiServiceImpl implements AuthClientApiService {
     @Override
     public List<UpmsPermission> selectUpmsPermissionByUpmsUserId(Integer upmsUserId) {
         // 用户不存在或锁定状态
-        UpmsUser upmsUser = authClientUserMapper.selectByPrimaryKey(upmsUserId);
-        if (null == upmsUser || 1 == upmsUser.getLocked()) {
+        UpmsStUser upmsStUser = upmsStUserMapper.selectByPrimaryKey(upmsUserId);
+        if (null == upmsStUser) {
             logger.info("selectUpmsPermissionByUpmsUserId : upmsUserId={}", upmsUserId);
             return null;
         }
@@ -59,9 +52,9 @@ public class AuthClientApiServiceImpl implements AuthClientApiService {
      */
     @Override
     public List<UpmsRole> selectUpmsRoleByUpmsUserId(Integer upmsUserId) {
-        // 用户不存在或锁定状态
-        UpmsUser upmsUser = authClientUserMapper.selectByPrimaryKey(upmsUserId);
-        if (null == upmsUser || 1 == upmsUser.getLocked()) {
+        // 用户不存在
+        UpmsStUser upmsStUser = upmsStUserMapper.selectByPrimaryKey(upmsUserId);
+        if (null == upmsStUser) {
             logger.info("selectUpmsRoleByUpmsUserId : upmsUserId={}", upmsUserId);
             return null;
         }
@@ -71,16 +64,16 @@ public class AuthClientApiServiceImpl implements AuthClientApiService {
 
     /**
      * 根据username获取UpmsUser
-     * @param username
+     * @param xsmUserId
      * @return
      */
     @Override
-    public UpmsUser selectUpmsUserByUsername(String username) {
-        UpmsUserExample upmsUserExample = new UpmsUserExample();
-        upmsUserExample.createCriteria().andUsernameEqualTo(username);
-        List<UpmsUser> upmsUsers = authClientUserMapper.selectByExample(upmsUserExample);
-        if (null != upmsUsers && upmsUsers.size() > 0) {
-            return upmsUsers.get(0);
+    public UpmsStUser selectUpmsUserByXsmUserId(String xsmUserId) {
+        UpmsStUserExample upmsStUserExample = new UpmsStUserExample();
+        upmsStUserExample.createCriteria().andXsmUserIdEqualTo(xsmUserId);
+        List<UpmsStUser> upmsStUsers = upmsStUserMapper.selectByExampleWithBLOBs(upmsStUserExample);
+        if (null != upmsStUsers && upmsStUsers.size() > 0) {
+            return upmsStUsers.get(0);
         }
         return null;
     }
