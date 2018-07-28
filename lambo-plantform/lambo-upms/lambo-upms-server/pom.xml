@@ -30,19 +30,15 @@
             <artifactId>lambo-auth-redis-st-client</artifactId>
             <version>1.0.0</version>
         </dependency>
+
         <dependency>
             <groupId>com.lambo</groupId>
-            <artifactId>lambo-dict-server</artifactId>
+            <artifactId>lambo-rule-rpc-provider</artifactId>
             <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>com.lambo</groupId>
-            <artifactId>lambo-rule-server</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.lambo</groupId>
-            <artifactId>lambo-schedule-server</artifactId>
+            <artifactId>lambo-dict-rpc-provider</artifactId>
             <version>1.0.0</version>
         </dependency>
         <dependency>
