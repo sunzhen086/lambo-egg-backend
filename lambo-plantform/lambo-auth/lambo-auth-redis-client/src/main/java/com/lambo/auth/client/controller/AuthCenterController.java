@@ -1,5 +1,6 @@
 package com.lambo.auth.client.controller;
 
+import com.lambo.auth.client.shiro.session.AuthClientSession;
 import com.lambo.common.base.BaseController;
 import com.lambo.common.base.BaseResult;
 import com.lambo.common.base.BaseResultConstant;
@@ -7,7 +8,6 @@ import com.lambo.common.utils.idgen.IdGenerate;
 import com.lambo.common.utils.io.RedisUtil;
 import com.lambo.common.utils.web.CookieUtils;
 import com.lambo.common.utils.web.http.ServletUtils;
-import com.lambo.auth.client.shiro.session.AuthClientSession;
 import com.lambo.auth.client.shiro.session.AuthClientSessionDao;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
