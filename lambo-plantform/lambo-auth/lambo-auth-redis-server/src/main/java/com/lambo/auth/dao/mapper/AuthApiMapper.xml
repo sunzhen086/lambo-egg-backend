@@ -63,6 +63,10 @@
 			select uur.role_id from upms_user_role uur where uur.user_id=#{upmsUserId,jdbcType=INTEGER}
 		)
 	</select>
-
-
+	<!--根据系统id获取系统详情-->
+	<select id="selectSystemInfo" parameterType="java.lang.Integer" resultType="java.util.Map">
+		select system_id,icon,banner,theme,basepath,status,`name`,title,description,ctime,orders
+		from upms_system
+		where system_id = #{systemId,jdbcType=INTEGER}
+	</select>
 </mapper>

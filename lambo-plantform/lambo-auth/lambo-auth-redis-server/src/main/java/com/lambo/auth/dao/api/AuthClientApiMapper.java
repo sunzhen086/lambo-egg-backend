@@ -5,6 +5,7 @@ import com.lambo.auth.dao.model.UpmsRole;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用户VOMapper
@@ -26,5 +27,11 @@ public interface AuthClientApiMapper {
 	 * @return
 	 */
 	List<UpmsRole> selectUpmsRoleByUpmsUserId(Integer upmsUserId);
-	
+
+	/**
+	 * 根据系统id获取系统详情
+	 * @param systemId
+	 * @return
+	 */
+	Map selectSystemInfo(Integer systemId);
 }
