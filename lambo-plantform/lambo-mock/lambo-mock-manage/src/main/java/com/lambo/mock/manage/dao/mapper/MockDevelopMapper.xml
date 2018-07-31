@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lambo.mock.manage.dao.api.MockDevelopMapper">
+  <resultMap id="BaseResultMap" type="com.lambo.mock.manage.model.MockDevelop">
+    <id column="mock_id" jdbcType="VARCHAR" property="mockId" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="designer" jdbcType="VARCHAR" property="designer" />
+    <result column="developer" jdbcType="VARCHAR" property="developer" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.lambo.mock.manage.model.MockDevelop">
+    <result column="note" jdbcType="LONGVARCHAR" property="note" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    mock_id, status, designer, developer
+  </sql>
+  <sql id="Blob_Column_List">
+    note
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.lambo.mock.manage.model.MockDevelopExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from mock_develop
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.lambo.mock.manage.model.MockDevelopExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from mock_develop
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from mock_develop
+    where mock_id = #{mockId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from mock_develop
+    where mock_id = #{mockId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lambo.mock.manage.model.MockDevelopExample">
+    delete from mock_develop
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lambo.mock.manage.model.MockDevelop">
+    insert into mock_develop (mock_id, status, designer, 
+      developer, note)
+    values (#{mockId,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{designer,jdbcType=VARCHAR}, 
+      #{developer,jdbcType=VARCHAR}, #{note,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lambo.mock.manage.model.MockDevelop">
+    insert into mock_develop
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="mockId != null">
+        mock_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="designer != null">
+        designer,
+      </if>
+      <if test="developer != null">
+        developer,
+      </if>
+      <if test="note != null">
+        note,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="mockId != null">
+        #{mockId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="designer != null">
+        #{designer,jdbcType=VARCHAR},
+      </if>
+      <if test="developer != null">
+        #{developer,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null">
+        #{note,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByExampleSelective" parameterType="map">
+    update mock_develop
+    <set>
+      <if test="record.mockId != null">
+        mock_id = #{record.mockId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.designer != null">
+        designer = #{record.designer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.developer != null">
+        developer = #{record.developer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.note != null">
+        note = #{record.note,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update mock_develop
+    set mock_id = #{record.mockId,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      designer = #{record.designer,jdbcType=VARCHAR},
+      developer = #{record.developer,jdbcType=VARCHAR},
+      note = #{record.note,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update mock_develop
+    set mock_id = #{record.mockId,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      designer = #{record.designer,jdbcType=VARCHAR},
+      developer = #{record.developer,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lambo.mock.manage.model.MockDevelop">
+    update mock_develop
+    <set>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="designer != null">
+        designer = #{designer,jdbcType=VARCHAR},
+      </if>
+      <if test="developer != null">
+        developer = #{developer,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null">
+        note = #{note,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where mock_id = #{mockId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lambo.mock.manage.model.MockDevelop">
+    update mock_develop
+    set status = #{status,jdbcType=VARCHAR},
+      designer = #{designer,jdbcType=VARCHAR},
+      developer = #{developer,jdbcType=VARCHAR},
+      note = #{note,jdbcType=LONGVARCHAR}
+    where mock_id = #{mockId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lambo.mock.manage.model.MockDevelop">
+    update mock_develop
+    set status = #{status,jdbcType=VARCHAR},
+      designer = #{designer,jdbcType=VARCHAR},
+      developer = #{developer,jdbcType=VARCHAR}
+    where mock_id = #{mockId,jdbcType=VARCHAR}
+  </update>
+</mapper>

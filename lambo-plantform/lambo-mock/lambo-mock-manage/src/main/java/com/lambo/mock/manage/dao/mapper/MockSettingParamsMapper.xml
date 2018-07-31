@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lambo.mock.manage.dao.api.MockSettingParamsMapper">
+  <resultMap id="BaseResultMap" type="com.lambo.mock.manage.model.MockSettingParams">
+    <id column="mock_id" jdbcType="VARCHAR" property="mockId" />
+    <id column="param_key" jdbcType="VARCHAR" property="paramKey" />
+    <result column="param_type" jdbcType="VARCHAR" property="paramType" />
+    <result column="necessary" jdbcType="CHAR" property="necessary" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+    <result column="order_seq" jdbcType="INTEGER" property="orderSeq" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    mock_id, param_key, param_type, necessary, note, order_seq
+  </sql>
+  <select id="selectByExample" parameterType="com.lambo.mock.manage.model.MockSettingParamsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from mock_setting_params
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mock_setting_params
+    where mock_id = #{mockId,jdbcType=VARCHAR}
+      and param_key = #{paramKey,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from mock_setting_params
+    where mock_id = #{mockId,jdbcType=VARCHAR}
+      and param_key = #{paramKey,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lambo.mock.manage.model.MockSettingParamsExample">
+    delete from mock_setting_params
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lambo.mock.manage.model.MockSettingParams">
+    insert into mock_setting_params (mock_id, param_key, param_type, 
+      necessary, note, order_seq
+      )
+    values (#{mockId,jdbcType=VARCHAR}, #{paramKey,jdbcType=VARCHAR}, #{paramType,jdbcType=VARCHAR}, 
+      #{necessary,jdbcType=CHAR}, #{note,jdbcType=VARCHAR}, #{orderSeq,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lambo.mock.manage.model.MockSettingParams">
+    insert into mock_setting_params
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="mockId != null">
+        mock_id,
+      </if>
+      <if test="paramKey != null">
+        param_key,
+      </if>
+      <if test="paramType != null">
+        param_type,
+      </if>
+      <if test="necessary != null">
+        necessary,
+      </if>
+      <if test="note != null">
+        note,
+      </if>
+      <if test="orderSeq != null">
+        order_seq,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="mockId != null">
+        #{mockId,jdbcType=VARCHAR},
+      </if>
+      <if test="paramKey != null">
+        #{paramKey,jdbcType=VARCHAR},
+      </if>
+      <if test="paramType != null">
+        #{paramType,jdbcType=VARCHAR},
+      </if>
+      <if test="necessary != null">
+        #{necessary,jdbcType=CHAR},
+      </if>
+      <if test="note != null">
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="orderSeq != null">
+        #{orderSeq,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByExampleSelective" parameterType="map">
+    update mock_setting_params
+    <set>
+      <if test="record.mockId != null">
+        mock_id = #{record.mockId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paramKey != null">
+        param_key = #{record.paramKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paramType != null">
+        param_type = #{record.paramType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.necessary != null">
+        necessary = #{record.necessary,jdbcType=CHAR},
+      </if>
+      <if test="record.note != null">
+        note = #{record.note,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderSeq != null">
+        order_seq = #{record.orderSeq,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update mock_setting_params
+    set mock_id = #{record.mockId,jdbcType=VARCHAR},
+      param_key = #{record.paramKey,jdbcType=VARCHAR},
+      param_type = #{record.paramType,jdbcType=VARCHAR},
+      necessary = #{record.necessary,jdbcType=CHAR},
+      note = #{record.note,jdbcType=VARCHAR},
+      order_seq = #{record.orderSeq,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lambo.mock.manage.model.MockSettingParams">
+    update mock_setting_params
+    <set>
+      <if test="paramType != null">
+        param_type = #{paramType,jdbcType=VARCHAR},
+      </if>
+      <if test="necessary != null">
+        necessary = #{necessary,jdbcType=CHAR},
+      </if>
+      <if test="note != null">
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="orderSeq != null">
+        order_seq = #{orderSeq,jdbcType=INTEGER},
+      </if>
+    </set>
+    where mock_id = #{mockId,jdbcType=VARCHAR}
+      and param_key = #{paramKey,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lambo.mock.manage.model.MockSettingParams">
+    update mock_setting_params
+    set param_type = #{paramType,jdbcType=VARCHAR},
+      necessary = #{necessary,jdbcType=CHAR},
+      note = #{note,jdbcType=VARCHAR},
+      order_seq = #{orderSeq,jdbcType=INTEGER}
+    where mock_id = #{mockId,jdbcType=VARCHAR}
+      and param_key = #{paramKey,jdbcType=VARCHAR}
+  </update>
+</mapper>
