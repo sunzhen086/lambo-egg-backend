@@ -6,6 +6,7 @@ import com.lambo.auth.rpc.api.AuthClientApiService;
 import com.lambo.auth.shiro.session.AuthClientSession;
 import com.lambo.auth.shiro.session.AuthClientSessionDao;
 import com.lambo.auth.util.UpmsStUserUtil;
+import com.lambo.auth.util.UserInfoUtil;
 import com.lambo.common.base.BaseController;
 import com.lambo.common.base.BaseResult;
 import com.lambo.common.base.BaseResultConstant;
@@ -142,4 +143,22 @@ public class LocalAuthController extends BaseController {
         return new BaseResult(BaseResultConstant.SUCCESS, "注销成功");
     }
 
+    @ApiOperation(value = "测试")
+    @RequestMapping(value = "/doTest", method = RequestMethod.GET)
+    @ResponseBody
+    public Object doTest(){
+        System.out.println("doTest============begin");
+        System.out.println("doTest============"+UserInfoUtil.getComId());
+        System.out.println("doTest============"+UserInfoUtil.getIndustryComId());
+        System.out.println("doTest============"+UserInfoUtil.getDefaultUserDataPermitId(null,null));
+        System.out.println("doTest============"+UserInfoUtil.getRootBySystemId(null));
+        System.out.println("doTest============"+UserInfoUtil.getUserId());
+        System.out.println("doTest============"+UserInfoUtil.getUserRefId());
+        System.out.println("doTest============"+UserInfoUtil.getUserType());
+        System.out.println("doTest============"+UserInfoUtil.getUserInfo());
+        System.out.println("doTest============"+UserInfoUtil.getUserOrganDataPermit(null));
+        System.out.println("doTest============"+UserInfoUtil.getUserName());
+        System.out.println("doTest============end");
+        return UserInfoUtil.getComId();
+    }
 }
