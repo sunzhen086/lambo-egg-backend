@@ -10,6 +10,8 @@ import com.lambo.mock.manage.model.MockStruExample;
 import com.lambo.mock.manage.service.api.MockStruService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +22,7 @@ import java.util.List;
 @Api(value = "mock目录管理", description = "mock目录管理")
 @RequestMapping("/manage/mock/stru")
 public class MockStruController extends BaseController {
+    private final static Logger logger = LoggerFactory.getLogger(MockStruController.class);
 
     @Autowired
     MockStruService mockStruService;
@@ -37,7 +40,7 @@ public class MockStruController extends BaseController {
 
         MockStru mockStru = new MockStru();
 
-        String uuid = IdGenerate.uuid();
+        String uuid = IdGenerate.nextId();
 
         //mock_STRU
         mockStru.setStruId(uuid);
@@ -128,7 +131,8 @@ public class MockStruController extends BaseController {
     @ResponseBody
     @LogAround("查询mock子目录")
     public Object queryChildren(
-            @RequestParam(required = false, value = "parentId") String parentId) {
+            @RequestParam(required = false, value = "parentId") String parentId,
+            @RequestParam(required = false, value = "hasDevStatus") String hasDevStatus) {
 
         MockStruExample mockStruExample =  new MockStruExample();
         MockStruExample.Criteria criteria = mockStruExample.createCriteria();
@@ -142,7 +146,32 @@ public class MockStruController extends BaseController {
 
         List<MockStru> list = mockStruService.selectByExample(mockStruExample);
 
+        if(null!=hasDevStatus && "1".endsWith(hasDevStatus)){
+            if(null!=list && list.size()>0){
+                for(int i=0;i<list.size();i++){
+                    MockStru mockStru = list.get(i);
+                    String mockType = mockStru.getStruType();
+
+                    if("folder".equals(mockType)){
+                        mockStru.setDevStatus(mockStruService.selectDevStatusByMockUrl(mockStru.getStruUrl()));
+                    }else{
+                        mockStru.setDevStatus(mockStruService.selectDevStatusByMockId(mockStru.getMockId()));
+                    }
+                }
+            }
+        }
+
         return new BaseResult(BaseResultConstant.SUCCESS,list);
+    }
+
+    @ApiOperation(value = "统计mock文件目录的开发状态数")
+    @RequestMapping(value = "/getStruDevStatusByUrl",method = RequestMethod.GET)
+    @ResponseBody
+    @LogAround("统计mock文件目录的开发状态数")
+    public String getStruDevStatusByUrl(
+            @RequestParam(required = true, value = "mockUrl") String mockUrl) {
+
+        return mockStruService.selectDevStatusByMockUrl(mockUrl);
     }
 
 }

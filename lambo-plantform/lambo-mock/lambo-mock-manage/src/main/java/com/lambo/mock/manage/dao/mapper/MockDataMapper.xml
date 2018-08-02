@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lambo.mock.manage.dao.api.MockDataMapper">
+
+    <select id="selectDevStatusByMockUrl" parameterType="java.lang.String" resultType="java.util.Map">
+        select
+          d.status,sum(1) as number
+        from
+          mock_stru s,mock_setting m,mock_develop d
+        where
+          s.mock_id=m.mock_id
+          and m.mock_id=d.mock_id
+          and s.is_use = '1'
+          and m.mock_url like concat('%',#{mockUrl,jdbcType=VARCHAR},'/%')
+        group by d.status
+    </select>
+
+    <select id="selectDevStatusByMockId" parameterType="java.lang.String" resultType="java.util.Map">
+        select
+          status
+        from
+          mock_develop
+        where
+          mock_id=#{mockId,jdbcType=VARCHAR}
+    </select>
+
+</mapper>

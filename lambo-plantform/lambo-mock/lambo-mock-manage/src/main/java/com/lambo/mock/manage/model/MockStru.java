@@ -15,6 +15,8 @@ public class MockStru {
 
     private String isUse;
 
+    private String devStatus;
+
     private Integer orderSeq;
 
     public String getStruId() {
@@ -73,6 +75,14 @@ public class MockStru {
         this.isUse = isUse == null ? null : isUse.trim();
     }
 
+    public String getDevStatus() {
+        return devStatus;
+    }
+
+    public void setDevStatus(String devStatus) {
+        this.devStatus = devStatus == null ? null : devStatus.trim();
+    }
+
     public Integer getOrderSeq() {
         return orderSeq;
     }
@@ -94,6 +104,7 @@ public class MockStru {
         sb.append(", mockId=").append(mockId);
         sb.append(", parentId=").append(parentId);
         sb.append(", isUse=").append(isUse);
+        sb.append(", devStatus=").append(devStatus);
         sb.append(", orderSeq=").append(orderSeq);
         sb.append("]");
         return sb.toString();

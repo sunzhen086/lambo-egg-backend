@@ -9,6 +9,7 @@
     <result column="mock_id" jdbcType="VARCHAR" property="mockId" />
     <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
     <result column="is_use" jdbcType="CHAR" property="isUse" />
+    <result column="dev_status" jdbcType="VARCHAR" property="devStatus" />
     <result column="order_seq" jdbcType="INTEGER" property="orderSeq" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -70,7 +71,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    stru_id, stru_name, stru_url, stru_type, mock_id, parent_id, is_use, order_seq
+    stru_id, stru_name, stru_url, stru_type, mock_id, parent_id, is_use, dev_status, 
+    order_seq
   </sql>
   <select id="selectByExample" parameterType="com.lambo.mock.manage.model.MockStruExample" resultMap="BaseResultMap">
     select
@@ -106,10 +108,12 @@
   <insert id="insert" parameterType="com.lambo.mock.manage.model.MockStru">
     insert into mock_stru (stru_id, stru_name, stru_url, 
       stru_type, mock_id, parent_id, 
-      is_use, order_seq)
+      is_use, dev_status, order_seq
+      )
     values (#{struId,jdbcType=VARCHAR}, #{struName,jdbcType=VARCHAR}, #{struUrl,jdbcType=VARCHAR}, 
       #{struType,jdbcType=VARCHAR}, #{mockId,jdbcType=VARCHAR}, #{parentId,jdbcType=VARCHAR}, 
-      #{isUse,jdbcType=CHAR}, #{orderSeq,jdbcType=INTEGER})
+      #{isUse,jdbcType=CHAR}, #{devStatus,jdbcType=VARCHAR}, #{orderSeq,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.lambo.mock.manage.model.MockStru">
     insert into mock_stru
@@ -134,6 +138,9 @@
       </if>
       <if test="isUse != null">
         is_use,
+      </if>
+      <if test="devStatus != null">
+        dev_status,
       </if>
       <if test="orderSeq != null">
         order_seq,
@@ -160,6 +167,9 @@
       </if>
       <if test="isUse != null">
         #{isUse,jdbcType=CHAR},
+      </if>
+      <if test="devStatus != null">
+        #{devStatus,jdbcType=VARCHAR},
       </if>
       <if test="orderSeq != null">
         #{orderSeq,jdbcType=INTEGER},
@@ -190,6 +200,9 @@
       <if test="record.isUse != null">
         is_use = #{record.isUse,jdbcType=CHAR},
       </if>
+      <if test="record.devStatus != null">
+        dev_status = #{record.devStatus,jdbcType=VARCHAR},
+      </if>
       <if test="record.orderSeq != null">
         order_seq = #{record.orderSeq,jdbcType=INTEGER},
       </if>
@@ -207,6 +220,7 @@
       mock_id = #{record.mockId,jdbcType=VARCHAR},
       parent_id = #{record.parentId,jdbcType=VARCHAR},
       is_use = #{record.isUse,jdbcType=CHAR},
+      dev_status = #{record.devStatus,jdbcType=VARCHAR},
       order_seq = #{record.orderSeq,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -233,6 +247,9 @@
       <if test="isUse != null">
         is_use = #{isUse,jdbcType=CHAR},
       </if>
+      <if test="devStatus != null">
+        dev_status = #{devStatus,jdbcType=VARCHAR},
+      </if>
       <if test="orderSeq != null">
         order_seq = #{orderSeq,jdbcType=INTEGER},
       </if>
@@ -247,6 +264,7 @@
       mock_id = #{mockId,jdbcType=VARCHAR},
       parent_id = #{parentId,jdbcType=VARCHAR},
       is_use = #{isUse,jdbcType=CHAR},
+      dev_status = #{devStatus,jdbcType=VARCHAR},
       order_seq = #{orderSeq,jdbcType=INTEGER}
     where stru_id = #{struId,jdbcType=VARCHAR}
   </update>

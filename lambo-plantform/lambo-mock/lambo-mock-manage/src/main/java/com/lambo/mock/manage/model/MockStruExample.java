@@ -594,6 +594,76 @@ public class MockStruExample {
             return (Criteria) this;
         }
 
+        public Criteria andDevStatusIsNull() {
+            addCriterion("dev_status is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDevStatusIsNotNull() {
+            addCriterion("dev_status is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDevStatusEqualTo(String value) {
+            addCriterion("dev_status =", value, "devStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andDevStatusNotEqualTo(String value) {
+            addCriterion("dev_status <>", value, "devStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andDevStatusGreaterThan(String value) {
+            addCriterion("dev_status >", value, "devStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andDevStatusGreaterThanOrEqualTo(String value) {
+            addCriterion("dev_status >=", value, "devStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andDevStatusLessThan(String value) {
+            addCriterion("dev_status <", value, "devStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andDevStatusLessThanOrEqualTo(String value) {
+            addCriterion("dev_status <=", value, "devStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andDevStatusLike(String value) {
+            addCriterion("dev_status like", value, "devStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andDevStatusNotLike(String value) {
+            addCriterion("dev_status not like", value, "devStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andDevStatusIn(List<String> values) {
+            addCriterion("dev_status in", values, "devStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andDevStatusNotIn(List<String> values) {
+            addCriterion("dev_status not in", values, "devStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andDevStatusBetween(String value1, String value2) {
+            addCriterion("dev_status between", value1, value2, "devStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andDevStatusNotBetween(String value1, String value2) {
+            addCriterion("dev_status not between", value1, value2, "devStatus");
+            return (Criteria) this;
+        }
+
         public Criteria andOrderSeqIsNull() {
             addCriterion("order_seq is null");
             return (Criteria) this;
