@@ -168,9 +168,16 @@ public class MockFileController extends BaseController {
         logger.info("上传文件结束。。。");
 
         Map returnMap = new LinkedHashMap();
-        returnMap.put("code",1);
-        returnMap.put("message","success");
-        returnMap.put("data",dataList);
+        returnMap.put("code","000");
+        returnMap.put("msg","success");
+
+        if(dataList.size()==1){
+            returnMap.put("data",dataList.get(0));
+        }else{
+            returnMap.put("data",dataList);
+        }
+
+
 
 
         JsonMapper jsonMapper = new JsonMapper();

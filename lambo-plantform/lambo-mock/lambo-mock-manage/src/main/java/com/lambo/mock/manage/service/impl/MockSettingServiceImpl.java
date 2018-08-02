@@ -94,6 +94,8 @@ public class MockSettingServiceImpl extends BaseServiceImpl<MockSettingMapper, M
             //MOCK_SETTING_PARAMS
             MockSettingParamsExample mockSettingParamsExample = new MockSettingParamsExample();
             mockSettingParamsExample.createCriteria().andMockIdEqualTo(mockId);
+            mockSettingParamsExample.setOrderByClause("ORDER_SEQ ASC");
+
             List<MockSettingParams> mockSettingParamsList = mockSettingParamsMapper.selectByExample(mockSettingParamsExample);
             if (null != mockSettingParamsList) {
                 dataMap.put("mockSettingParamsList", mockSettingParamsList);

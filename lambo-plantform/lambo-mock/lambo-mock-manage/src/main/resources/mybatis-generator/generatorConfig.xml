@@ -40,7 +40,7 @@
         <javaClientGenerator targetPackage="com.lambo.mock.manage.dao.api" targetProject="src/main/java" type="XMLMAPPER" />
 
         <!--生成对应表及类名-->
-        <table tableName="mock_develop" domainObjectName="MockDevelop"
+        <table tableName="mock_stru" domainObjectName="MockStru"
                        enableCountByExample="false"
                        enableUpdateByExample="true"
                        enableDeleteByExample="true"

@@ -59,7 +59,11 @@ public class MockStruController extends BaseController {
 
         int count = mockStruService.insert(mockStru);
 
-        return new BaseResult(BaseResultConstant.SUCCESS,mockStru);
+        if(count == 0){
+            return new BaseResult(BaseResultConstant.FAILED,"insert失败");
+        }else{
+            return new BaseResult(BaseResultConstant.SUCCESS,mockStru);
+        }
     }
 
     @ApiOperation(value = "更新mock目录")
@@ -89,7 +93,12 @@ public class MockStruController extends BaseController {
 
         int count = mockStruService.updateByPrimaryKey(mockStru);
 
-        return new BaseResult(BaseResultConstant.SUCCESS,mockStru);
+        if(count == 0){
+            return new BaseResult(BaseResultConstant.FAILED,"update失败");
+        }else{
+            return new BaseResult(BaseResultConstant.SUCCESS,mockStru);
+        }
+
     }
 
     @ApiOperation(value = "删除mock目录")
@@ -106,7 +115,11 @@ public class MockStruController extends BaseController {
 
         int count = mockStruService.updateByExampleSelective(mockStru,mockStruExample);
 
-        return new BaseResult(BaseResultConstant.SUCCESS,mockStru);
+        if(count == 0){
+            return new BaseResult(BaseResultConstant.FAILED,"delete失败");
+        }else{
+            return new BaseResult(BaseResultConstant.SUCCESS,mockStru);
+        }
     }
 
     @ApiOperation(value = "查询mock目录")

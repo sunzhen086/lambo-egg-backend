@@ -85,7 +85,11 @@ public class MockSettingController extends BaseController {
 
         int count = mockSettingService.insert(mockSetting,paramsList);
 
-        return new BaseResult(BaseResultConstant.SUCCESS,mockId);
+        if(count == 0){
+            return new BaseResult(BaseResultConstant.FAILED,"insert失败");
+        }else{
+            return new BaseResult(BaseResultConstant.SUCCESS,mockId);
+        }
     }
 
     @ApiOperation(value = "更新MOCK服务")
@@ -134,7 +138,11 @@ public class MockSettingController extends BaseController {
 
         int count = mockSettingService.update(mockSetting,paramsList);
 
-        return new BaseResult(BaseResultConstant.SUCCESS,mockId);
+        if(count == 0){
+            return new BaseResult(BaseResultConstant.FAILED,"update失败");
+        }else{
+            return new BaseResult(BaseResultConstant.SUCCESS,mockId);
+        }
     }
 
     @ApiOperation(value = "查询mock服务")
@@ -155,7 +163,6 @@ public class MockSettingController extends BaseController {
             if(paramsJson.size()>0){
                 for(int i=0;i<paramsJson.size();i++){
                     JSONObject json = paramsJson.getJSONObject(i);
-
                     MockSettingParams mockSettingParams = new MockSettingParams();
                     mockSettingParams.setMockId(mockId);
                     mockSettingParams.setParamKey((String)json.get("paramKey"));

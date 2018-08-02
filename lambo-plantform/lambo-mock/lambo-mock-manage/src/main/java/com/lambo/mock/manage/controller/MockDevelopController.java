@@ -15,8 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Controller
 @Api(value = "mock开发管理", description = "mock开发管理")
 @RequestMapping("/manage/mock/develop")
@@ -47,7 +45,11 @@ public class MockDevelopController extends BaseController {
 
         int count = mockDevelopService.insert(mockDevelop);
 
-        return new BaseResult(BaseResultConstant.SUCCESS,mockDevelop);
+        if(count == 0){
+            return new BaseResult(BaseResultConstant.FAILED,"insert失败");
+        }else{
+            return new BaseResult(BaseResultConstant.SUCCESS,mockDevelop);
+        }
     }
 
     @ApiOperation(value = "更新mock开发信息")
@@ -71,7 +73,11 @@ public class MockDevelopController extends BaseController {
 
         int count = mockDevelopService.updateByPrimaryKeyWithBLOBs(mockDevelop);
 
-        return new BaseResult(BaseResultConstant.SUCCESS,mockDevelop);
+        if(count == 0){
+            return new BaseResult(BaseResultConstant.FAILED,"update失败");
+        }else{
+            return new BaseResult(BaseResultConstant.SUCCESS,mockDevelop);
+        }
     }
 
     @ApiOperation(value = "查询mock开发信息")
