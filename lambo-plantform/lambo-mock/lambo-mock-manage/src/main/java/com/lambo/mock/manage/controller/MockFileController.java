@@ -30,6 +30,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.springframework.util.ObjectUtils.isEmpty;
 
@@ -83,17 +85,17 @@ public class MockFileController extends BaseController {
                 int colNum = colEnd - colStart;
 
                 String[] fildArr = new String[colNum];
-                String[][] colType = new String[2][colNum];
+                String[][] colType = new String[colNum][2];
 
                 for(int i=0;i<colNum;i++){
                     String value = fildRow.getCell(i).getStringCellValue();
                     if(value.indexOf("|") != -1){
                         String[] valueArr = value.split("\\|");
                         fildArr[i] = valueArr[0].trim();
-                        colType[0][i] = valueArr[1].trim();
+                        colType[i][0] = valueArr[1].trim();
                     }else{
                         fildArr[i] = value.trim();
-                        colType[0][i] = "";
+                        colType[i][0] = "";
                     }
                 }
 
@@ -104,11 +106,17 @@ public class MockFileController extends BaseController {
                     for(int j=colStart;j<colEnd;j++){
                         Cell cell = dataRow.getCell(j);
                         if(!isEmpty(cell)){
-                            if(null == colType[1][j]){
-                                colType[1][j] = cell.getCellTypeEnum().toString();
+                            if(null == colType[j][1]){
+                                colType[j][1] = cell.getCellTypeEnum().toString();
                             }
-                            if("STRING".equals(colType[1][j])){
+
+                            if("STRING".equals(colType[j][1])){
                                 String value = cell.getStringCellValue();
+                                if(null != value){
+                                    dataMap.put(fildArr[j],value);
+                                }
+                            }else if("BOOLEAN".equals(colType[j][1])){
+                                Boolean value = cell.getBooleanCellValue();
                                 if(null != value){
                                     dataMap.put(fildArr[j],value);
                                 }
@@ -122,9 +130,9 @@ public class MockFileController extends BaseController {
                                     inputValue = doubleVal;
                                 }
                                 if(null != inputValue){
-                                    if(("").equals(colType[0][j]) ||  (colType[0][j]).equals(colType[1][j])){
+                                    if(("").equals(colType[j][0]) ||  (colType[j][0]).equals(colType[j][1])){
                                         dataMap.put(fildArr[j],inputValue);
-                                    }else if(("STRING").equals(colType[0][j])){
+                                    }else if(("STRING").equals(colType[j][0])){
                                         dataMap.put(fildArr[j],inputValue.toString());
                                     }
                                 }
@@ -257,7 +265,11 @@ public class MockFileController extends BaseController {
                         if(arr[1].indexOf("\"")!=-1 || arr[1].indexOf("\'")!=-1){
                             field[i][1] = "String";
                         }else{
-                            field[i][1] = "BigDecimal";
+                            if(isNumeric(arr[1])){
+                                field[i][1] = "BigDecimal";
+                            }else{
+                                field[i][1] = "String";
+                            }
                         }
 
                         //字段名称
@@ -292,6 +304,20 @@ public class MockFileController extends BaseController {
 
         logger.info("生成EXCEL结束。。。");
         return workbook;
+    }
+
+    /**
+     * 利用正则表达式判断字符串是否是数字
+     * @param str
+     * @return
+     */
+    private boolean isNumeric(String str){
+        Pattern pattern = Pattern.compile("[0-9]*");
+        Matcher isNum = pattern.matcher(str);
+        if( !isNum.matches() ){
+            return false;
+        }
+        return true;
     }
 
 }
