@@ -48,6 +48,7 @@ public class MockSettingController extends BaseController {
                          @RequestParam(required = false, value = "mockData") String mockData,
                          @RequestParam(required = false, value = "paramsDes") String paramsDes,
                          @RequestParam(required = false, value = "note") String note,
+                         @RequestParam(required = false, value = "groupKey") String groupKey,
                          @RequestParam(required = false, value = "settingParams") String settingParams) {
 
         logger.info("settingParams="+settingParams);
@@ -79,14 +80,14 @@ public class MockSettingController extends BaseController {
         mockSetting.setCreateUser(username);
 
         //MOCK_SETTING_PARAMS
-        List<MockSettingParams> paramsList = getParamsList(mockId,settingParams);
+        List<MockSettingParams> paramsList = getParamsList(mockId,settingParams,groupKey);
 
         logger.info("paramsList="+paramsList);
 
         int count = mockSettingService.insert(mockSetting,paramsList);
 
         if(count == 0){
-            return new BaseResult(BaseResultConstant.FAILED,"insert失败");
+            return new BaseResult(BaseResultConstant.FAILED,"insert MOCK_SETTING 失败");
         }else{
             return new BaseResult(BaseResultConstant.SUCCESS,mockId);
         }
@@ -107,6 +108,7 @@ public class MockSettingController extends BaseController {
                          @RequestParam(required = false, value = "paramsDes") String paramsDes,
                          @RequestParam(required = false, value = "note") String note,
                          @RequestParam(required = false, value = "createTime") String createTime,
+                         @RequestParam(required = false, value = "groupKey") String groupKey,
                          @RequestParam(required = false, value = "settingParams") String settingParams) {
 
         //MOCK_SETTING
@@ -134,12 +136,12 @@ public class MockSettingController extends BaseController {
         mockSetting.setCreateUser(username);
 
         //MOCK_SETTING_PARAMS
-        List<MockSettingParams> paramsList = getParamsList(mockId,settingParams);
+        List<MockSettingParams> paramsList = getParamsList(mockId,settingParams,groupKey);
 
         int count = mockSettingService.update(mockSetting,paramsList);
 
         if(count == 0){
-            return new BaseResult(BaseResultConstant.FAILED,"update失败");
+            return new BaseResult(BaseResultConstant.FAILED,"update MOCK_SETTING 失败");
         }else{
             return new BaseResult(BaseResultConstant.SUCCESS,mockId);
         }
@@ -155,7 +157,7 @@ public class MockSettingController extends BaseController {
         return  new BaseResult(BaseResultConstant.SUCCESS,mockSettingService.query(mockId));
     }
 
-    private List getParamsList(String mockId,String settingParams){
+    private List getParamsList(String mockId,String settingParams,String groupKey){
         List paramsList = new ArrayList();
 
         if(null!=settingParams && !("").equals(settingParams)){
@@ -169,6 +171,7 @@ public class MockSettingController extends BaseController {
                     mockSettingParams.setParamType((String)json.get("paramType"));
                     mockSettingParams.setNecessary((String)json.get("necessary"));
                     mockSettingParams.setNote((String)json.get("note"));
+                    mockSettingParams.setGroupKey(groupKey);
                     mockSettingParams.setOrderSeq(i+1);
 
                     paramsList.add(mockSettingParams);

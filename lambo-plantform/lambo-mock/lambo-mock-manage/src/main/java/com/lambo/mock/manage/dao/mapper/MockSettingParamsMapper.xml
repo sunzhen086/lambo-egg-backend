@@ -7,6 +7,7 @@
     <result column="param_type" jdbcType="VARCHAR" property="paramType" />
     <result column="necessary" jdbcType="CHAR" property="necessary" />
     <result column="note" jdbcType="VARCHAR" property="note" />
+    <result column="group_key" jdbcType="VARCHAR" property="groupKey" />
     <result column="order_seq" jdbcType="INTEGER" property="orderSeq" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    mock_id, param_key, param_type, necessary, note, order_seq
+    mock_id, param_key, param_type, necessary, note, group_key, order_seq
   </sql>
   <select id="selectByExample" parameterType="com.lambo.mock.manage.model.MockSettingParamsExample" resultMap="BaseResultMap">
     select
@@ -105,11 +106,11 @@
   </delete>
   <insert id="insert" parameterType="com.lambo.mock.manage.model.MockSettingParams">
     insert into mock_setting_params (mock_id, param_key, param_type, 
-      necessary, note, order_seq
-      )
+      necessary, note, group_key, 
+      order_seq)
     values (#{mockId,jdbcType=VARCHAR}, #{paramKey,jdbcType=VARCHAR}, #{paramType,jdbcType=VARCHAR}, 
-      #{necessary,jdbcType=CHAR}, #{note,jdbcType=VARCHAR}, #{orderSeq,jdbcType=INTEGER}
-      )
+      #{necessary,jdbcType=CHAR}, #{note,jdbcType=VARCHAR}, #{groupKey,jdbcType=VARCHAR}, 
+      #{orderSeq,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.lambo.mock.manage.model.MockSettingParams">
     insert into mock_setting_params
@@ -128,6 +129,9 @@
       </if>
       <if test="note != null">
         note,
+      </if>
+      <if test="groupKey != null">
+        group_key,
       </if>
       <if test="orderSeq != null">
         order_seq,
@@ -148,6 +152,9 @@
       </if>
       <if test="note != null">
         #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="groupKey != null">
+        #{groupKey,jdbcType=VARCHAR},
       </if>
       <if test="orderSeq != null">
         #{orderSeq,jdbcType=INTEGER},
@@ -172,6 +179,9 @@
       <if test="record.note != null">
         note = #{record.note,jdbcType=VARCHAR},
       </if>
+      <if test="record.groupKey != null">
+        group_key = #{record.groupKey,jdbcType=VARCHAR},
+      </if>
       <if test="record.orderSeq != null">
         order_seq = #{record.orderSeq,jdbcType=INTEGER},
       </if>
@@ -187,6 +197,7 @@
       param_type = #{record.paramType,jdbcType=VARCHAR},
       necessary = #{record.necessary,jdbcType=CHAR},
       note = #{record.note,jdbcType=VARCHAR},
+      group_key = #{record.groupKey,jdbcType=VARCHAR},
       order_seq = #{record.orderSeq,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -204,6 +215,9 @@
       <if test="note != null">
         note = #{note,jdbcType=VARCHAR},
       </if>
+      <if test="groupKey != null">
+        group_key = #{groupKey,jdbcType=VARCHAR},
+      </if>
       <if test="orderSeq != null">
         order_seq = #{orderSeq,jdbcType=INTEGER},
       </if>
@@ -216,6 +230,7 @@
     set param_type = #{paramType,jdbcType=VARCHAR},
       necessary = #{necessary,jdbcType=CHAR},
       note = #{note,jdbcType=VARCHAR},
+      group_key = #{groupKey,jdbcType=VARCHAR},
       order_seq = #{orderSeq,jdbcType=INTEGER}
     where mock_id = #{mockId,jdbcType=VARCHAR}
       and param_key = #{paramKey,jdbcType=VARCHAR}

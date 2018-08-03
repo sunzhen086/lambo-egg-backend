@@ -11,6 +11,8 @@ public class MockSettingParams {
 
     private String note;
 
+    private String groupKey;
+
     private Integer orderSeq;
 
     public String getMockId() {
@@ -53,6 +55,14 @@ public class MockSettingParams {
         this.note = note == null ? null : note.trim();
     }
 
+    public String getGroupKey() {
+        return groupKey;
+    }
+
+    public void setGroupKey(String groupKey) {
+        this.groupKey = groupKey == null ? null : groupKey.trim();
+    }
+
     public Integer getOrderSeq() {
         return orderSeq;
     }
@@ -72,6 +82,7 @@ public class MockSettingParams {
         sb.append(", paramType=").append(paramType);
         sb.append(", necessary=").append(necessary);
         sb.append(", note=").append(note);
+        sb.append(", groupKey=").append(groupKey);
         sb.append(", orderSeq=").append(orderSeq);
         sb.append("]");
         return sb.toString();

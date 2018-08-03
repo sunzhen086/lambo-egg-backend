@@ -94,7 +94,7 @@ public class MockStruController extends BaseController {
         int count = mockStruService.updateByPrimaryKey(mockStru);
 
         if(count == 0){
-            return new BaseResult(BaseResultConstant.FAILED,"update失败");
+            return new BaseResult(BaseResultConstant.FAILED,"update MOCK_STRU 失败");
         }else{
             return new BaseResult(BaseResultConstant.SUCCESS,mockStru);
         }
@@ -116,7 +116,7 @@ public class MockStruController extends BaseController {
         int count = mockStruService.updateByExampleSelective(mockStru,mockStruExample);
 
         if(count == 0){
-            return new BaseResult(BaseResultConstant.FAILED,"delete失败");
+            return new BaseResult(BaseResultConstant.FAILED,"delete MOCK_STRU 失败");
         }else{
             return new BaseResult(BaseResultConstant.SUCCESS,mockStru);
         }

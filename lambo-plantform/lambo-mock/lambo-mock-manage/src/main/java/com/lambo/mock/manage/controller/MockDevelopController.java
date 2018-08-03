@@ -46,7 +46,7 @@ public class MockDevelopController extends BaseController {
         int count = mockDevelopService.insert(mockDevelop);
 
         if(count == 0){
-            return new BaseResult(BaseResultConstant.FAILED,"insert失败");
+            return new BaseResult(BaseResultConstant.FAILED,"insert MOCK_DEVELOP 失败");
         }else{
             return new BaseResult(BaseResultConstant.SUCCESS,mockDevelop);
         }
@@ -74,7 +74,7 @@ public class MockDevelopController extends BaseController {
         int count = mockDevelopService.updateByPrimaryKeyWithBLOBs(mockDevelop);
 
         if(count == 0){
-            return new BaseResult(BaseResultConstant.FAILED,"update失败");
+            return new BaseResult(BaseResultConstant.FAILED,"update MOCK_DEVELOP 失败");
         }else{
             return new BaseResult(BaseResultConstant.SUCCESS,mockDevelop);
         }
