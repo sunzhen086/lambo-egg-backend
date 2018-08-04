@@ -33,5 +33,6 @@
         <module>lambo-dict</module>
         <module>lambo-security</module>
         <module>lambo-rule</module>
+        <module>lambo-mock</module>
     </modules>
 </project>
