@@ -1,5 +1,6 @@
 package com.lambo.mock.client.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.lambo.common.base.BaseController;
 import com.lambo.common.base.BaseResult;
 import com.lambo.common.base.BaseResultConstant;
@@ -88,7 +89,8 @@ public class MockClientController extends BaseController {
         if(msg.length() > 0){
             return new BaseResult(BaseResultConstant.FAILED,msg.toString());
         }else{
-            return mockSetting.getMockData();
+            JSONObject obj = JSONObject.parseObject(mockSetting.getMockData());
+            return obj;
         }
 
     }
