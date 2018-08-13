@@ -15,6 +15,8 @@ public class MockSetting {
 
     private String authMethod;
 
+    private Boolean isPaging;
+
     private String note;
 
     private String createTime;
@@ -83,6 +85,14 @@ public class MockSetting {
         this.authMethod = authMethod == null ? null : authMethod.trim();
     }
 
+    public Boolean getIsPaging() {
+        return isPaging;
+    }
+
+    public void setIsPaging(Boolean isPaging) {
+        this.isPaging = isPaging;
+    }
+
     public String getNote() {
         return note;
     }
@@ -144,6 +154,7 @@ public class MockSetting {
         sb.append(", provider=").append(provider);
         sb.append(", user=").append(user);
         sb.append(", authMethod=").append(authMethod);
+        sb.append(", isPaging=").append(isPaging);
         sb.append(", note=").append(note);
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);

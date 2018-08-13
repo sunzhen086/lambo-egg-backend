@@ -45,6 +45,7 @@ public class MockSettingController extends BaseController {
                          @RequestParam(required = false, value = "provider") String provider,
                          @RequestParam(required = false, value = "user") String user,
                          @RequestParam(required = false, value = "authMethod") String authMethod,
+                         @RequestParam(required = false, value = "isPaging") Boolean isPaging,
                          @RequestParam(required = false, value = "mockData") String mockData,
                          @RequestParam(required = false, value = "paramsDes") String paramsDes,
                          @RequestParam(required = false, value = "note") String note,
@@ -63,6 +64,7 @@ public class MockSettingController extends BaseController {
         mockSetting.setProvider(provider);
         mockSetting.setUser(user);
         mockSetting.setAuthMethod(authMethod);
+        mockSetting.setIsPaging(isPaging);
         mockSetting.setMockData(mockData);
         mockSetting.setParamsDes(paramsDes);
         mockSetting.setNote(note);
@@ -104,6 +106,7 @@ public class MockSettingController extends BaseController {
                          @RequestParam(required = false, value = "provider") String provider,
                          @RequestParam(required = false, value = "user") String user,
                          @RequestParam(required = false, value = "authMethod") String authMethod,
+                         @RequestParam(required = false, value = "isPaging") Boolean isPaging,
                          @RequestParam(required = false, value = "mockData") String mockData,
                          @RequestParam(required = false, value = "paramsDes") String paramsDes,
                          @RequestParam(required = false, value = "note") String note,
@@ -121,6 +124,7 @@ public class MockSettingController extends BaseController {
         mockSetting.setProvider(provider);
         mockSetting.setUser(user);
         mockSetting.setAuthMethod(authMethod);
+        mockSetting.setIsPaging(isPaging);
         mockSetting.setMockData(mockData);
         mockSetting.setParamsDes(paramsDes);
         mockSetting.setNote(note);

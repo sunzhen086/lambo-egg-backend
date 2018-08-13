@@ -9,6 +9,7 @@
     <result column="provider" jdbcType="VARCHAR" property="provider" />
     <result column="user" jdbcType="VARCHAR" property="user" />
     <result column="auth_method" jdbcType="VARCHAR" property="authMethod" />
+    <result column="is_paging" jdbcType="BIT" property="isPaging" />
     <result column="note" jdbcType="VARCHAR" property="note" />
     <result column="create_time" jdbcType="VARCHAR" property="createTime" />
     <result column="update_time" jdbcType="VARCHAR" property="updateTime" />
@@ -77,8 +78,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    mock_id, mock_name, mock_url, mock_type, provider, user, auth_method, note, create_time, 
-    update_time, create_user
+    mock_id, mock_name, mock_url, mock_type, provider, user, auth_method, is_paging, 
+    note, create_time, update_time, create_user
   </sql>
   <sql id="Blob_Column_List">
     mock_data, params_des
@@ -136,14 +137,14 @@
   <insert id="insert" parameterType="com.lambo.mock.manage.model.MockSetting">
     insert into mock_setting (mock_id, mock_name, mock_url, 
       mock_type, provider, user, 
-      auth_method, note, create_time, 
-      update_time, create_user, mock_data, 
-      params_des)
+      auth_method, is_paging, note, 
+      create_time, update_time, create_user, 
+      mock_data, params_des)
     values (#{mockId,jdbcType=VARCHAR}, #{mockName,jdbcType=VARCHAR}, #{mockUrl,jdbcType=VARCHAR}, 
       #{mockType,jdbcType=VARCHAR}, #{provider,jdbcType=VARCHAR}, #{user,jdbcType=VARCHAR}, 
-      #{authMethod,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
-      #{updateTime,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, #{mockData,jdbcType=LONGVARCHAR}, 
-      #{paramsDes,jdbcType=LONGVARCHAR})
+      #{authMethod,jdbcType=VARCHAR}, #{isPaging,jdbcType=BIT}, #{note,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, 
+      #{mockData,jdbcType=LONGVARCHAR}, #{paramsDes,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.lambo.mock.manage.model.MockSetting">
     insert into mock_setting
@@ -168,6 +169,9 @@
       </if>
       <if test="authMethod != null">
         auth_method,
+      </if>
+      <if test="isPaging != null">
+        is_paging,
       </if>
       <if test="note != null">
         note,
@@ -209,6 +213,9 @@
       </if>
       <if test="authMethod != null">
         #{authMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="isPaging != null">
+        #{isPaging,jdbcType=BIT},
       </if>
       <if test="note != null">
         #{note,jdbcType=VARCHAR},
@@ -254,6 +261,9 @@
       <if test="record.authMethod != null">
         auth_method = #{record.authMethod,jdbcType=VARCHAR},
       </if>
+      <if test="record.isPaging != null">
+        is_paging = #{record.isPaging,jdbcType=BIT},
+      </if>
       <if test="record.note != null">
         note = #{record.note,jdbcType=VARCHAR},
       </if>
@@ -286,6 +296,7 @@
       provider = #{record.provider,jdbcType=VARCHAR},
       user = #{record.user,jdbcType=VARCHAR},
       auth_method = #{record.authMethod,jdbcType=VARCHAR},
+      is_paging = #{record.isPaging,jdbcType=BIT},
       note = #{record.note,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=VARCHAR},
       update_time = #{record.updateTime,jdbcType=VARCHAR},
@@ -305,6 +316,7 @@
       provider = #{record.provider,jdbcType=VARCHAR},
       user = #{record.user,jdbcType=VARCHAR},
       auth_method = #{record.authMethod,jdbcType=VARCHAR},
+      is_paging = #{record.isPaging,jdbcType=BIT},
       note = #{record.note,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=VARCHAR},
       update_time = #{record.updateTime,jdbcType=VARCHAR},
@@ -333,6 +345,9 @@
       </if>
       <if test="authMethod != null">
         auth_method = #{authMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="isPaging != null">
+        is_paging = #{isPaging,jdbcType=BIT},
       </if>
       <if test="note != null">
         note = #{note,jdbcType=VARCHAR},
@@ -363,6 +378,7 @@
       provider = #{provider,jdbcType=VARCHAR},
       user = #{user,jdbcType=VARCHAR},
       auth_method = #{authMethod,jdbcType=VARCHAR},
+      is_paging = #{isPaging,jdbcType=BIT},
       note = #{note,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=VARCHAR},
       update_time = #{updateTime,jdbcType=VARCHAR},
@@ -379,6 +395,7 @@
       provider = #{provider,jdbcType=VARCHAR},
       user = #{user,jdbcType=VARCHAR},
       auth_method = #{authMethod,jdbcType=VARCHAR},
+      is_paging = #{isPaging,jdbcType=BIT},
       note = #{note,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=VARCHAR},
       update_time = #{updateTime,jdbcType=VARCHAR},

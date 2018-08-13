@@ -54,8 +54,10 @@ public class MockFileController extends BaseController {
     @ApiOperation(value = "保存文件" ,notes = "保存文件")
     @RequestMapping(value = "/put", method = RequestMethod.POST)
     @ResponseBody
-    public Object put(@RequestParam("file") MultipartFile[] files) {
+    public Object put(@RequestParam("file") MultipartFile[] files,
+                      @RequestParam(required = false, value = "isPaging") Boolean isPaging) {
         logger.info("上传文件开始。。。");
+
         List dataList = new ArrayList();
 
         //判断file数组不能为空并且长度=1 单文件传输
@@ -179,13 +181,23 @@ public class MockFileController extends BaseController {
         returnMap.put("code","000");
         returnMap.put("msg","success");
 
-        if(dataList.size()==1){
-            returnMap.put("data",dataList.get(0));
-        }else{
-            returnMap.put("data",dataList);
+        if(isPaging){//分页数据
+            Map data = new LinkedHashMap();
+            data.put("total",dataList.size());
+            if(dataList.size()==1){
+                data.put("rows",dataList.get(0));
+            }else{
+                data.put("rows",dataList);
+            }
+
+            returnMap.put("data",data);
+        }else{//非分页数据
+            if(dataList.size()==1){
+                returnMap.put("data",dataList.get(0));
+            }else{
+                returnMap.put("data",dataList);
+            }
         }
-
-
 
 
         JsonMapper jsonMapper = new JsonMapper();
@@ -206,12 +218,13 @@ public class MockFileController extends BaseController {
         MockSetting  mockSetting = mockSettingMapper.selectByPrimaryKey(restId);
         String restName = mockSetting.getMockName();
         String mockData = mockSetting.getMockData();
+        Boolean isPaging = mockSetting.getIsPaging();
 
         String filePath = FileUtils.path(FileUtils.getWebappPath()
                 + OssConstant.UPLOAD_TEMP_PATH)
                 + restName + ".xlsx";
 
-        Workbook workbook = writeExcel(mockData);
+        Workbook workbook = writeExcel(isPaging,mockData);
 
         File file = new File(filePath);
         file.deleteOnExit();
@@ -237,7 +250,7 @@ public class MockFileController extends BaseController {
 
     }
 
-    private Workbook writeExcel(String mockData) {
+    private Workbook writeExcel(Boolean isPaging,String mockData) {
         logger.info("生成EXCEL开始。。。");
 
         // 创建Excel
@@ -248,13 +261,23 @@ public class MockFileController extends BaseController {
             try{
 
                 JSONObject obj = JSONObject.parseObject(mockData);
-                JSONArray data = obj.getJSONArray("data");
+
+                JSONArray data = new JSONArray();
+                if(isPaging){
+                    data = obj.getJSONObject("data").getJSONArray("rows");
+                }else{
+                    data = obj.getJSONArray("data");
+                }
 
                 if(data.size()>0){
 
                     //按顺序获取字段
                     Row row = sheet.createRow(0);
+
                     mockData = mockData.substring(mockData.indexOf("data"));
+                    if(isPaging){
+                        mockData = mockData.substring(mockData.indexOf("rows"));
+                    }
                     String rowStr = mockData.substring(mockData.indexOf("{")+1,mockData.indexOf("}"));
                     String[] rowArr = rowStr.split(",");
                     int colNum = rowArr.length;

@@ -594,6 +594,66 @@ public class MockSettingExample {
             return (Criteria) this;
         }
 
+        public Criteria andIsPagingIsNull() {
+            addCriterion("is_paging is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsPagingIsNotNull() {
+            addCriterion("is_paging is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsPagingEqualTo(Boolean value) {
+            addCriterion("is_paging =", value, "isPaging");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsPagingNotEqualTo(Boolean value) {
+            addCriterion("is_paging <>", value, "isPaging");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsPagingGreaterThan(Boolean value) {
+            addCriterion("is_paging >", value, "isPaging");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsPagingGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("is_paging >=", value, "isPaging");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsPagingLessThan(Boolean value) {
+            addCriterion("is_paging <", value, "isPaging");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsPagingLessThanOrEqualTo(Boolean value) {
+            addCriterion("is_paging <=", value, "isPaging");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsPagingIn(List<Boolean> values) {
+            addCriterion("is_paging in", values, "isPaging");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsPagingNotIn(List<Boolean> values) {
+            addCriterion("is_paging not in", values, "isPaging");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsPagingBetween(Boolean value1, Boolean value2) {
+            addCriterion("is_paging between", value1, value2, "isPaging");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsPagingNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("is_paging not between", value1, value2, "isPaging");
+            return (Criteria) this;
+        }
+
         public Criteria andNoteIsNull() {
             addCriterion("note is null");
             return (Criteria) this;
