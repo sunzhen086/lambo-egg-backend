@@ -181,7 +181,13 @@ public class MockFileController extends BaseController {
         returnMap.put("code","000");
         returnMap.put("msg","success");
 
-        if(isPaging){//分页数据
+        if(null==isPaging || !isPaging){//非分页数据
+            if(dataList.size()==1){
+                returnMap.put("data",dataList.get(0));
+            }else{
+                returnMap.put("data",dataList);
+            }
+        }else{//分页数据
             Map data = new LinkedHashMap();
             data.put("total",dataList.size());
             if(dataList.size()==1){
@@ -191,14 +197,7 @@ public class MockFileController extends BaseController {
             }
 
             returnMap.put("data",data);
-        }else{//非分页数据
-            if(dataList.size()==1){
-                returnMap.put("data",dataList.get(0));
-            }else{
-                returnMap.put("data",dataList);
-            }
         }
-
 
         JsonMapper jsonMapper = new JsonMapper();
         String returnJson = jsonMapper.toJsonString(returnMap);
